@@ -418,6 +418,7 @@
 				DD7C21621AE6870D00BEB3B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DD7C21631AE6870D00BEB3B0 /* Build configuration list for PBXNativeTarget "ShopnSocialTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +427,7 @@
 				DD7C21651AE6870D00BEB3B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
