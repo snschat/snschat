@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  SplashVC.h
 //  ShopnSocial
 //
 //  Created by rock on 4/21/15.
@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface SplashVC : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *logoRedImageView;
 @property (strong, nonatomic) IBOutlet UILabel *noInternetLabel;
 
 @end
-

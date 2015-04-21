@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD7009521AE6902800878EE7 /* SplashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009511AE6902800878EE7 /* SplashVC.m */; };
+		DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009551AE6927700878EE7 /* ExNetwork.m */; };
+		DD7009591AE6931400878EE7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009581AE6931400878EE7 /* Reachability.m */; };
+		DD70095C1AE6C58600878EE7 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD70095B1AE6C58600878EE7 /* LoginVC.m */; };
+		DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */ = {isa = PBXBuildFile; fileRef = DD70095E1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m */; };
+		DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009611AE6DB3E00878EE7 /* ExUIView+Border.m */; };
 		DD7C21431AE6870D00BEB3B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C21421AE6870D00BEB3B0 /* main.m */; };
 		DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C21451AE6870D00BEB3B0 /* AppDelegate.m */; };
 		DD7C21491AE6870D00BEB3B0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C21481AE6870D00BEB3B0 /* ViewController.m */; };
@@ -27,13 +33,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DD7009501AE6902800878EE7 /* SplashVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashVC.h; sourceTree = "<group>"; };
+		DD7009511AE6902800878EE7 /* SplashVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashVC.m; sourceTree = "<group>"; };
+		DD7009541AE6927700878EE7 /* ExNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExNetwork.h; sourceTree = "<group>"; };
+		DD7009551AE6927700878EE7 /* ExNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExNetwork.m; sourceTree = "<group>"; };
+		DD7009571AE6931400878EE7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		DD7009581AE6931400878EE7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		DD70095A1AE6C58600878EE7 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
+		DD70095B1AE6C58600878EE7 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		DD70095D1AE6CC6F00878EE7 /* ExUILabel+AutoSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ExUILabel+AutoSize.h"; sourceTree = "<group>"; };
+		DD70095E1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ExUILabel+AutoSize.m"; sourceTree = "<group>"; };
+		DD7009601AE6DB3E00878EE7 /* ExUIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ExUIView+Border.h"; sourceTree = "<group>"; };
+		DD7009611AE6DB3E00878EE7 /* ExUIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ExUIView+Border.m"; sourceTree = "<group>"; };
 		DD7C213D1AE6870D00BEB3B0 /* ShopnSocial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopnSocial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD7C21411AE6870D00BEB3B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD7C21421AE6870D00BEB3B0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DD7C21441AE6870D00BEB3B0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DD7C21451AE6870D00BEB3B0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DD7C21471AE6870D00BEB3B0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DD7C21481AE6870D00BEB3B0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DD7C21471AE6870D00BEB3B0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ShopnSocial/ViewController.h; sourceTree = SOURCE_ROOT; };
+		DD7C21481AE6870D00BEB3B0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ShopnSocial/ViewController.m; sourceTree = SOURCE_ROOT; };
 		DD7C214B1AE6870D00BEB3B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DD7C214D1AE6870D00BEB3B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DD7C21501AE6870D00BEB3B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -60,6 +78,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD70094E1AE68F5E00878EE7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DD70094F1AE6900800878EE7 /* Launch */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		DD70094F1AE6900800878EE7 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				DD7009501AE6902800878EE7 /* SplashVC.h */,
+				DD7009511AE6902800878EE7 /* SplashVC.m */,
+				DD70095A1AE6C58600878EE7 /* LoginVC.h */,
+				DD70095B1AE6C58600878EE7 /* LoginVC.m */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		DD7009531AE690AD00878EE7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DD7009571AE6931400878EE7 /* Reachability.h */,
+				DD7009581AE6931400878EE7 /* Reachability.m */,
+				DD7009541AE6927700878EE7 /* ExNetwork.h */,
+				DD7009551AE6927700878EE7 /* ExNetwork.m */,
+				DD70095D1AE6CC6F00878EE7 /* ExUILabel+AutoSize.h */,
+				DD70095E1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m */,
+				DD7009601AE6DB3E00878EE7 /* ExUIView+Border.h */,
+				DD7009611AE6DB3E00878EE7 /* ExUIView+Border.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		DD7C21341AE6870D00BEB3B0 = {
 			isa = PBXGroup;
 			children = (
@@ -81,10 +133,12 @@
 		DD7C213F1AE6870D00BEB3B0 /* ShopnSocial */ = {
 			isa = PBXGroup;
 			children = (
-				DD7C21441AE6870D00BEB3B0 /* AppDelegate.h */,
-				DD7C21451AE6870D00BEB3B0 /* AppDelegate.m */,
+				DD7009531AE690AD00878EE7 /* Utilities */,
+				DD70094E1AE68F5E00878EE7 /* ViewController */,
 				DD7C21471AE6870D00BEB3B0 /* ViewController.h */,
 				DD7C21481AE6870D00BEB3B0 /* ViewController.m */,
+				DD7C21441AE6870D00BEB3B0 /* AppDelegate.h */,
+				DD7C21451AE6870D00BEB3B0 /* AppDelegate.m */,
 				DD7C214A1AE6870D00BEB3B0 /* Main.storyboard */,
 				DD7C214D1AE6870D00BEB3B0 /* Images.xcassets */,
 				DD7C214F1AE6870D00BEB3B0 /* LaunchScreen.xib */,
@@ -219,9 +273,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
 				DD7C21491AE6870D00BEB3B0 /* ViewController.m in Sources */,
+				DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */,
+				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
 				DD7C21431AE6870D00BEB3B0 /* main.m in Sources */,
+				DD7009591AE6931400878EE7 /* Reachability.m in Sources */,
+				DD70095C1AE6C58600878EE7 /* LoginVC.m in Sources */,
+				DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

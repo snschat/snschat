@@ -1,21 +1,21 @@
 //
-//  ViewController.m
+//  SplashVC.m
 //  ShopnSocial
 //
 //  Created by rock on 4/21/15.
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SplashVC.h"
 #import "ExNetwork.h"
 
-@interface ViewController ()
+@interface SplashVC ()
 {
     bool isReachableInternet;
 }
 @end
 
-@implementation ViewController
+@implementation SplashVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,6 +68,12 @@
 - (void) gotoNext
 {
     NSLog(@"go to next");
+    
+    UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    
+    //[self presentViewController:vc animated:NO completion:nil];
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) showInternet
@@ -83,5 +89,6 @@
     self.logoRedImageView.hidden = NO;
     self.noInternetLabel.hidden = NO;
 }
+
 
 @end
