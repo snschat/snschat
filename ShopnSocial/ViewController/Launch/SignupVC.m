@@ -13,7 +13,9 @@
 @interface SignupVC ()
 {
     UIColor* redColor;
-    int si;
+    
+    UIViewController* termsVC;
+    UIViewController* privacyVC;
 }
 @end
 
@@ -24,7 +26,11 @@
     
     redColor = self.signupMessageLabel.textColor;
     
-    si = 0;
+    [self.interrupterView.superview bringSubviewToFront:self.interrupterView];
+    self.interrupterView.hidden = YES;
+
+    termsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsVC"];
+    privacyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PrivacyVC"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,39 +48,14 @@
 }
 */
 
+#pragma mark -
+
 - (IBAction)onCancel {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)onSignup {
-    si++;
-    switch (si) {
-        case 1:
-            [self showNoInternetMessage];
-            break;
-        case 2:
-            [self showMandatoryMessage];
-            break;
-        case 3:
-            [self showDuplicatedUsernameMessage];
-            break;
-        case 4:
-            [self showInvalidPasswordMessage];
-            break;
-        case 5:
-            [self showUnmatchedPasswordMessage];
-            break;
-        case 6:
-            [self showInvalidEmailMessage];
-            break;
-        case 7:
-            si = 0;
-            [self showDuplicatedEmailMessage];
-            break;
-            
-        default:
-            break;
-    }
+
 }
 
 - (IBAction)onAgreeChecker {
@@ -82,13 +63,14 @@
 }
 
 - (IBAction)onTermsAndConditions {
-    [self hideMessage];
+    [self.navigationController pushViewController:termsVC animated:YES];
 }
 
 - (IBAction)onPrivacyPolicy {
-    si--;
-    [self onSignup];
+    [self.navigationController pushViewController:privacyVC animated:YES];
 }
+
+#pragma mark -
 
 - (void) hideMessage
 {

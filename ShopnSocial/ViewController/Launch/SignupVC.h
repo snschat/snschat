@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIView *signupView;
 @property (strong, nonatomic) IBOutlet UILabel *signupMessageLabel;
 @property (strong, nonatomic) IBOutlet UIView *signupInputView;
+@property (strong, nonatomic) IBOutlet UIView *interrupterView;
 
 @property (strong, nonatomic) IBOutlet UITextField *signupUsername;
 @property (strong, nonatomic) IBOutlet UITextField *signupEmail;

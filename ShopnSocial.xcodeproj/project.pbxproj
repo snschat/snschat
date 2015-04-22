@@ -21,6 +21,10 @@
 		DD7C21511AE6870D00BEB3B0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD7C214F1AE6870D00BEB3B0 /* LaunchScreen.xib */; };
 		DD7C215D1AE6870D00BEB3B0 /* ShopnSocialTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C215C1AE6870D00BEB3B0 /* ShopnSocialTests.m */; };
 		DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CC51AE784F100759DCF /* SignupVC.m */; };
+		DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC81AE7B21D00759DCF /* privacy.html */; };
+		DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC91AE7B21D00759DCF /* terms.html */; };
+		DDC47CCE1AE7B39800759DCF /* TermsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CCD1AE7B39800759DCF /* TermsVC.m */; };
+		DDC47CD11AE7B68F00759DCF /* PrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CD01AE7B68F00759DCF /* PrivacyVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,12 @@
 		DD7C215C1AE6870D00BEB3B0 /* ShopnSocialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopnSocialTests.m; sourceTree = "<group>"; };
 		DDC47CC41AE784F100759DCF /* SignupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupVC.h; sourceTree = "<group>"; };
 		DDC47CC51AE784F100759DCF /* SignupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupVC.m; sourceTree = "<group>"; };
+		DDC47CC81AE7B21D00759DCF /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
+		DDC47CC91AE7B21D00759DCF /* terms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms.html; sourceTree = "<group>"; };
+		DDC47CCC1AE7B39800759DCF /* TermsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsVC.h; sourceTree = "<group>"; };
+		DDC47CCD1AE7B39800759DCF /* TermsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsVC.m; sourceTree = "<group>"; };
+		DDC47CCF1AE7B68F00759DCF /* PrivacyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyVC.h; sourceTree = "<group>"; };
+		DDC47CD01AE7B68F00759DCF /* PrivacyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,12 +102,16 @@
 		DD70094F1AE6900800878EE7 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				DDC47CCF1AE7B68F00759DCF /* PrivacyVC.h */,
+				DDC47CD01AE7B68F00759DCF /* PrivacyVC.m */,
 				DD7009501AE6902800878EE7 /* SplashVC.h */,
 				DD7009511AE6902800878EE7 /* SplashVC.m */,
 				DD70095A1AE6C58600878EE7 /* LoginVC.h */,
 				DD70095B1AE6C58600878EE7 /* LoginVC.m */,
 				DDC47CC41AE784F100759DCF /* SignupVC.h */,
 				DDC47CC51AE784F100759DCF /* SignupVC.m */,
+				DDC47CCC1AE7B39800759DCF /* TermsVC.h */,
+				DDC47CCD1AE7B39800759DCF /* TermsVC.m */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -138,6 +152,7 @@
 		DD7C213F1AE6870D00BEB3B0 /* ShopnSocial */ = {
 			isa = PBXGroup;
 			children = (
+				DDC47CC71AE7B21200759DCF /* Resource */,
 				DD7009531AE690AD00878EE7 /* Utilities */,
 				DD70094E1AE68F5E00878EE7 /* ViewController */,
 				DD7C21471AE6870D00BEB3B0 /* ViewController.h */,
@@ -176,6 +191,15 @@
 				DD7C215B1AE6870D00BEB3B0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDC47CC71AE7B21200759DCF /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				DDC47CC81AE7B21D00759DCF /* privacy.html */,
+				DDC47CC91AE7B21D00759DCF /* terms.html */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +282,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */,
 				DD7C214C1AE6870D00BEB3B0 /* Main.storyboard in Resources */,
 				DD7C21511AE6870D00BEB3B0 /* LaunchScreen.xib in Resources */,
+				DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */,
 				DD7C214E1AE6870D00BEB3B0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,10 +308,12 @@
 				DD7C21491AE6870D00BEB3B0 /* ViewController.m in Sources */,
 				DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */,
 				DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */,
+				DDC47CCE1AE7B39800759DCF /* TermsVC.m in Sources */,
 				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
 				DD7C21431AE6870D00BEB3B0 /* main.m in Sources */,
 				DD7009591AE6931400878EE7 /* Reachability.m in Sources */,
+				DDC47CD11AE7B68F00759DCF /* PrivacyVC.m in Sources */,
 				DD70095C1AE6C58600878EE7 /* LoginVC.m in Sources */,
 				DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */,
 			);
