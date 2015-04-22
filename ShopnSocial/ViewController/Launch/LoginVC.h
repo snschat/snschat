@@ -22,7 +22,6 @@
 - (IBAction)onFacebook;
 - (IBAction)onTwitter;
 - (IBAction)onGooglePlus;
-- (IBAction)onRegister;
 - (IBAction)onSignin;
 - (IBAction)onForgotPassword;
 

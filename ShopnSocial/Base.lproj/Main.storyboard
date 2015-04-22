@@ -67,7 +67,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in using" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gJ9-zt-5mb">
-                                                <rect key="frame" x="7" y="8" width="130" height="30"/>
+                                                <rect key="frame" x="5" y="8" width="130" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -128,7 +128,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" id="adq-gA-R8U">
-                                                        <rect key="frame" x="6" y="4" width="430" height="44"/>
+                                                        <rect key="frame" x="5" y="4" width="430" height="44"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" id="4bW-Xs-ejD">
@@ -180,14 +180,14 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="onRegister" destination="UCS-k4-ngB" eventType="touchUpInside" id="cJo-QH-OAl"/>
+                                                            <segue destination="3yK-Ku-93f" kind="push" id="ODa-iS-ym9"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press here if you have forgotten your" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JJ4-Ue-8O6">
-                                                <rect key="frame" x="5" y="520.00000322549431" width="430" height="21"/>
+                                                <rect key="frame" x="5" y="520" width="430" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -249,6 +249,321 @@
             </objects>
             <point key="canvasLocation" x="-5870" y="-953"/>
         </scene>
+        <!--SignupVC-->
+        <scene sceneID="c6j-nE-PIH">
+            <objects>
+                <viewController storyboardIdentifier="SignupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3yK-Ku-93f" userLabel="SignupVC" customClass="SignupVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lLY-v8-10d">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_signup" id="tQD-PK-JGy">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="aP8-ih-8ts" userLabel="container view">
+                                <rect key="frame" x="282" y="188" width="460" height="580"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view alpha="0.5" contentMode="scaleToFill" id="tdj-CL-xLn" userLabel="signup view">
+                                        <rect key="frame" x="0.0" y="0.0" width="460" height="580"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To register please enter your details below" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sW2-CD-X8D">
+                                                <rect key="frame" x="15" y="8" width="370" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" id="lr0-Vu-IlY">
+                                                <rect key="frame" x="0.0" y="35" width="455" height="545"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_red" id="Gm6-Ww-Hft">
+                                                        <rect key="frame" x="-2" y="18" width="14" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_red" id="XQn-iH-20p">
+                                                        <rect key="frame" x="-2" y="68" width="14" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_red" id="6lM-bY-B91">
+                                                        <rect key="frame" x="-2" y="118" width="14" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_red" id="ecz-h3-Juw">
+                                                        <rect key="frame" x="-2" y="168" width="14" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" id="7IM-HU-2dk">
+                                                        <rect key="frame" x="15" y="4" width="440" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" id="jtP-jo-uNr">
+                                                                <rect key="frame" x="13" y="3" width="414" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="dr0-z5-oYf">
+                                                        <rect key="frame" x="15" y="54" width="440" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" id="fFX-Vx-ZTP">
+                                                                <rect key="frame" x="13" y="3" width="414" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="rTQ-7w-5H7">
+                                                        <rect key="frame" x="15" y="104" width="440" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" id="Db6-dk-U7a">
+                                                                <rect key="frame" x="13" y="3" width="414" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="9kX-1A-pKL">
+                                                        <rect key="frame" x="15" y="154" width="440" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" id="MdP-CY-eTm">
+                                                                <rect key="frame" x="13" y="3" width="414" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="tej-Zb-NRn" userLabel="location">
+                                                        <rect key="frame" x="15" y="204" width="440" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_down" id="xm1-ZU-j6w">
+                                                                <rect key="frame" x="410" y="0.0" width="30" height="44"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                                                            </imageView>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Location (Optional)" minimumFontSize="17" id="c7v-NX-IGU">
+                                                                <rect key="frame" x="13" y="3" width="414" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="Fl6-0H-W0J" userLabel="birthday">
+                                                        <rect key="frame" x="15" y="254" width="440" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calendar" id="oaR-EL-ANX">
+                                                                <rect key="frame" x="410" y="0.0" width="30" height="44"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                                                            </imageView>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date of Birth (Optional)" minimumFontSize="17" id="Qdq-kc-KG3">
+                                                                <rect key="frame" x="13" y="3" width="414" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="fOH-yT-uh3" userLabel="gender">
+                                                        <rect key="frame" x="15" y="304" width="440" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_down" id="LES-ei-v3i">
+                                                                <rect key="frame" x="410" y="0.0" width="30" height="44"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                                                            </imageView>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Gender (Optional)" minimumFontSize="17" id="kEK-nC-Ybd">
+                                                                <rect key="frame" x="13" y="3" width="414" height="37"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="HZ9-nQ-Je8" userLabel="agree check">
+                                                        <rect key="frame" x="15" y="356" width="440" height="49"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sJa-hi-f7s">
+                                                                <rect key="frame" x="2" y="12" width="30" height="30"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <state key="normal">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <state key="selected" image="ic_check"/>
+                                                                <connections>
+                                                                    <action selector="onAgreeChecker" destination="3yK-Ku-93f" eventType="touchUpInside" id="m0f-wK-fd0"/>
+                                                                </connections>
+                                                            </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3oS-FQ-1c5">
+                                                                <rect key="frame" x="37" y="16" width="462" height="21"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="I agree with the ">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content="terms &amp; conditions">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.81960784313725488" green="0.20392156862745098" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <font key="NSFont" size="17" name="Helvetica"/>
+                                                                            <real key="NSKern" value="0.0"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <integer key="NSUnderline" value="1"/>
+                                                                            <color key="NSUnderlineColor" red="0.81960784313725488" green="0.20392156862745098" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content=" and ">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content="privacy policy">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.81960784313725488" green="0.20392156862745098" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <font key="NSFont" size="17" name="Helvetica"/>
+                                                                            <real key="NSKern" value="0.0"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                            <color key="NSStrokeColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <integer key="NSUnderline" value="1"/>
+                                                                            <color key="NSUnderlineColor" red="0.81960784313725488" green="0.20392156862745098" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1eB-Ia-1BG">
+                                                                <rect key="frame" x="158" y="0.0" width="143" height="49"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                                                <state key="normal">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="onTermsAndConditions" destination="3yK-Ku-93f" eventType="touchUpInside" id="Gq4-nq-zr7"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zzX-x2-UhX">
+                                                                <rect key="frame" x="336" y="3" width="104" height="49"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                                                <state key="normal">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="onPrivacyPolicy" destination="3yK-Ku-93f" eventType="touchUpInside" id="yCK-1R-bQv"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="d0n-vr-NHP">
+                                                        <rect key="frame" x="325" y="400" width="130" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.08235294118" green="0.47058823529999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <inset key="titleEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="98" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="SIGN UP" image="ic_pencil">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="onSignup" destination="3yK-Ku-93f" eventType="touchUpInside" id="gh2-u0-SgL"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YWM-cj-XJd">
+                                                        <rect key="frame" x="185" y="400" width="132" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.59999999999999998" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <inset key="titleEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="CANCEL" image="ic_cross">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="onCancel" destination="3yK-Ku-93f" eventType="touchUpInside" id="67Z-zR-ax9"/>
+                                                        </connections>
+                                                    </button>
+                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star_red" id="LXU-Ww-Iqq">
+                                                        <rect key="frame" x="-2" y="373" width="14" height="15"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="tBL-lt-cf3">
+                                                <rect key="frame" x="0.0" y="0.0" width="460" height="572"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username and/or Password are incorrect" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jmt-VS-Rpa">
+                                                <rect key="frame" x="15" y="35" width="447" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" red="0.86274509799999999" green="0.2901960784" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eCQ-1n-hIg"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="signupAgreeChecker" destination="sJa-hi-f7s" id="zdI-jr-TZK"/>
+                        <outlet property="signupBirthday" destination="Qdq-kc-KG3" id="gdW-p5-tQs"/>
+                        <outlet property="signupConfirm" destination="MdP-CY-eTm" id="EsY-Tu-ECY"/>
+                        <outlet property="signupEmail" destination="fFX-Vx-ZTP" id="Vzq-MZ-Juc"/>
+                        <outlet property="signupGender" destination="kEK-nC-Ybd" id="1yx-io-oKU"/>
+                        <outlet property="signupInputView" destination="lr0-Vu-IlY" id="abP-cG-Lnk"/>
+                        <outlet property="signupLocation" destination="c7v-NX-IGU" id="Ic0-y8-6Sb"/>
+                        <outlet property="signupMessageLabel" destination="Jmt-VS-Rpa" id="lMQ-9L-rTA"/>
+                        <outlet property="signupPassword" destination="Db6-dk-U7a" id="gwS-rH-weq"/>
+                        <outlet property="signupUsername" destination="jtP-jo-uNr" id="RkJ-Kj-02K"/>
+                        <outlet property="signupView" destination="tdj-CL-xLn" id="PR3-C8-6yG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yzk-TG-56s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4707" y="-953"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ewS-VI-lMg">
             <objects>
@@ -270,9 +585,14 @@
     <resources>
         <image name="background" width="1024" height="768"/>
         <image name="background_signup" width="1024" height="768"/>
+        <image name="ic_calendar" width="23" height="24"/>
+        <image name="ic_check" width="26" height="20"/>
+        <image name="ic_cross" width="18" height="18"/>
+        <image name="ic_down" width="21" height="14"/>
         <image name="ic_facebook" width="53" height="35"/>
         <image name="ic_pencil" width="18" height="18"/>
         <image name="ic_right_circle_arrow" width="24" height="24"/>
+        <image name="ic_star_red" width="13" height="12"/>
         <image name="ic_twitter" width="53" height="35"/>
         <image name="logo" width="363" height="120"/>
         <image name="logo_redborder" width="363" height="120"/>

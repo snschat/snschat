@@ -52,11 +52,6 @@
 {
 }
 
-- (IBAction)onRegister
-{
-    [self showLoginIncorrectMessage];
-}
-
 - (IBAction)onSignin
 {
     if (self.loginUsername.text.length == 0 ||

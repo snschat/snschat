@@ -20,6 +20,7 @@
 		DD7C214E1AE6870D00BEB3B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD7C214D1AE6870D00BEB3B0 /* Images.xcassets */; };
 		DD7C21511AE6870D00BEB3B0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD7C214F1AE6870D00BEB3B0 /* LaunchScreen.xib */; };
 		DD7C215D1AE6870D00BEB3B0 /* ShopnSocialTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C215C1AE6870D00BEB3B0 /* ShopnSocialTests.m */; };
+		DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CC51AE784F100759DCF /* SignupVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		DD7C21561AE6870D00BEB3B0 /* ShopnSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopnSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD7C215B1AE6870D00BEB3B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD7C215C1AE6870D00BEB3B0 /* ShopnSocialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopnSocialTests.m; sourceTree = "<group>"; };
+		DDC47CC41AE784F100759DCF /* SignupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupVC.h; sourceTree = "<group>"; };
+		DDC47CC51AE784F100759DCF /* SignupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 				DD7009511AE6902800878EE7 /* SplashVC.m */,
 				DD70095A1AE6C58600878EE7 /* LoginVC.h */,
 				DD70095B1AE6C58600878EE7 /* LoginVC.m */,
+				DDC47CC41AE784F100759DCF /* SignupVC.h */,
+				DDC47CC51AE784F100759DCF /* SignupVC.m */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 			files = (
 				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
 				DD7C21491AE6870D00BEB3B0 /* ViewController.m in Sources */,
+				DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */,
 				DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */,
 				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
