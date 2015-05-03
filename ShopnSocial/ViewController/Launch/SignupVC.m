@@ -9,6 +9,13 @@
 #import "SignupVC.h"
 #import "ExUILabel+AutoSize.h"
 #import "ExUIView+Border.h"
+#import "ExNetwork.h"
+#import "ExNSString.h"
+#import "ExNSDate.h"
+#import "MBProgressHUD.h"
+
+#import "Country.h"
+#import "User.h"
 
 @interface SignupVC ()
 {
@@ -16,6 +23,22 @@
     
     UIViewController* termsVC;
     UIViewController* privacyVC;
+    
+    bool isReachableInternet;
+    
+    NSArray* countries;
+    NSArray* countryNames;
+    int selectedCountryIdx;
+    
+    NSArray* genders;
+    NSArray* genderNames;
+    int selectedGenderIdx;
+    
+    NSDate* birthday;
+    
+    ListPopoverVC* locationPopoverVC;
+    ListPopoverVC* genderPopoverVC;
+    DatePopoverVC* datePopoverVC;
 }
 @end
 
@@ -28,9 +51,20 @@
     
     [self.interrupterView.superview bringSubviewToFront:self.interrupterView];
     self.interrupterView.hidden = YES;
+    
+    [self populateCountry];
+    [self populateGender];
 
     termsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsVC"];
     privacyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PrivacyVC"];
+    
+    selectedGenderIdx = -1;
+    selectedCountryIdx = -1;
+    birthday = nil;
+    
+    locationPopoverVC = nil;
+    genderPopoverVC = nil;
+    datePopoverVC = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,15 +72,74 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"location"]) {
+        locationPopoverVC = (ListPopoverVC*)segue.destinationViewController;
+        genderPopoverVC = nil;
+        
+        locationPopoverVC.items = countryNames;
+        locationPopoverVC.delegate = self;
+    }
+    else if ([segue.identifier isEqualToString:@"gender"]) {
+        locationPopoverVC =nil;
+        genderPopoverVC = (ListPopoverVC*)segue.destinationViewController;
+        
+        genderPopoverVC.items = genderNames;
+        genderPopoverVC.delegate = self;
+    }
+    else if ([segue.identifier isEqualToString:@"date"]) {
+        datePopoverVC = (DatePopoverVC*)segue.destinationViewController;
+        datePopoverVC.delegate = self;
+        datePopoverVC.selectedDate = birthday;
+    }
 }
-*/
+
+
+#pragma marl -
+
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (locationPopoverVC != nil) {
+        self.signupLocation.text = countryNames[indexPath.row];
+        selectedCountryIdx = (int)indexPath.row;
+        
+        [locationPopoverVC dismissViewControllerAnimated:YES completion:nil];
+    }
+    else if (genderPopoverVC != nil) {
+        self.signupGender.text = genderNames[indexPath.row];
+        selectedGenderIdx = (int)indexPath.row;
+        
+        [genderPopoverVC dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (void)didSelectDate:(NSDate *)date
+{
+    birthday = date;
+    self.signupBirthday.text = [birthday stringWithFormat:@"MMMM d, yyyy"];
+}
+
+- (void) populateCountry
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        countries = [Country getCountriesSync];
+        NSMutableArray* conames = [NSMutableArray array];
+        for (Country* co in countries) {
+            [conames addObject:co.Name];
+        }
+        countryNames = conames;        
+    });
+}
+
+- (void) populateGender
+{
+    genders = @[@"M", @"F", @"O", @"N"];
+    genderNames = @[@"Male", @"Femal", @"Other", @"None of your business"];
+}
 
 #pragma mark -
 
@@ -55,8 +148,48 @@
 }
 
 - (IBAction)onSignup {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [self hideMessage:YES];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        User* newUser = [self checkValidationAllSync];
+        
+        NSLog(@"check done -------------- ");
+        
+        if (newUser == nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+            return;
+        }
 
+        NSLog(@"Will register new user %@", newUser);
+        
+        BOOL result = [User createNewUserSync:newUser];
+        
+        if (result) {
+            NSString* username = newUser.Email;
+            NSString* qpassword = newUser.QPassword;
+            
+            QBUUser* qbuUser = [User loginQBUUserSync:username password:qpassword];
+            newUser.qbuUser = qbuUser;
+            
+            [User setCurrentUser:newUser];
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
 }
+
+- (void)onDidSignup
+{
+    NSLog(@"Signed up as succesful.");
+}
+
+#pragma mark -
 
 - (IBAction)onAgreeChecker {
     self.signupAgreeChecker.selected = !self.signupAgreeChecker.selected;
@@ -72,32 +205,200 @@
 
 #pragma mark -
 
+- (User*) checkValidationAllSync
+{
+    // LR.90 check internet status.
+    if (![self checkInternet])
+    {
+        [self showNoInternetMessage];
+        return nil;
+    }
+    
+    NSString* username = self.signupUsername.text;
+    NSString* email = self.signupEmail.text;
+    NSString* password = self.signupPassword.text;
+    NSString* confirm = self.signupConfirm.text;
+    bool isAgreed = self.signupAgreeChecker.selected;
+    
+    username = [username stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    email = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    if (username.length != 0)
+    {
+    }
+    
+    // LR.95, 96, 97, 98, 107: check mandatory fields
+    if (username.length == 0 ||
+        email.length == 0 ||
+        password.length == 0 ||
+        confirm.length == 0 ||
+        !isAgreed)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showMandatoryMessage];
+        });
+        return nil;
+    }
+
+    // LR.101
+    if (![self checkEmail:email])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showInvalidEmailMessage];
+        });
+        return nil;
+    }
+    
+    // LR.103, 104, 105
+    if (!password.isValidPassword) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showInvalidPasswordMessage];
+        });
+        return nil;
+    }
+    
+    // LR.106
+    if (![password isEqualToString:confirm])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showUnmatchedPasswordMessage];
+        });
+        return nil;
+    }
+    
+    
+    // LR.108, 99 check if username exists
+    if ([self isExistUsername:username])
+    {
+        [self showDuplicatedUsernameMessage];
+        return nil;
+    }
+    // LR.102
+    if([self isExistEmail:email])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showDuplicatedEmailMessage];
+        });
+        return nil;
+    }
+
+    
+    User* userData = [[User alloc] init];
+    userData.Username = username;
+    userData.Email = email;
+    userData.Password = password;
+    userData.Location = selectedCountryIdx >= 0 ? ((Country*)countries[selectedCountryIdx]).Code : @(0);
+    userData.Birthday = birthday;
+    userData.Gender = selectedGenderIdx >= 0 ? genders[selectedGenderIdx] : @"N";
+    
+    
+    
+    return userData;
+}
+
+- (bool) checkInternet
+{
+    isReachableInternet = [ExNetwork IsReachableInternet];
+    
+    if (isReachableInternet)
+    {
+        [self hideMessage];
+        return true;
+    }
+    else
+    {
+        [NSTimer scheduledTimerWithTimeInterval:2.0
+                                         target:self
+                                       selector:@selector(onCheckTimer:)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
+    
+    return false;
+}
+
+- (void) onCheckTimer:(NSTimer*) timer
+{
+    [self checkInternet];
+}
+
+// LR.99 choose a username already in use.
+// check if username exist in the using on the server
+- (bool) isExistUsername:(NSString*) username
+{
+    User* existUser = [User getUserByNameSync:username];
+    
+    return existUser != nil;
+}
+
+// LR.101 invalid email address
+- (bool) checkEmail:(NSString*) email
+{
+    return email.isValidEmail;
+}
+
+// LR.102 duplicated email address
+- (bool) isExistEmail:(NSString*) email
+{
+    User* existUser = [User getUserByEmailSync:email];
+    
+    return existUser != nil;
+}
+
+#pragma mark -
+
 - (void) hideMessage
 {
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.signupMessageLabel.hidden = YES;
-                         
-                         CGRect frame = self.signupInputView.frame;
-                         frame.origin.y = self.signupMessageLabel.frame.origin.y;
-                         self.signupInputView.frame = frame;
-                         
-                         [self.signupUsername.superview border:0 color:redColor];
-                         [self.signupEmail.superview border:0 color:redColor];
-                         [self.signupPassword.superview border:0 color:redColor];
-                         [self.signupConfirm.superview border:0 color:redColor];
-                     } completion:^(BOOL finished) {
-                     }];
+    [self hideMessage:YES];
+}
+
+- (void) hideMessage: (BOOL)isAnimated
+{
+    void (^animationBlock)(void)  = ^{
+        self.signupMessageLabel.hidden = YES;
+        [self.signupInputView.superview bringSubviewToFront:self.signupInputView];
+        self.signupInputView.alpha = 1;
+        self.pageDescriptionLabel.alpha = 1;
+        self.interrupterView.backgroundColor = [UIColor colorWithRed:0 green:0.5 blue:0.5 alpha:0.5];
+        
+        
+        CGRect frame = self.signupInputView.frame;
+        frame.origin.y = self.signupMessageLabel.frame.origin.y;
+        self.signupInputView.frame = frame;
+        
+        [self.signupUsername.superview border:0 color:redColor];
+        [self.signupEmail.superview border:0 color:redColor];
+        [self.signupPassword.superview border:0 color:redColor];
+        [self.signupConfirm.superview border:0 color:redColor];
+    };
+    
+    if (isAnimated)
+    {
+        [UIView animateWithDuration:0.3
+                         animations:animationBlock
+                         completion:^(BOOL finished) {
+                         }];
+    }
+    else
+    {
+        animationBlock();
+    }
 }
 
 - (void) showNoInternetMessage
 {
+    [self hideMessage:NO];
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.signupMessageLabel.hidden = NO;
                          self.signupMessageLabel.text = @"Please connect to the internet to continue";
                          
                          [self.signupMessageLabel fitHeight];
+                         
+                         self.signupInputView.alpha = 0.3;
+                         self.pageDescriptionLabel.alpha = 0.3;
+                         [self.interrupterView.superview bringSubviewToFront:self.interrupterView];
+                         self.interrupterView.hidden = NO;
                          
                          CGRect frame = self.signupInputView.frame;
                          frame.origin.y = self.signupMessageLabel.frame.origin.y + self.signupMessageLabel.frame.size.height;
@@ -113,6 +414,7 @@
 
 - (void) showMandatoryMessage
 {
+    [self hideMessage:NO];
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.signupMessageLabel.hidden = NO;
@@ -134,6 +436,7 @@
 
 - (void) showDuplicatedUsernameMessage
 {
+    [self hideMessage:NO];
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.signupMessageLabel.hidden = NO;
@@ -155,6 +458,7 @@
 
 - (void) showInvalidPasswordMessage
 {
+    [self hideMessage:NO];
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.signupMessageLabel.hidden = NO;
@@ -176,6 +480,7 @@
 
 - (void) showUnmatchedPasswordMessage
 {
+    [self hideMessage:NO];
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.signupMessageLabel.hidden = NO;
@@ -197,6 +502,7 @@
 
 - (void) showInvalidEmailMessage
 {
+    [self hideMessage:NO];
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.signupMessageLabel.hidden = NO;
@@ -218,6 +524,7 @@
 
 - (void) showDuplicatedEmailMessage
 {
+    [self hideMessage:NO];
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.signupMessageLabel.hidden = NO;

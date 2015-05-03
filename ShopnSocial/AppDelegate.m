@@ -15,8 +15,15 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    
+    // Set QuickBlox credentials
+    [QBApplication sharedApplication].applicationId = 20591;
+    [QBConnection registerServiceKey:@"GzNLC8xOCnAzsLD"];
+    [QBConnection registerServiceSecret:@"6Ar4uFu7q5hZ75E"];
+    [QBSettings setAccountKey:@"4pwY7nU5yidFJm6zAxaL"];
+    
     return YES;
 }
 

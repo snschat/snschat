@@ -37,11 +37,28 @@
     {
         [self showInternet];
         
-        [NSTimer scheduledTimerWithTimeInterval:2.0
-                                         target:self
-                                       selector:@selector(onSplashTimer:)
-                                       userInfo:nil
-                                        repeats:NO];
+        QBSessionParameters *parameters = [QBSessionParameters new];
+        parameters.userLogin = @"mazb19";
+        parameters.userPassword = @"evoodioz";
+        
+        [QBRequest createSessionWithExtendedParameters:parameters
+                                          successBlock:^(QBResponse *response, QBASession *session) {
+                                              NSLog(@"Session created");
+                                              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+                                                  NSArray* countries = [Country getCountriesSync];
+                                                  NSLog(@"Success %lu countries", (unsigned long)countries.count);
+                                                  [self gotoNext];
+                                              });
+                                          } errorBlock:^(QBResponse *response) {
+                                              NSLog(@"Session create failed");
+                                          }];
+        
+//        [NSTimer scheduledTimerWithTimeInterval:2.0
+//                                         target:self
+//                                       selector:@selector(onSplashTimer:)
+//                                       userInfo:nil
+//                                        repeats:NO];
     }
     else
     {

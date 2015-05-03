@@ -9,6 +9,9 @@
 #import "LoginVC.h"
 #import "ExUILabel+AutoSize.h"
 #import "ExUIView+Border.h"
+#import "MBProgressHUD.h"
+
+#import "User.h"
 
 @interface LoginVC ()
 {
@@ -60,12 +63,48 @@
         
         return;
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self hideLoginMessage];
+    });
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        User* user = [User loginUserSync:self.loginUsername.text
+                                password:self.loginPassword.text];
+        
+        if (user == nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showLoginIncorrectMessage];
+            });
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self onLoginSuccess];
+            });
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+
+    });
 }
 
 - (IBAction)onForgotPassword
 {
     [self hideLoginMessage];
 }
+
+#pragma mark -
+
+- (void)onLoginSuccess
+{
+    NSLog(@"Login Successed - %@", [User currentUser]);
+}
+
+#pragma mark -
 
 - (void) hideLoginMessage
 {

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "ExNSString.h"
+#import "ExNSDate.h"
+
+#import "User.h"
+#import <Quickblox/Quickblox.h>
 
 @interface ShopnSocialTests : XCTestCase
 
@@ -37,4 +42,46 @@
     }];
 }
 
+- (void)testStringTrim {
+    NSString* username = @"x@hotmail.com";
+    username = [username stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    XCTAssert(username.isValidEmail, "Opps!");
+}
+
+- (void)testNSDate {
+    NSDate* date = [NSDate date];
+    NSString* string = [date stringWithFormat:@"MMMM d, yyyy"];
+    
+    NSLog(@"%@", string);
+    
+    XCTAssert(true, @"Oh yeah");
+}
+
+- (void)testQB {
+    // Set QuickBlox credentials
+    [QBApplication sharedApplication].applicationId = 20591;
+    [QBConnection registerServiceKey:@"GzNLC8xOCnAzsLD"];
+    [QBConnection registerServiceSecret:@"6Ar4uFu7q5hZ75E"];
+    [QBSettings setAccountKey:@"4pwY7nU5yidFJm6zAxaL"];
+    
+    QBSessionParameters *parameters = [QBSessionParameters new];
+    parameters.userLogin = @"mazb19";
+    parameters.userPassword = @"evoodioz";
+    
+    [QBRequest createSessionWithExtendedParameters:parameters
+                                      successBlock:^(QBResponse *response, QBASession *session) {
+                                          NSLog(@"Session created");
+                                          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                              User* user = [User getUserByNameSync:@"mirro"];
+                                              NSLog(@"%@", user);
+                                          });
+                                      } errorBlock:^(QBResponse *response) {
+                                          NSLog(@"Session create failed");
+                                      }];
+    
+    sleep(10000);
+    
+    XCTAssert(true, @"Oh yeah");
+}
 @end

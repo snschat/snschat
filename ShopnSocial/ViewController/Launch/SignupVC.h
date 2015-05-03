@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignupVC : UIViewController
+#import "ListPopoverVC.h"
+#import "DatePopoverVC.h"
+
+@interface SignupVC : UIViewController <ListPopoverDelegate, DatePopoverDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *signupView;
 @property (strong, nonatomic) IBOutlet UILabel *signupMessageLabel;
@@ -24,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *signupGender;
 
 @property (strong, nonatomic) IBOutlet UIButton *signupAgreeChecker;
+@property (strong, nonatomic) IBOutlet UILabel *pageDescriptionLabel;
 
 - (IBAction)onCancel;
 - (IBAction)onSignup;

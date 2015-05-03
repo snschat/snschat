@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Country.h"
 
 @interface SplashVC : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *logoRedImageView;
 @property (strong, nonatomic) IBOutlet UILabel *noInternetLabel;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *progressView;
 
 @end
