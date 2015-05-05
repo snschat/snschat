@@ -42,24 +42,30 @@
     [GPPSignIn sharedInstance].shouldFetchGoogleUserEmail = YES;  // Uncomment to get the user's email
     [GPPSignIn sharedInstance].delegate = self;
     
-//    if([GPPSignIn sharedInstance].actions){
-//        for(NSString* appActivity in [GPPSignIn sharedInstance].actions){
-//            [arrayActivities addObject:[appActivity lastPathComponent]];
-//        }
-//    }
+    NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIKeyboardWillChangeFrameNotification
+     object:nil
+     queue:mainQueue
+     usingBlock:^(NSNotification *note) {
+         NSDictionary* dict = note.userInfo;
+         NSValue* frame = (NSValue*)[dict valueForKey:UIKeyboardFrameEndUserInfoKey];
+         [self onShowKeyboard:frame.CGRectValue];
+     }];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIKeyboardWillHideNotification
+     object:nil
+     queue:mainQueue
+     usingBlock:^(NSNotification *note) {
+         [self onHideKeyboard];
+     }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-//    [super viewDidAppear:animated];
-//    
-//    [self.gppSigninButton setImage:[UIImage imageNamed:@"ic_google_plus"] forState:UIControlStateNormal];
-//    [self.gppSigninButton setImage:[UIImage imageNamed:@"ic_google_plus"] forState:UIControlStateHighlighted];
-//    [self.gppSigninButton setImage:[UIImage imageNamed:@"ic_google_plus"] forState:UIControlStateSelected];
-//    
-//    CGRect frame = self.gppSigninButton.frame;
-//    frame.size.width = 430;
-//    self.gppSigninButton.frame = frame;
+    [super viewDidAppear:animated];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -477,5 +483,39 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self onLoginSuccess];
     });
+}
+
+
+#pragma mark -
+- (void) onShowKeyboard:(CGRect) keyboardFrame
+{
+    self.view.frame = CGRectMake(
+                                 0,
+                                 keyboardFrame.origin.y*1.3 - self.view.frame.size.height,
+                                 self.view.frame.size.width,
+                                 self.view.frame.size.height);
+}
+
+- (void) onHideKeyboard
+{
+    self.view.frame = CGRectMake(
+                                 0,
+                                 0,
+                                 self.view.frame.size.width,
+                                 self.view.frame.size.height);
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+//    [UIView animateWithDuration:0.3f animations:^{
+//        self.view.frame = CGRectMake(0, -200, self.view.frame.size.width, self.view.frame.size.height);
+//    }];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+//    [UIView animateWithDuration:0.3f animations:^{
+//        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    }];
 }
 @end

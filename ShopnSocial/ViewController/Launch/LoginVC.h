@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <GooglePlus/GooglePlus.h>
 
-@interface LoginVC : UIViewController
+@interface LoginVC : UIViewController <UITextFieldDelegate>
 
 
 #pragma mark - login view
