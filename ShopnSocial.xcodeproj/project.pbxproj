@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		DD13FD3B1AF0BBE4008D671C /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13FD3A1AF0BBE4008D671C /* ChatVC.m */; };
+		DD1EEE0A1AF55F7C0002BE8D /* ContactTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1EEE091AF55F7C0002BE8D /* ContactTabBarItem.m */; };
+		DD2BC0DE1AF6B91B00D9084D /* StatusOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2BC0DD1AF6B91B00D9084D /* StatusOptionView.m */; };
+		DD2BC0E01AF6B92A00D9084D /* StatusOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2BC0DF1AF6B92A00D9084D /* StatusOptionView.xib */; };
+		DD2BC0E41AF6C02900D9084D /* ChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2BC0E21AF6C02900D9084D /* ChatMessageCell.m */; };
+		DD2BC0E51AF6C02900D9084D /* ChatMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2BC0E31AF6C02900D9084D /* ChatMessageCell.xib */; };
+		DD2BC0E91AF6C25900D9084D /* MessageInputVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2BC0E71AF6C25900D9084D /* MessageInputVC.m */; };
+		DD2BC0EA1AF6C25900D9084D /* MessageInputVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2BC0E81AF6C25900D9084D /* MessageInputVC.xib */; };
+		DD2BC0ED1AF6C91500D9084D /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2BC0EC1AF6C91500D9084D /* Message.m */; };
 		DD7009521AE6902800878EE7 /* SplashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009511AE6902800878EE7 /* SplashVC.m */; };
 		DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009551AE6927700878EE7 /* ExNetwork.m */; };
 		DD7009591AE6931400878EE7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009581AE6931400878EE7 /* Reachability.m */; };
@@ -21,6 +29,21 @@
 		DD7C214E1AE6870D00BEB3B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD7C214D1AE6870D00BEB3B0 /* Images.xcassets */; };
 		DD7C21511AE6870D00BEB3B0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD7C214F1AE6870D00BEB3B0 /* LaunchScreen.xib */; };
 		DD7C215D1AE6870D00BEB3B0 /* ShopnSocialTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7C215C1AE6870D00BEB3B0 /* ShopnSocialTests.m */; };
+		DD83B9171AF21B4A0018AF38 /* ContactListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD83B9151AF21B4A0018AF38 /* ContactListCell.m */; };
+		DD83B9181AF21B4A0018AF38 /* ContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD83B9161AF21B4A0018AF38 /* ContactListCell.xib */; };
+		DD83B91D1AF2610E0018AF38 /* ContactTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD83B91C1AF2610E0018AF38 /* ContactTabBar.xib */; };
+		DD83B9201AF269180018AF38 /* ContactTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD83B91F1AF269180018AF38 /* ContactTabBar.m */; };
+		DD96DB281AF624D200A777D2 /* ExUIView+Mask.m in Sources */ = {isa = PBXBuildFile; fileRef = DD96DB241AF624D200A777D2 /* ExUIView+Mask.m */; };
+		DD96DB291AF624D200A777D2 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD96DB271AF624D200A777D2 /* FXBlurView.m */; };
+		DD96DB2D1AF62D6700A777D2 /* ContactListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD96DB2B1AF62D6700A777D2 /* ContactListVC.m */; };
+		DD96DB2E1AF62D6700A777D2 /* ContactListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD96DB2C1AF62D6700A777D2 /* ContactListVC.xib */; };
+		DD96DB331AF6545600A777D2 /* GroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD96DB311AF6545600A777D2 /* GroupVC.m */; };
+		DD96DB341AF6545600A777D2 /* GroupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD96DB321AF6545600A777D2 /* GroupVC.xib */; };
+		DDB24A4D1AF850B40071975E /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB24A4B1AF850B40071975E /* ProductCell.m */; };
+		DDB24A4E1AF850B40071975E /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDB24A4C1AF850B40071975E /* ProductCell.xib */; };
+		DDB24A511AF855B20071975E /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB24A501AF855B20071975E /* Product.m */; };
+		DDB24A551AF859180071975E /* SharedProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB24A531AF859180071975E /* SharedProductVC.m */; };
+		DDB24A561AF859180071975E /* SharedProductVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDB24A541AF859180071975E /* SharedProductVC.xib */; };
 		DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CC51AE784F100759DCF /* SignupVC.m */; };
 		DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC81AE7B21D00759DCF /* privacy.html */; };
 		DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC91AE7B21D00759DCF /* terms.html */; };
@@ -41,6 +64,19 @@
 /* Begin PBXFileReference section */
 		DD13FD391AF0BBE4008D671C /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
 		DD13FD3A1AF0BBE4008D671C /* ChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
+		DD1EEE081AF55F7C0002BE8D /* ContactTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTabBarItem.h; sourceTree = "<group>"; };
+		DD1EEE091AF55F7C0002BE8D /* ContactTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTabBarItem.m; sourceTree = "<group>"; };
+		DD2BC0DC1AF6B91B00D9084D /* StatusOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusOptionView.h; sourceTree = "<group>"; };
+		DD2BC0DD1AF6B91B00D9084D /* StatusOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusOptionView.m; sourceTree = "<group>"; };
+		DD2BC0DF1AF6B92A00D9084D /* StatusOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusOptionView.xib; sourceTree = "<group>"; };
+		DD2BC0E11AF6C02900D9084D /* ChatMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageCell.h; sourceTree = "<group>"; };
+		DD2BC0E21AF6C02900D9084D /* ChatMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageCell.m; sourceTree = "<group>"; };
+		DD2BC0E31AF6C02900D9084D /* ChatMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatMessageCell.xib; sourceTree = "<group>"; };
+		DD2BC0E61AF6C25900D9084D /* MessageInputVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInputVC.h; sourceTree = "<group>"; };
+		DD2BC0E71AF6C25900D9084D /* MessageInputVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInputVC.m; sourceTree = "<group>"; };
+		DD2BC0E81AF6C25900D9084D /* MessageInputVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageInputVC.xib; sourceTree = "<group>"; };
+		DD2BC0EB1AF6C91500D9084D /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		DD2BC0EC1AF6C91500D9084D /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		DD7009501AE6902800878EE7 /* SplashVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashVC.h; sourceTree = "<group>"; };
 		DD7009511AE6902800878EE7 /* SplashVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashVC.m; sourceTree = "<group>"; };
 		DD7009541AE6927700878EE7 /* ExNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExNetwork.h; sourceTree = "<group>"; };
@@ -66,6 +102,30 @@
 		DD7C21561AE6870D00BEB3B0 /* ShopnSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopnSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD7C215B1AE6870D00BEB3B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD7C215C1AE6870D00BEB3B0 /* ShopnSocialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopnSocialTests.m; sourceTree = "<group>"; };
+		DD83B9141AF21B4A0018AF38 /* ContactListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListCell.h; sourceTree = "<group>"; };
+		DD83B9151AF21B4A0018AF38 /* ContactListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListCell.m; sourceTree = "<group>"; };
+		DD83B9161AF21B4A0018AF38 /* ContactListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListCell.xib; sourceTree = "<group>"; };
+		DD83B91C1AF2610E0018AF38 /* ContactTabBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTabBar.xib; sourceTree = "<group>"; };
+		DD83B91E1AF269180018AF38 /* ContactTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTabBar.h; sourceTree = "<group>"; };
+		DD83B91F1AF269180018AF38 /* ContactTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTabBar.m; sourceTree = "<group>"; };
+		DD96DB231AF624D200A777D2 /* ExUIView+Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ExUIView+Mask.h"; sourceTree = "<group>"; };
+		DD96DB241AF624D200A777D2 /* ExUIView+Mask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ExUIView+Mask.m"; sourceTree = "<group>"; };
+		DD96DB261AF624D200A777D2 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		DD96DB271AF624D200A777D2 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		DD96DB2A1AF62D6700A777D2 /* ContactListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListVC.h; sourceTree = "<group>"; };
+		DD96DB2B1AF62D6700A777D2 /* ContactListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListVC.m; sourceTree = "<group>"; };
+		DD96DB2C1AF62D6700A777D2 /* ContactListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListVC.xib; sourceTree = "<group>"; };
+		DD96DB301AF6545600A777D2 /* GroupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupVC.h; sourceTree = "<group>"; };
+		DD96DB311AF6545600A777D2 /* GroupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupVC.m; sourceTree = "<group>"; };
+		DD96DB321AF6545600A777D2 /* GroupVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupVC.xib; sourceTree = "<group>"; };
+		DDB24A4A1AF850B40071975E /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		DDB24A4B1AF850B40071975E /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		DDB24A4C1AF850B40071975E /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
+		DDB24A4F1AF855B20071975E /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		DDB24A501AF855B20071975E /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		DDB24A521AF859180071975E /* SharedProductVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedProductVC.h; sourceTree = "<group>"; };
+		DDB24A531AF859180071975E /* SharedProductVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedProductVC.m; sourceTree = "<group>"; };
+		DDB24A541AF859180071975E /* SharedProductVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedProductVC.xib; sourceTree = "<group>"; };
 		DDC47CC41AE784F100759DCF /* SignupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupVC.h; sourceTree = "<group>"; };
 		DDC47CC51AE784F100759DCF /* SignupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupVC.m; sourceTree = "<group>"; };
 		DDC47CC81AE7B21D00759DCF /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
@@ -97,6 +157,8 @@
 		DD13FD381AF0B1BB008D671C /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				DD96DB2F1AF64F3100A777D2 /* Model */,
+				DD83B9131AF21B4A0018AF38 /* CustomView */,
 				DD13FD391AF0BBE4008D671C /* ChatVC.h */,
 				DD13FD3A1AF0BBE4008D671C /* ChatVC.m */,
 			);
@@ -132,6 +194,8 @@
 		DD7009531AE690AD00878EE7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DD96DB221AF624D200A777D2 /* ExUIView+Mask */,
+				DD96DB251AF624D200A777D2 /* FXBlurView */,
 				DD7009571AE6931400878EE7 /* Reachability.h */,
 				DD7009581AE6931400878EE7 /* Reachability.m */,
 				DD7009541AE6927700878EE7 /* ExNetwork.h */,
@@ -204,6 +268,71 @@
 				DD7C215B1AE6870D00BEB3B0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DD83B9131AF21B4A0018AF38 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				DD83B9141AF21B4A0018AF38 /* ContactListCell.h */,
+				DD83B9151AF21B4A0018AF38 /* ContactListCell.m */,
+				DD83B9161AF21B4A0018AF38 /* ContactListCell.xib */,
+				DD83B91E1AF269180018AF38 /* ContactTabBar.h */,
+				DD83B91F1AF269180018AF38 /* ContactTabBar.m */,
+				DD83B91C1AF2610E0018AF38 /* ContactTabBar.xib */,
+				DD1EEE081AF55F7C0002BE8D /* ContactTabBarItem.h */,
+				DD1EEE091AF55F7C0002BE8D /* ContactTabBarItem.m */,
+				DD96DB2A1AF62D6700A777D2 /* ContactListVC.h */,
+				DD96DB2B1AF62D6700A777D2 /* ContactListVC.m */,
+				DD96DB2C1AF62D6700A777D2 /* ContactListVC.xib */,
+				DD96DB301AF6545600A777D2 /* GroupVC.h */,
+				DD96DB311AF6545600A777D2 /* GroupVC.m */,
+				DD96DB321AF6545600A777D2 /* GroupVC.xib */,
+				DD2BC0DC1AF6B91B00D9084D /* StatusOptionView.h */,
+				DD2BC0DD1AF6B91B00D9084D /* StatusOptionView.m */,
+				DD2BC0DF1AF6B92A00D9084D /* StatusOptionView.xib */,
+				DD2BC0E11AF6C02900D9084D /* ChatMessageCell.h */,
+				DD2BC0E21AF6C02900D9084D /* ChatMessageCell.m */,
+				DD2BC0E31AF6C02900D9084D /* ChatMessageCell.xib */,
+				DD2BC0E61AF6C25900D9084D /* MessageInputVC.h */,
+				DD2BC0E71AF6C25900D9084D /* MessageInputVC.m */,
+				DD2BC0E81AF6C25900D9084D /* MessageInputVC.xib */,
+				DDB24A4A1AF850B40071975E /* ProductCell.h */,
+				DDB24A4B1AF850B40071975E /* ProductCell.m */,
+				DDB24A4C1AF850B40071975E /* ProductCell.xib */,
+				DDB24A521AF859180071975E /* SharedProductVC.h */,
+				DDB24A531AF859180071975E /* SharedProductVC.m */,
+				DDB24A541AF859180071975E /* SharedProductVC.xib */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		DD96DB221AF624D200A777D2 /* ExUIView+Mask */ = {
+			isa = PBXGroup;
+			children = (
+				DD96DB231AF624D200A777D2 /* ExUIView+Mask.h */,
+				DD96DB241AF624D200A777D2 /* ExUIView+Mask.m */,
+			);
+			path = "ExUIView+Mask";
+			sourceTree = "<group>";
+		};
+		DD96DB251AF624D200A777D2 /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				DD96DB261AF624D200A777D2 /* FXBlurView.h */,
+				DD96DB271AF624D200A777D2 /* FXBlurView.m */,
+			);
+			path = FXBlurView;
+			sourceTree = "<group>";
+		};
+		DD96DB2F1AF64F3100A777D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DD2BC0EB1AF6C91500D9084D /* Message.h */,
+				DD2BC0EC1AF6C91500D9084D /* Message.m */,
+				DDB24A4F1AF855B20071975E /* Product.h */,
+				DDB24A501AF855B20071975E /* Product.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DDC47CC71AE7B21200759DCF /* Resource */ = {
@@ -295,10 +424,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD96DB341AF6545600A777D2 /* GroupVC.xib in Resources */,
+				DD2BC0EA1AF6C25900D9084D /* MessageInputVC.xib in Resources */,
 				DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */,
 				DD7C214C1AE6870D00BEB3B0 /* Main.storyboard in Resources */,
 				DD7C21511AE6870D00BEB3B0 /* LaunchScreen.xib in Resources */,
+				DDB24A561AF859180071975E /* SharedProductVC.xib in Resources */,
+				DD96DB2E1AF62D6700A777D2 /* ContactListVC.xib in Resources */,
+				DD83B91D1AF2610E0018AF38 /* ContactTabBar.xib in Resources */,
+				DD2BC0E01AF6B92A00D9084D /* StatusOptionView.xib in Resources */,
 				DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */,
+				DD2BC0E51AF6C02900D9084D /* ChatMessageCell.xib in Resources */,
+				DD83B9181AF21B4A0018AF38 /* ContactListCell.xib in Resources */,
+				DDB24A4E1AF850B40071975E /* ProductCell.xib in Resources */,
 				DD7C214E1AE6870D00BEB3B0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,18 +456,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
+				DDB24A511AF855B20071975E /* Product.m in Sources */,
+				DD2BC0ED1AF6C91500D9084D /* Message.m in Sources */,
+				DD83B9201AF269180018AF38 /* ContactTabBar.m in Sources */,
+				DD1EEE0A1AF55F7C0002BE8D /* ContactTabBarItem.m in Sources */,
+				DD96DB281AF624D200A777D2 /* ExUIView+Mask.m in Sources */,
 				DD7C21491AE6870D00BEB3B0 /* ViewController.m in Sources */,
 				DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */,
+				DD2BC0E91AF6C25900D9084D /* MessageInputVC.m in Sources */,
 				DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */,
 				DDC47CCE1AE7B39800759DCF /* TermsVC.m in Sources */,
 				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
+				DDB24A551AF859180071975E /* SharedProductVC.m in Sources */,
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
+				DD2BC0DE1AF6B91B00D9084D /* StatusOptionView.m in Sources */,
+				DD96DB2D1AF62D6700A777D2 /* ContactListVC.m in Sources */,
 				DD7C21431AE6870D00BEB3B0 /* main.m in Sources */,
 				DD13FD3B1AF0BBE4008D671C /* ChatVC.m in Sources */,
 				DD7009591AE6931400878EE7 /* Reachability.m in Sources */,
+				DD96DB331AF6545600A777D2 /* GroupVC.m in Sources */,
 				DDC47CD11AE7B68F00759DCF /* PrivacyVC.m in Sources */,
+				DD83B9171AF21B4A0018AF38 /* ContactListCell.m in Sources */,
 				DD70095C1AE6C58600878EE7 /* LoginVC.m in Sources */,
+				DDB24A4D1AF850B40071975E /* ProductCell.m in Sources */,
+				DD2BC0E41AF6C02900D9084D /* ChatMessageCell.m in Sources */,
 				DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */,
+				DD96DB291AF624D200A777D2 /* FXBlurView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +640,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = ShopnSocialTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShopnSocial.app/ShopnSocial";
@@ -503,6 +656,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = ShopnSocialTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShopnSocial.app/ShopnSocial";

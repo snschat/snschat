@@ -37,4 +37,20 @@
 
 }
 
++(float) expectedHeight:(CGFloat) width :(UIFont *) font :(NSString *)text
+{
+    
+    CGSize expectedSize = CGSizeMake(width, FLT_MAX);
+    
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          font, NSFontAttributeName,
+                                          
+                                          nil];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text attributes:attributesDictionary];
+    
+    CGRect calculatedSize = [string boundingRectWithSize:expectedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    return calculatedSize.size.height;
+
+}
 @end

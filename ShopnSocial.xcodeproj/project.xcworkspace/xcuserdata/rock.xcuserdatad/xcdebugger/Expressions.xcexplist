@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[UIView(GradientMask) setInnerGlow:::::]:ExUIView+Mask.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self bounds]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
