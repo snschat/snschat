@@ -51,6 +51,8 @@
 		DD20FB671AF8985F000BAF7F /* StatusOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB531AF8985F000BAF7F /* StatusOptionView.xib */; };
 		DD20FB6E1AF89883000BAF7F /* ExUIView+Mask.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB6A1AF89883000BAF7F /* ExUIView+Mask.m */; };
 		DD20FB6F1AF89883000BAF7F /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB6D1AF89883000BAF7F /* FXBlurView.m */; };
+		DD20FB731AF8AED2000BAF7F /* C360PopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB721AF8AED2000BAF7F /* C360PopoverBackgroundView.m */; };
+		DD20FB771AF8B37A000BAF7F /* FavoriteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB761AF8B37A000BAF7F /* FavoriteVC.m */; };
 		DD7009521AE6902800878EE7 /* SplashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009511AE6902800878EE7 /* SplashVC.m */; };
 		DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009551AE6927700878EE7 /* ExNetwork.m */; };
 		DD7009591AE6931400878EE7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009581AE6931400878EE7 /* Reachability.m */; };
@@ -157,6 +159,10 @@
 		DD20FB6A1AF89883000BAF7F /* ExUIView+Mask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ExUIView+Mask.m"; sourceTree = "<group>"; };
 		DD20FB6C1AF89883000BAF7F /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		DD20FB6D1AF89883000BAF7F /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		DD20FB711AF8AED2000BAF7F /* C360PopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C360PopoverBackgroundView.h; sourceTree = "<group>"; };
+		DD20FB721AF8AED2000BAF7F /* C360PopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = C360PopoverBackgroundView.m; sourceTree = "<group>"; };
+		DD20FB751AF8B37A000BAF7F /* FavoriteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteVC.h; sourceTree = "<group>"; };
+		DD20FB761AF8B37A000BAF7F /* FavoriteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteVC.m; sourceTree = "<group>"; };
 		DD7009501AE6902800878EE7 /* SplashVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashVC.h; sourceTree = "<group>"; };
 		DD7009511AE6902800878EE7 /* SplashVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashVC.m; sourceTree = "<group>"; };
 		DD7009541AE6927700878EE7 /* ExNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExNetwork.h; sourceTree = "<group>"; };
@@ -368,9 +374,28 @@
 			path = FXBlurView;
 			sourceTree = "<group>";
 		};
+		DD20FB701AF8AED2000BAF7F /* C360PopoverBackgroundView */ = {
+			isa = PBXGroup;
+			children = (
+				DD20FB711AF8AED2000BAF7F /* C360PopoverBackgroundView.h */,
+				DD20FB721AF8AED2000BAF7F /* C360PopoverBackgroundView.m */,
+			);
+			path = C360PopoverBackgroundView;
+			sourceTree = "<group>";
+		};
+		DD20FB741AF8B37A000BAF7F /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				DD20FB751AF8B37A000BAF7F /* FavoriteVC.h */,
+				DD20FB761AF8B37A000BAF7F /* FavoriteVC.m */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
 		DD70094E1AE68F5E00878EE7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				DD20FB741AF8B37A000BAF7F /* Favorite */,
 				DD20FB331AF8985F000BAF7F /* Chat */,
 				DDA1E2DB1AF7840B001E5CC5 /* Browser */,
 				DD70094F1AE6900800878EE7 /* Launch */,
@@ -402,6 +427,7 @@
 		DD7009531AE690AD00878EE7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DD20FB701AF8AED2000BAF7F /* C360PopoverBackgroundView */,
 				DD20FB681AF89883000BAF7F /* ExUIView+Mask */,
 				DD20FB6B1AF89883000BAF7F /* FXBlurView */,
 				DDA1E2D41AF775FB001E5CC5 /* YIInnerShadow */,
@@ -700,8 +726,10 @@
 				DD20FB551AF8985F000BAF7F /* ChatMessageCell.m in Sources */,
 				DD20FB5E1AF8985F000BAF7F /* GroupVC.m in Sources */,
 				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
+				DD20FB771AF8B37A000BAF7F /* FavoriteVC.m in Sources */,
 				DD20FB541AF8985F000BAF7F /* ChatVC.m in Sources */,
 				DDF875931AF0B731006181E5 /* ExNSString.m in Sources */,
+				DD20FB731AF8AED2000BAF7F /* C360PopoverBackgroundView.m in Sources */,
 				DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */,
 				DD9C85491AF4661F00E32CE3 /* User.m in Sources */,
 				DDA1E2DA1AF775FB001E5CC5 /* YIInnerShadowView.m in Sources */,

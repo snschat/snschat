@@ -122,7 +122,7 @@
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    UIImage *endImage = [viewImage blurredImageWithRadius:10.0 iterations:1 tintColor:[UIColor darkGrayColor]];
+    UIImage *endImage = viewImage;
     
     //Place the UIImage in a UIImageView
     self.backImg.image = endImage;
@@ -148,7 +148,7 @@
     
 }
 - (IBAction)onCloseBtnTouched:(id)sender {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark ContactTabBarDelegate

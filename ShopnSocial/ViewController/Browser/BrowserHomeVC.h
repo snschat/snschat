@@ -10,4 +10,7 @@
 
 @interface BrowserHomeVC : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIView *chatbar;
+@property (strong, nonatomic) IBOutlet UIButton *buttonChatSlider;
+
 @end
