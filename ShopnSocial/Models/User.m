@@ -23,40 +23,36 @@ static User* gCurrentUser = nil;
 
 + (User*)getUserByNameSync:(NSString*)username;
 {
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    NSMutableDictionary * getRequest = [NSMutableDictionary dictionaryWithDictionary: @{
-                                                                                        @"UserName": username,
-                                                                                        @"limit": @(1)
-                                                                                        }];
-    __block User* user = nil;
-    
-    [QBRequest objectsWithClassName:QB_Class_Name
-                    extendedRequest:getRequest
-                       successBlock:^(QBResponse *response, NSArray *objects, QBResponsePage *page) {
-                           for (QBCOCustomObject* co in objects) {
-                               user = [User new];
-                               [self mapFromQT:co toUser:user];
-                               
-                               break;
-                           }
-                           dispatch_semaphore_signal(sema);
-                       } errorBlock:^(QBResponse *response) {
-                           NSLog(@"Response error: %@", [response.error description]);
-                           dispatch_semaphore_signal(sema);
-                       }];
-    
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    
-    return user;
+    return [self getUserByField:@"UserName" value:username];
 }
 
 + (User*)getUserByEmailSync:(NSString*)email;
 {
+    return [self getUserByField:@"Email" value:email];
+}
+
++ (User*)getUserByFacebookSync:(NSString*)fid
+{
+    return [self getUserByField:@"facebookID" value:fid];
+}
+
++ (User*)getUserByTwitterSync:(NSString*)tid
+{
+    return [self getUserByField:@"twitterID" value:tid];
+}
+
++ (User*)getUserByGooglePlusSync:(NSString*)gid
+{
+    return [self getUserByField:@"googleID" value:gid];
+}
+
+
++ (User*)getUserByField:(NSString*)field value:(NSString*)value;
+{
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
     NSMutableDictionary * getRequest = [NSMutableDictionary dictionaryWithDictionary: @{
-                                                                                        @"Email": email,
+                                                                                        field: value,
                                                                                         @"limit": @(1)
                                                                                         }];
     __block User* user = nil;
@@ -95,9 +91,14 @@ static User* gCurrentUser = nil;
     [object.fields setObject:user.Username forKey:@"UserName"];
     [object.fields setObject:user.Email forKey:@"Email"];
     [object.fields setObject:md5Password  forKey:@"Password"];
-    [object.fields setObject:user.Location forKey:@"Location"];
-    [object.fields setObject:[user.Birthday stringWithFormat:[NSDate dateFormatString]] forKey:@"Birthday"];
-    [object.fields setObject:user.Gender forKey:@"Gender"];
+    
+    if (user.Location != nil) [object.fields setObject:user.Location forKey:@"Location"];
+    if (user.Birthday != nil) [object.fields setObject:[user.Birthday stringWithFormat:[NSDate dateFormatString]] forKey:@"Birthday"];
+    if (user.Gender != nil) [object.fields setObject:user.Gender forKey:@"Gender"];
+    
+    if (user.FacebookID != nil) [object.fields setObject:user.FacebookID forKey:@"facebookID"];
+    if (user.TwitterID != nil) [object.fields setObject:user.TwitterID forKey:@"twitterID"];
+    if (user.GoogleID != nil) [object.fields setObject:user.GoogleID forKey:@"googleID"];
     
     [object.fields setObject:md5Password forKey:@"QPassword"];
     
@@ -195,6 +196,10 @@ static User* gCurrentUser = nil;
     user.Location = co.fields[@"Location"];
     user.Birthday = birthday == nil ? nil : [NSDate dateFromString:birthday withFormat:[NSDate dateFormatString]];
     user.Gender = co.fields[@"Gender"];
+    
+    user.FacebookID = co.fields[@"facebookID"];
+    user.TwitterID = co.fields[@"twitterID"];
+    user.GoogleID = co.fields[@"googleID"];
     
     user.QPassword = co.fields[@"QPassword"];
     

@@ -65,11 +65,81 @@
     locationPopoverVC = nil;
     genderPopoverVC = nil;
     datePopoverVC = nil;
+    
+    if (self.prefilleddUser != nil) {
+        self.signupUsername.text = self.prefilleddUser.Username;
+        self.signupEmail.text = self.prefilleddUser.Email;
+        
+        int idx = 0;
+        for (NSString* gn in genders) {
+            if ([gn isEqualToString:self.prefilleddUser.Gender])
+            {
+                self.signupGender.text = genderNames[idx];
+                selectedGenderIdx = idx;
+                break;
+            }
+            idx ++;
+        }
+        
+        self.signupPassword.text = [[NSString stringWithFormat:@"pw%@%@%@%@%@",
+                                    self.prefilleddUser.Username,
+                                    self.prefilleddUser.Email,
+                                    self.prefilleddUser.FacebookID,
+                                    self.prefilleddUser.TwitterID,
+                                    self.prefilleddUser.GoogleID
+                                     ] MD5String];
+        self.signupConfirm.text = self.signupPassword.text;
+        
+        self.signupPassword.superview.hidden = YES;
+        self.signupConfirm.superview.hidden = YES;
+        self.imgStar3.hidden = YES;
+        self.imgStar4.hidden = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillLayoutSubviews {
+    NSArray* fields = @[
+                        self.signupEmail.superview,
+                        self.signupPassword.superview,
+                        self.signupConfirm.superview,
+                        self.signupLocation.superview,
+                        self.signupBirthday.superview,
+                        self.signupGender.superview,
+                        ];
+    
+    float top = self.signupUsername.frame.origin.y;
+    float gap  = 50;
+    for (UIView* vw in fields) {
+        if (vw.hidden) continue;
+        CGRect frame = vw.frame;
+        frame.origin.y = top + gap;
+        vw.frame = frame;
+        
+        top = frame.origin.y;
+    }
+    
+    CGRect frame = self.signupAgreeChecker.superview.frame;
+    frame.origin.y = top + gap + 2;
+    self.signupAgreeChecker.superview.frame = frame;
+
+    frame = self.imgStar5.frame;
+    frame.origin.y = top + gap + 2 + 14;
+    self.imgStar5.frame = frame;
+    
+    top = top + gap + 2;
+    
+    frame = self.singupButton.frame;
+    frame.origin.y = top + 44;
+    self.singupButton.frame = frame;
+
+    frame = self.cancelButton.frame;
+    frame.origin.y = top + 44;
+    self.cancelButton.frame = frame;
 }
 
 
@@ -283,7 +353,7 @@
     }
 
     
-    User* userData = [[User alloc] init];
+    User* userData = self.prefilleddUser != nil ? self.prefilleddUser : [[User alloc] init];
     userData.Username = username;
     userData.Email = email;
     userData.Password = password;

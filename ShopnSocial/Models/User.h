@@ -21,11 +21,18 @@
 @property (nonatomic, strong) NSDate* Birthday;
 @property (nonatomic, strong) NSString* Gender;
 
+@property (nonatomic, strong) NSString* FacebookID;
+@property (nonatomic, strong) NSString* TwitterID;
+@property (nonatomic, strong) NSString* GoogleID;
+
 @property (nonatomic, strong) NSString* QPassword;
 
 
 + (User*)getUserByNameSync:(NSString*)username;
 + (User*)getUserByEmailSync:(NSString*)email;
++ (User*)getUserByFacebookSync:(NSString*)fid;
++ (User*)getUserByTwitterSync:(NSString*)tid;
++ (User*)getUserByGooglePlusSync:(NSString*)gid;
 + (BOOL)createNewUserSync:(User*)user;
 
 + (User*)currentUser;

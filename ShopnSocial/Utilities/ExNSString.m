@@ -27,7 +27,7 @@
 {
     NSString *pwd = self;
     
-    if ( [pwd length] != 8 ) return NO;  // too long or too short
+    if ( [pwd length] < 8 ) return NO;  // too long or too short
     
     NSRange rang;
     

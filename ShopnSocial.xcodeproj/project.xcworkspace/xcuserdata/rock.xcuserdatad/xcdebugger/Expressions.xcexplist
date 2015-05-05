@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "__20-[LoginVC onTwitter]_block_invoke:LoginVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[FHSTwitterEngine sharedEngine]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GooglePlus/GooglePlus.h>
 
 @interface LoginVC : UIViewController
 
@@ -18,6 +19,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *loginPassword;
 @property (strong, nonatomic) IBOutlet UILabel *loginMessageLabel;
 @property (strong, nonatomic) IBOutlet UIView *loginInputView;
+
+@property (strong, nonatomic) IBOutlet GPPSignInButton *gppSigninButton;
 
 - (IBAction)onFacebook;
 - (IBAction)onTwitter;

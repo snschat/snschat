@@ -11,6 +11,8 @@
 #import "ListPopoverVC.h"
 #import "DatePopoverVC.h"
 
+#import "User.h"
+
 @interface SignupVC : UIViewController <ListPopoverDelegate, DatePopoverDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *signupView;
@@ -26,8 +28,19 @@
 @property (strong, nonatomic) IBOutlet UITextField *signupBirthday;
 @property (strong, nonatomic) IBOutlet UITextField *signupGender;
 
+@property (strong, nonatomic) IBOutlet UIImageView *imgStar1;
+@property (strong, nonatomic) IBOutlet UIImageView *imgStar2;
+@property (strong, nonatomic) IBOutlet UIImageView *imgStar3;
+@property (strong, nonatomic) IBOutlet UIImageView *imgStar4;
+@property (strong, nonatomic) IBOutlet UIImageView *imgStar5;
+
+@property (strong, nonatomic) IBOutlet UIButton *singupButton;
+@property (strong, nonatomic) IBOutlet UIButton *cancelButton;
+
 @property (strong, nonatomic) IBOutlet UIButton *signupAgreeChecker;
 @property (strong, nonatomic) IBOutlet UILabel *pageDescriptionLabel;
+
+@property (strong, nonatomic) User* prefilleddUser;
 
 - (IBAction)onCancel;
 - (IBAction)onSignup;

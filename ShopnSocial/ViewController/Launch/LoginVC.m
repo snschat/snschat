@@ -11,9 +11,19 @@
 #import "ExUIView+Border.h"
 #import "MBProgressHUD.h"
 
-#import "User.h"
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <GoogleOpenSource/GoogleOpenSource.h>
+#import <GooglePlus/GooglePlus.h>
+#import "FHSTwitterEngine.h"
+#import <Twitter/Twitter.h>
 
-@interface LoginVC ()
+#import "Constants.h"
+#import "User.h"
+#import "SignupVC.h"
+
+@interface LoginVC () <GPPSignInDelegate>
 {
     UIColor* redColor;
 }
@@ -26,6 +36,29 @@
     [super viewDidLoad];
 
     redColor = self.loginMessageLabel.textColor;
+    
+    [GPPSignIn sharedInstance].shouldFetchGooglePlusUser = YES;
+    [GPPSignIn sharedInstance].shouldFetchGoogleUserEmail = YES;  // Uncomment to get the user's email
+    [GPPSignIn sharedInstance].delegate = self;
+    
+//    if([GPPSignIn sharedInstance].actions){
+//        for(NSString* appActivity in [GPPSignIn sharedInstance].actions){
+//            [arrayActivities addObject:[appActivity lastPathComponent]];
+//        }
+//    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+//    [super viewDidAppear:animated];
+//    
+//    [self.gppSigninButton setImage:[UIImage imageNamed:@"ic_google_plus"] forState:UIControlStateNormal];
+//    [self.gppSigninButton setImage:[UIImage imageNamed:@"ic_google_plus"] forState:UIControlStateHighlighted];
+//    [self.gppSigninButton setImage:[UIImage imageNamed:@"ic_google_plus"] forState:UIControlStateSelected];
+//    
+//    CGRect frame = self.gppSigninButton.frame;
+//    frame.size.width = 430;
+//    self.gppSigninButton.frame = frame;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,14 +78,81 @@
 
 - (IBAction)onFacebook
 {
+    NSLog(@"loginWithFB");
+    ACAccountStore * storeAccount = [[ACAccountStore alloc]init];
+    
+    
+    ACAccountType *facebookAccountType = [storeAccount accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    NSDictionary *options = @{ACFacebookAppIdKey : FBAppID,
+                              ACFacebookPermissionsKey : @[ @"email", @"read_friendlists"],
+                              ACFacebookAudienceKey:ACFacebookAudienceFriends};
+    
+    [storeAccount requestAccessToAccountsWithType:facebookAccountType
+                                          options:options
+                                       completion:^(BOOL granted, NSError *error) {
+                                           if (granted)
+                                           {
+                                               // At this point we can assume that we have access to the Facebook account
+                                               NSArray *accounts = [storeAccount accountsWithAccountType:facebookAccountType];
+                                               
+                                               // Optionally save the account
+                                               [storeAccount saveAccount:[accounts lastObject] withCompletionHandler:nil];
+                                               
+                                               [self getFacebookProfile:[accounts lastObject]];
+                                               
+                                               NSLog(@"facebook account = %@",[accounts lastObject]);
+                                           }
+                                           else
+                                           {
+                                               [self signInWithFBApp];
+                                           }
+                                       }];
 }
 
 - (IBAction)onTwitter
 {
+    UIViewController *loginController = [[FHSTwitterEngine sharedEngine]loginControllerWithCompletionHandler:^(BOOL success) {
+        if (success)
+        {
+            NSLog(@"Twitter login success");
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSString* tid = [FHSTwitterEngine sharedEngine].authenticatedID;
+                NSString* username = [FHSTwitterEngine sharedEngine].authenticatedUsername;
+                
+                NSLog(@"Twitter ID %@", tid);
+                NSLog(@"Twitter username %@", username);
+                
+                User* user = [User getUserByTwitterSync:tid];
+                
+                if (user != nil) [self loginWithUser:user];
+                else
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        User*  user = [[User alloc] init];
+                        user.TwitterID = tid;
+                        user.Username = username;
+                        
+                        SignupVC* vc = (SignupVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"SignupVC"];
+                        vc.prefilleddUser = user;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    });
+                }
+            });
+        }
+        else
+        {
+            NSLog(@"Twitter login failure");
+        }
+    }];
+    [self presentViewController:loginController animated:YES completion:nil];
+
 }
 
 - (IBAction)onGooglePlus
 {
+    NSLog(@"Start Google Login");
+    //[GPPSignIn sharedInstance]
 }
 
 - (IBAction)onSignin
@@ -161,5 +261,192 @@
 
 }
 
+#pragma mark - Social Login
 
+
+#pragma mark - Facebook
+- (void)signInWithFBApp
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // If the session state is any of the two "open" states when the button is clicked
+        if (FBSession.activeSession.state == FBSessionStateOpen
+            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+            
+            // Close the session and remove the access token from the cache
+            // The session state handler (in the app delegate) will be called automatically
+            [FBSession.activeSession closeAndClearTokenInformation];
+            
+            // If the session state is not any of the two "open" states when the button is clicked
+        } else {
+            // Open a session showing the user the login UI
+            // You must ALWAYS ask for public_profile permissions when opening a session
+            [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"]
+                                               allowLoginUI:YES
+                                          completionHandler:
+             ^(FBSession *session, FBSessionState state, NSError *error) {
+                 
+                 if (session.isOpen) {
+                     
+                     [[FBRequest requestForMe] startWithCompletionHandler:
+                      ^(FBRequestConnection *connection,
+                        NSDictionary<FBGraphUser> *user,
+                        NSError *error) {
+                          if (!error) {
+                              NSMutableDictionary *mdict = (NSMutableDictionary*)user;
+                              
+                              [self loginFBUser:mdict];
+                          }
+                          else
+                          {
+                              NSLog(@"Error in FBRequest");
+                          }
+                      }];
+                 }
+             }];
+        }
+        
+    });
+}
+
+- (void)getFacebookProfile:(ACAccount*)fbAccount{
+    NSURL *meurl = [NSURL URLWithString:@"https://graph.facebook.com/me"];
+    
+    SLRequest *merequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                              requestMethod:SLRequestMethodGET
+                                                        URL:meurl
+                                                 parameters:nil];
+    
+    merequest.account = fbAccount;
+    
+    [merequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        if (!error) {
+            NSError* error;
+            NSMutableDictionary *mdict = [NSJSONSerialization JSONObjectWithData:responseData
+                                                                         options:kNilOptions
+                                                                           error:&error];
+            [self loginFBUser:mdict];
+        }
+        else
+        {
+            NSLog(@"Error in FBRequest");
+        }
+        
+    }];
+    
+}
+
+-(void)loginFBUser:(NSMutableDictionary*)mDictUserInfo
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString* fid = mDictUserInfo[@"id"];
+        NSString* gender = mDictUserInfo[@"gender"];
+        NSString* name = mDictUserInfo[@"name"];
+        
+        if ([gender isEqual:@"male"]) gender = @"M";
+        else gender = @"F";
+        
+        NSLog(@"Facebook User Info: %@", mDictUserInfo);
+        
+        User* user = [User getUserByFacebookSync:fid];
+        
+        if (user != nil) [self loginWithUser:user];
+        else
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                User*  user = [[User alloc] init];
+                user.FacebookID = fid;
+                user.Gender = gender;
+                user.Username = name;
+                
+                SignupVC* vc = (SignupVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"SignupVC"];
+                vc.prefilleddUser = user;
+                [self.navigationController pushViewController:vc animated:YES];
+            });
+        }
+    });
+}
+
+#pragma mark - Google plus
+- (void)finishedWithAuth: (GTMOAuth2Authentication *)auth
+                   error: (NSError *) error
+{
+    NSLog(@"Received error %@ and auth object %@",error, auth);
+    
+    if (error) {
+        // Do some error handling here.
+    } else {
+        GTLQueryPlus *query = [GTLQueryPlus queryForPeopleGetWithUserId:@"me"];
+        
+        NSLog(@"email %@ ", [NSString stringWithFormat:@"Email: %@",[GPPSignIn sharedInstance].authentication.userEmail]);
+        NSLog(@"Received error %@ and auth object %@",error, auth);
+        
+        // 1. Create a |GTLServicePlus| instance to send a request to Google+.
+        GTLServicePlus* plusService = [[GTLServicePlus alloc] init] ;
+        plusService.retryEnabled = YES;
+        
+        // 2. Set a valid |GTMOAuth2Authentication| object as the authorizer.
+        [plusService setAuthorizer:[GPPSignIn sharedInstance].authentication];
+        
+        // 3. Use the "v1" version of the Google+ API.*
+        plusService.apiVersion = @"v1";
+        [plusService executeQuery:query
+                completionHandler:^(GTLServiceTicket *ticket,
+                                    GTLPlusPerson *person,
+                                    NSError *error) {
+                    if (error) {
+                        //Handle Error
+                    } else {
+                        NSLog(@"Email= %@", [GPPSignIn sharedInstance].authentication.userEmail);
+                        NSLog(@"GoogleID=%@", person.identifier);
+                        NSLog(@"User Name=%@", [person.name.givenName stringByAppendingFormat:@" %@", person.name.familyName]);
+                        NSLog(@"Gender=%@", person.gender);
+                        
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            NSString* gid = person.identifier;
+                            NSString* gender = person.gender;
+                            NSString* name = [person.name.givenName stringByAppendingFormat:@" %@", person.name.familyName];
+                            NSString* email = [GPPSignIn sharedInstance].authentication.userEmail;
+                            
+                            if ([gender isEqual:@"male"]) gender = @"M";
+                            else gender = @"F";
+                            
+                            User* user = [User getUserByGooglePlusSync:gid];
+                            
+                            if (user != nil) [self loginWithUser:user];
+                            else
+                            {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    User*  user = [[User alloc] init];
+                                    user.GoogleID = gid;
+                                    user.Gender = gender;
+                                    user.Username = name;
+                                    user.Email = email;
+                                    
+                                    SignupVC* vc = (SignupVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"SignupVC"];
+                                    vc.prefilleddUser = user;
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                });
+                            }
+                        });
+                        
+                    }
+                }];
+    }
+}
+
+- (void)presentSignInViewController:(UIViewController *)viewController {
+    // This is an example of how you can implement it if your app is navigation-based.
+    //    [[self navigationController] pushViewController:viewController animated:YES];
+    
+    NSLog(@"Present Sign in");
+}
+
+
+#pragma mark -
+
+- (void) loginWithUser:(User*)user
+{
+    
+}
 @end
