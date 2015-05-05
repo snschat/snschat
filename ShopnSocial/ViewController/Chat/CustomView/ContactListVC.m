@@ -53,6 +53,13 @@
     
 }
 
+- (void) setContactListData:(NSArray *) _listData
+{
+    contactListData = [NSMutableArray arrayWithArray: _listData];
+    [self.tableView reloadData];
+}
+
+#pragma mark UITableViewDelegate
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete;
@@ -106,9 +113,14 @@
     return cell;
 }
 
-- (void) setContactListData:(NSArray *) _listData
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    contactListData = [NSMutableArray arrayWithArray: _listData];
-    [self.tableView reloadData];
+    if(self.delegate)
+    {
+        id data = [contactListData objectAtIndex: indexPath.row];
+        [self.delegate onContactSelected: data];
+    }
 }
+
+
 @end

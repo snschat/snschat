@@ -8,10 +8,9 @@
 
 #import "ChatVC.h"
 #import "ExUIView+Mask.h"
+#import "ExUIView+Border.h"
 #import "FXBlurView.h"
-#import "ContactListVC.h"
 #import "MessageInputVC.h"
-#import "GroupVC.h"
 #import "SharedProductVC.h"
 
 @interface ChatVC ()
@@ -56,7 +55,7 @@
     UIColor * color = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0f];
     [self.view addGlowLayer:0.02 :0 :0 :0.02 :[NSArray arrayWithObjects:color, color, color, color, nil]];
     
-    //    self.mainBoard.hidden = YES;
+    self.mainBoard.hidden = YES;
     
     /* 
      * Contact view setting.
@@ -87,6 +86,9 @@
     [self addChildViewController: productVC];
     [self.sharedBoard addSubview: productVC.view];
     [productVC didMoveToParentViewController: self];
+    
+    [self.sharedBoard border:1.0f color:[UIColor lightGrayColor]];
+    
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -166,6 +168,7 @@
         if(contactVC == nil)
         {
             contactVC = [[ContactListVC alloc] initWithNibName: @"ContactListVC" bundle:[NSBundle mainBundle]];
+            contactVC.delegate = self;
             isNew = true;
         }
         newVC = contactVC;
@@ -176,6 +179,7 @@
         if(groupVC == nil)
         {
             groupVC = [[GroupVC alloc] initWithNibName:@"GroupVC" bundle:[NSBundle mainBundle]];
+            groupVC.delegate = self;
             isNew = true;
         }
         newVC = groupVC;
@@ -196,6 +200,18 @@
 #pragma mark Profile Callback
 - (IBAction)onProfileSettingTouched:(id)sender {
     
+}
+
+#pragma mark ContactListVCDelegate
+- (void) onContactSelected:(id) contact
+{
+    self.mainBoard.hidden = NO;
+}
+
+#pragma mark GroupVCDelegate
+- (void) onGroupSelected:(id) group
+{
+    self.mainBoard.hidden = NO;
 }
 
 @end

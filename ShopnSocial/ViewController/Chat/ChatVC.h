@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ContactTabBar.h"
-@interface ChatVC : UIViewController<ContactTabBarDelegate>
+#import "ContactListVC.h"
+#import "GroupVC.h"
+
+@interface ChatVC : UIViewController<ContactTabBarDelegate, ContactListVCDelegate, GroupVCDelegate>
 
 //TapBar control
 @property (weak, nonatomic) IBOutlet UIView *m_tabbarContainer;

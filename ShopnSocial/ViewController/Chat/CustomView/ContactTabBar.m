@@ -76,11 +76,15 @@
         {
             view = [self.tabView objectAtIndex: i];
             view.backgroundColor = [UIColor clearColor];
-            
-            CALayer * layer = [view addGlowLayer:0.05 :0.05 :0.1 :0.2 :array];
-            view.glowLayer = layer;
-
-            
+            if(!view.glowLayer)
+            {
+                CALayer * layer = [view addGlowLayer:0.05 :0.05 :0.1 :0.2 :array];
+                view.glowLayer = layer;
+            }
+            else
+            {
+                [view.layer addSublayer: view.glowLayer];
+            }
         }
     }
 }
