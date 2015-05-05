@@ -20,6 +20,7 @@
 #import <Twitter/Twitter.h>
 
 #import "Constants.h"
+#import "Global.h"
 #import "User.h"
 #import "SignupVC.h"
 
@@ -79,8 +80,10 @@
 - (IBAction)onFacebook
 {
     NSLog(@"loginWithFB");
-    ACAccountStore * storeAccount = [[ACAccountStore alloc]init];
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    ACAccountStore * storeAccount = [[ACAccountStore alloc]init];
     
     ACAccountType *facebookAccountType = [storeAccount accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     NSDictionary *options = @{ACFacebookAppIdKey : FBAppID,
@@ -111,6 +114,8 @@
 
 - (IBAction)onTwitter
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     UIViewController *loginController = [[FHSTwitterEngine sharedEngine]loginControllerWithCompletionHandler:^(BOOL success) {
         if (success)
         {
@@ -133,6 +138,8 @@
                         user.TwitterID = tid;
                         user.Username = username;
                         
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        
                         SignupVC* vc = (SignupVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"SignupVC"];
                         vc.prefilleddUser = user;
                         [self.navigationController pushViewController:vc animated:YES];
@@ -152,14 +159,15 @@
 - (IBAction)onGooglePlus
 {
     NSLog(@"Start Google Login");
-    //[GPPSignIn sharedInstance]
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (IBAction)onSignin
 {
     if (self.loginUsername.text.length == 0 ||
         self.loginPassword.text.length == 0) {
-        [self showLoginLockedMessage];
+        [self showLoginIncorrectMessage];
         
         return;
     }
@@ -177,18 +185,16 @@
         if (user == nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showLoginIncorrectMessage];
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         }
         else {
+            [Global sharedGlobal].LoginedUserEmail = self.loginUsername.text;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self onLoginSuccess];
             });
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-
     });
 }
 
@@ -202,6 +208,12 @@
 - (void)onLoginSuccess
 {
     NSLog(@"Login Successed - %@", [User currentUser]);
+ 
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];
+        [self.navigationController pushViewController:vc animated:YES];
+    });
 }
 
 #pragma mark -
@@ -300,6 +312,9 @@
                           else
                           {
                               NSLog(@"Error in FBRequest");
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
+                              });
                           }
                       }];
                  }
@@ -330,6 +345,10 @@
         else
         {
             NSLog(@"Error in FBRequest");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+
         }
         
     }];
@@ -359,6 +378,8 @@
                 user.Gender = gender;
                 user.Username = name;
                 
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                
                 SignupVC* vc = (SignupVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"SignupVC"];
                 vc.prefilleddUser = user;
                 [self.navigationController pushViewController:vc animated:YES];
@@ -374,7 +395,9 @@
     NSLog(@"Received error %@ and auth object %@",error, auth);
     
     if (error) {
-        // Do some error handling here.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     } else {
         GTLQueryPlus *query = [GTLQueryPlus queryForPeopleGetWithUserId:@"me"];
         
@@ -396,6 +419,7 @@
                                     NSError *error) {
                     if (error) {
                         //Handle Error
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
                     } else {
                         NSLog(@"Email= %@", [GPPSignIn sharedInstance].authentication.userEmail);
                         NSLog(@"GoogleID=%@", person.identifier);
@@ -423,6 +447,8 @@
                                     user.Username = name;
                                     user.Email = email;
                                     
+                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                    
                                     SignupVC* vc = (SignupVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"SignupVC"];
                                     vc.prefilleddUser = user;
                                     [self.navigationController pushViewController:vc animated:YES];
@@ -447,6 +473,9 @@
 
 - (void) loginWithUser:(User*)user
 {
-    
+    [Global sharedGlobal].LoginedUserEmail = user.Email;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self onLoginSuccess];
+    });
 }
 @end

@@ -14,6 +14,7 @@
 #import "ExNSDate.h"
 #import "MBProgressHUD.h"
 
+#import "Global.h"
 #import "Country.h"
 #import "User.h"
 
@@ -222,7 +223,8 @@
     
     [self hideMessage:YES];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+    {
         User* newUser = [self checkValidationAllSync];
         
         NSLog(@"check done -------------- ");
@@ -246,6 +248,8 @@
             newUser.qbuUser = qbuUser;
             
             [User setCurrentUser:newUser];
+            
+            [Global sharedGlobal].LoginedUserEmail = newUser.Password;
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{

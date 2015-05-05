@@ -54,6 +54,7 @@
 		DDA1E2D91AF775FB001E5CC5 /* YIInnerShadowLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1E2D61AF775FB001E5CC5 /* YIInnerShadowLayer.m */; };
 		DDA1E2DA1AF775FB001E5CC5 /* YIInnerShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1E2D81AF775FB001E5CC5 /* YIInnerShadowView.m */; };
 		DDA1E2DE1AF78428001E5CC5 /* BrowserHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1E2DD1AF78428001E5CC5 /* BrowserHomeVC.m */; };
+		DDA1E2E31AF860ED001E5CC5 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1E2E21AF860ED001E5CC5 /* Global.m */; };
 		DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CC51AE784F100759DCF /* SignupVC.m */; };
 		DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC81AE7B21D00759DCF /* privacy.html */; };
 		DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC91AE7B21D00759DCF /* terms.html */; };
@@ -81,7 +82,6 @@
 		DD17E3911AF6876400B2C3DF /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		DD17E3A01AF68C1500B2C3DF /* FHSTwitterEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FHSTwitterEngine.h; sourceTree = "<group>"; };
 		DD17E3A11AF68C1500B2C3DF /* FHSTwitterEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FHSTwitterEngine.m; sourceTree = "<group>"; };
-		DD17E3A41AF68CF600B2C3DF /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		DD17E3A51AF68E1D00B2C3DF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		DD17E3A71AF68E3E00B2C3DF /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		DD17E3A91AF68E5A00B2C3DF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
@@ -141,6 +141,9 @@
 		DDA1E2D81AF775FB001E5CC5 /* YIInnerShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YIInnerShadowView.m; sourceTree = "<group>"; };
 		DDA1E2DC1AF78428001E5CC5 /* BrowserHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserHomeVC.h; sourceTree = "<group>"; };
 		DDA1E2DD1AF78428001E5CC5 /* BrowserHomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserHomeVC.m; sourceTree = "<group>"; };
+		DDA1E2E01AF860DC001E5CC5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		DDA1E2E11AF860ED001E5CC5 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		DDA1E2E21AF860ED001E5CC5 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		DDC47CC41AE784F100759DCF /* SignupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupVC.h; sourceTree = "<group>"; };
 		DDC47CC51AE784F100759DCF /* SignupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupVC.m; sourceTree = "<group>"; };
 		DDC47CC81AE7B21D00759DCF /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
@@ -228,14 +231,6 @@
 			path = FHSTwitterEngine;
 			sourceTree = "<group>";
 		};
-		DD17E3A31AF68CDB00B2C3DF /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				DD17E3A41AF68CF600B2C3DF /* Constants.h */,
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
 		DD17E3AD1AF68EAE00B2C3DF /* GoogleSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,9 +314,9 @@
 		DD7C213F1AE6870D00BEB3B0 /* ShopnSocial */ = {
 			isa = PBXGroup;
 			children = (
-				DD17E3A31AF68CDB00B2C3DF /* Constants */,
 				DD8D48E21AF1C8BB00811436 /* Frameworks */,
 				DDC47CC71AE7B21200759DCF /* Resource */,
+				DDA1E2DF1AF860DC001E5CC5 /* Global */,
 				DD7009531AE690AD00878EE7 /* Utilities */,
 				DD8D48E71AF1CAA500811436 /* Models */,
 				DD70094E1AE68F5E00878EE7 /* ViewController */,
@@ -426,6 +421,16 @@
 				DDA1E2DD1AF78428001E5CC5 /* BrowserHomeVC.m */,
 			);
 			path = Browser;
+			sourceTree = "<group>";
+		};
+		DDA1E2DF1AF860DC001E5CC5 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				DDA1E2E01AF860DC001E5CC5 /* Constants.h */,
+				DDA1E2E11AF860ED001E5CC5 /* Global.h */,
+				DDA1E2E21AF860ED001E5CC5 /* Global.m */,
+			);
+			path = Global;
 			sourceTree = "<group>";
 		};
 		DDC47CC71AE7B21200759DCF /* Resource */ = {
@@ -557,6 +562,7 @@
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
 				DD7C21431AE6870D00BEB3B0 /* main.m in Sources */,
 				DD7009591AE6931400878EE7 /* Reachability.m in Sources */,
+				DDA1E2E31AF860ED001E5CC5 /* Global.m in Sources */,
 				DDC47CD11AE7B68F00759DCF /* PrivacyVC.m in Sources */,
 				DD17E38A1AF6233700B2C3DF /* MBProgressHUD.m in Sources */,
 				DD17E3A21AF68C1500B2C3DF /* FHSTwitterEngine.m in Sources */,

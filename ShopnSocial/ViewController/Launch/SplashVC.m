@@ -9,6 +9,9 @@
 #import "SplashVC.h"
 #import "ExNetwork.h"
 
+#import "Global.h"
+#import "User.h"
+
 @interface SplashVC ()
 {
     bool isReachableInternet;
@@ -86,11 +89,32 @@
 {
     NSLog(@"go to next");
     
-    UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-    
-    //[self presentViewController:vc animated:NO completion:nil];
-    
-    [self.navigationController pushViewController:vc animated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString* useremail = [Global sharedGlobal].LoginedUserEmail;
+
+        if (useremail != nil)
+        {
+            User* user = [User getUserByEmailSync:useremail];
+            
+            if (user != nil)
+            {
+                NSString* qusername = user.Email;
+                NSString* qpassword = user.QPassword;
+                
+                QBUUser* qbuUser = [User loginQBUUserSync:qusername password:qpassword];
+                user.qbuUser = qbuUser;
+                [User setCurrentUser:user];
+                
+                UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];
+                [self.navigationController pushViewController:vc animated:YES];
+                
+                return;
+            }
+        }
+        
+        UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+        [self.navigationController pushViewController:vc animated:YES];
+    });
 }
 
 - (void) showInternet
