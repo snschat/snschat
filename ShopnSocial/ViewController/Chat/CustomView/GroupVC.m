@@ -93,6 +93,7 @@
 {
     return UITableViewCellEditingStyleDelete;
 }
+
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
@@ -100,5 +101,12 @@
         //TODO: Delete group
     }
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.delegate)
+    {
+        id data = [groupListData objectAtIndex: indexPath.row];
+        [self.delegate onGroupSelected: data];
+    }
+}
 @end
