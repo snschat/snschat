@@ -11,5 +11,4 @@
 @interface UIView (exBorder)
 
 - (void) border:(float) width color:(UIColor*) color;
-
 @end

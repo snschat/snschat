@@ -12,5 +12,5 @@
 
 - (float) fitHeight;
 - (float) expectedHeight;
-
++(float) expectedHeight:(CGFloat) width :(UIFont *) font :(NSString *)text;
 @end

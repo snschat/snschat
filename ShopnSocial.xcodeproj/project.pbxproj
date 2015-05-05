@@ -27,6 +27,30 @@
 		DD17E3BE1AF6902800B2C3DF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3B81AF68F6700B2C3DF /* AssetsLibrary.framework */; };
 		DD17E3C01AF6903600B2C3DF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3BF1AF6903600B2C3DF /* AVFoundation.framework */; };
 		DD17E3C21AF6905900B2C3DF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3C11AF6905900B2C3DF /* MediaPlayer.framework */; };
+		DD20FB311AF89852000BAF7F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB2E1AF89852000BAF7F /* Message.m */; };
+		DD20FB321AF89852000BAF7F /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB301AF89852000BAF7F /* Product.m */; };
+		DD20FB541AF8985F000BAF7F /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB351AF8985F000BAF7F /* ChatVC.m */; };
+		DD20FB551AF8985F000BAF7F /* ChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB381AF8985F000BAF7F /* ChatMessageCell.m */; };
+		DD20FB561AF8985F000BAF7F /* ChatMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB391AF8985F000BAF7F /* ChatMessageCell.xib */; };
+		DD20FB571AF8985F000BAF7F /* ContactListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB3B1AF8985F000BAF7F /* ContactListCell.m */; };
+		DD20FB581AF8985F000BAF7F /* ContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB3C1AF8985F000BAF7F /* ContactListCell.xib */; };
+		DD20FB591AF8985F000BAF7F /* ContactListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB3E1AF8985F000BAF7F /* ContactListVC.m */; };
+		DD20FB5A1AF8985F000BAF7F /* ContactListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB3F1AF8985F000BAF7F /* ContactListVC.xib */; };
+		DD20FB5B1AF8985F000BAF7F /* ContactTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB411AF8985F000BAF7F /* ContactTabBar.m */; };
+		DD20FB5C1AF8985F000BAF7F /* ContactTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB421AF8985F000BAF7F /* ContactTabBar.xib */; };
+		DD20FB5D1AF8985F000BAF7F /* ContactTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB441AF8985F000BAF7F /* ContactTabBarItem.m */; };
+		DD20FB5E1AF8985F000BAF7F /* GroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB461AF8985F000BAF7F /* GroupVC.m */; };
+		DD20FB5F1AF8985F000BAF7F /* GroupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB471AF8985F000BAF7F /* GroupVC.xib */; };
+		DD20FB601AF8985F000BAF7F /* MessageInputVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB491AF8985F000BAF7F /* MessageInputVC.m */; };
+		DD20FB611AF8985F000BAF7F /* MessageInputVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB4A1AF8985F000BAF7F /* MessageInputVC.xib */; };
+		DD20FB621AF8985F000BAF7F /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB4C1AF8985F000BAF7F /* ProductCell.m */; };
+		DD20FB631AF8985F000BAF7F /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB4D1AF8985F000BAF7F /* ProductCell.xib */; };
+		DD20FB641AF8985F000BAF7F /* SharedProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB4F1AF8985F000BAF7F /* SharedProductVC.m */; };
+		DD20FB651AF8985F000BAF7F /* SharedProductVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB501AF8985F000BAF7F /* SharedProductVC.xib */; };
+		DD20FB661AF8985F000BAF7F /* StatusOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB521AF8985F000BAF7F /* StatusOptionView.m */; };
+		DD20FB671AF8985F000BAF7F /* StatusOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD20FB531AF8985F000BAF7F /* StatusOptionView.xib */; };
+		DD20FB6E1AF89883000BAF7F /* ExUIView+Mask.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB6A1AF89883000BAF7F /* ExUIView+Mask.m */; };
+		DD20FB6F1AF89883000BAF7F /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB6D1AF89883000BAF7F /* FXBlurView.m */; };
 		DD7009521AE6902800878EE7 /* SplashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009511AE6902800878EE7 /* SplashVC.m */; };
 		DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009551AE6927700878EE7 /* ExNetwork.m */; };
 		DD7009591AE6931400878EE7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009581AE6931400878EE7 /* Reachability.m */; };
@@ -94,6 +118,45 @@
 		DD17E3BA1AF68F7200B2C3DF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DD17E3BF1AF6903600B2C3DF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DD17E3C11AF6905900B2C3DF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		DD20FB2D1AF89852000BAF7F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		DD20FB2E1AF89852000BAF7F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		DD20FB2F1AF89852000BAF7F /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		DD20FB301AF89852000BAF7F /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		DD20FB341AF8985F000BAF7F /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
+		DD20FB351AF8985F000BAF7F /* ChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
+		DD20FB371AF8985F000BAF7F /* ChatMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageCell.h; sourceTree = "<group>"; };
+		DD20FB381AF8985F000BAF7F /* ChatMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageCell.m; sourceTree = "<group>"; };
+		DD20FB391AF8985F000BAF7F /* ChatMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatMessageCell.xib; sourceTree = "<group>"; };
+		DD20FB3A1AF8985F000BAF7F /* ContactListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListCell.h; sourceTree = "<group>"; };
+		DD20FB3B1AF8985F000BAF7F /* ContactListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListCell.m; sourceTree = "<group>"; };
+		DD20FB3C1AF8985F000BAF7F /* ContactListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListCell.xib; sourceTree = "<group>"; };
+		DD20FB3D1AF8985F000BAF7F /* ContactListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListVC.h; sourceTree = "<group>"; };
+		DD20FB3E1AF8985F000BAF7F /* ContactListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListVC.m; sourceTree = "<group>"; };
+		DD20FB3F1AF8985F000BAF7F /* ContactListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListVC.xib; sourceTree = "<group>"; };
+		DD20FB401AF8985F000BAF7F /* ContactTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTabBar.h; sourceTree = "<group>"; };
+		DD20FB411AF8985F000BAF7F /* ContactTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTabBar.m; sourceTree = "<group>"; };
+		DD20FB421AF8985F000BAF7F /* ContactTabBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTabBar.xib; sourceTree = "<group>"; };
+		DD20FB431AF8985F000BAF7F /* ContactTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTabBarItem.h; sourceTree = "<group>"; };
+		DD20FB441AF8985F000BAF7F /* ContactTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTabBarItem.m; sourceTree = "<group>"; };
+		DD20FB451AF8985F000BAF7F /* GroupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupVC.h; sourceTree = "<group>"; };
+		DD20FB461AF8985F000BAF7F /* GroupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupVC.m; sourceTree = "<group>"; };
+		DD20FB471AF8985F000BAF7F /* GroupVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupVC.xib; sourceTree = "<group>"; };
+		DD20FB481AF8985F000BAF7F /* MessageInputVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInputVC.h; sourceTree = "<group>"; };
+		DD20FB491AF8985F000BAF7F /* MessageInputVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInputVC.m; sourceTree = "<group>"; };
+		DD20FB4A1AF8985F000BAF7F /* MessageInputVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageInputVC.xib; sourceTree = "<group>"; };
+		DD20FB4B1AF8985F000BAF7F /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		DD20FB4C1AF8985F000BAF7F /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		DD20FB4D1AF8985F000BAF7F /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
+		DD20FB4E1AF8985F000BAF7F /* SharedProductVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedProductVC.h; sourceTree = "<group>"; };
+		DD20FB4F1AF8985F000BAF7F /* SharedProductVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedProductVC.m; sourceTree = "<group>"; };
+		DD20FB501AF8985F000BAF7F /* SharedProductVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedProductVC.xib; sourceTree = "<group>"; };
+		DD20FB511AF8985F000BAF7F /* StatusOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusOptionView.h; sourceTree = "<group>"; };
+		DD20FB521AF8985F000BAF7F /* StatusOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusOptionView.m; sourceTree = "<group>"; };
+		DD20FB531AF8985F000BAF7F /* StatusOptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusOptionView.xib; sourceTree = "<group>"; };
+		DD20FB691AF89883000BAF7F /* ExUIView+Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ExUIView+Mask.h"; sourceTree = "<group>"; };
+		DD20FB6A1AF89883000BAF7F /* ExUIView+Mask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ExUIView+Mask.m"; sourceTree = "<group>"; };
+		DD20FB6C1AF89883000BAF7F /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		DD20FB6D1AF89883000BAF7F /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		DD7009501AE6902800878EE7 /* SplashVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashVC.h; sourceTree = "<group>"; };
 		DD7009511AE6902800878EE7 /* SplashVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashVC.m; sourceTree = "<group>"; };
 		DD7009541AE6927700878EE7 /* ExNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExNetwork.h; sourceTree = "<group>"; };
@@ -241,9 +304,74 @@
 			path = GoogleSDK;
 			sourceTree = "<group>";
 		};
+		DD20FB331AF8985F000BAF7F /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				DD20FB341AF8985F000BAF7F /* ChatVC.h */,
+				DD20FB351AF8985F000BAF7F /* ChatVC.m */,
+				DD20FB361AF8985F000BAF7F /* CustomView */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		DD20FB361AF8985F000BAF7F /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				DD20FB371AF8985F000BAF7F /* ChatMessageCell.h */,
+				DD20FB381AF8985F000BAF7F /* ChatMessageCell.m */,
+				DD20FB391AF8985F000BAF7F /* ChatMessageCell.xib */,
+				DD20FB3A1AF8985F000BAF7F /* ContactListCell.h */,
+				DD20FB3B1AF8985F000BAF7F /* ContactListCell.m */,
+				DD20FB3C1AF8985F000BAF7F /* ContactListCell.xib */,
+				DD20FB3D1AF8985F000BAF7F /* ContactListVC.h */,
+				DD20FB3E1AF8985F000BAF7F /* ContactListVC.m */,
+				DD20FB3F1AF8985F000BAF7F /* ContactListVC.xib */,
+				DD20FB401AF8985F000BAF7F /* ContactTabBar.h */,
+				DD20FB411AF8985F000BAF7F /* ContactTabBar.m */,
+				DD20FB421AF8985F000BAF7F /* ContactTabBar.xib */,
+				DD20FB431AF8985F000BAF7F /* ContactTabBarItem.h */,
+				DD20FB441AF8985F000BAF7F /* ContactTabBarItem.m */,
+				DD20FB451AF8985F000BAF7F /* GroupVC.h */,
+				DD20FB461AF8985F000BAF7F /* GroupVC.m */,
+				DD20FB471AF8985F000BAF7F /* GroupVC.xib */,
+				DD20FB481AF8985F000BAF7F /* MessageInputVC.h */,
+				DD20FB491AF8985F000BAF7F /* MessageInputVC.m */,
+				DD20FB4A1AF8985F000BAF7F /* MessageInputVC.xib */,
+				DD20FB4B1AF8985F000BAF7F /* ProductCell.h */,
+				DD20FB4C1AF8985F000BAF7F /* ProductCell.m */,
+				DD20FB4D1AF8985F000BAF7F /* ProductCell.xib */,
+				DD20FB4E1AF8985F000BAF7F /* SharedProductVC.h */,
+				DD20FB4F1AF8985F000BAF7F /* SharedProductVC.m */,
+				DD20FB501AF8985F000BAF7F /* SharedProductVC.xib */,
+				DD20FB511AF8985F000BAF7F /* StatusOptionView.h */,
+				DD20FB521AF8985F000BAF7F /* StatusOptionView.m */,
+				DD20FB531AF8985F000BAF7F /* StatusOptionView.xib */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		DD20FB681AF89883000BAF7F /* ExUIView+Mask */ = {
+			isa = PBXGroup;
+			children = (
+				DD20FB691AF89883000BAF7F /* ExUIView+Mask.h */,
+				DD20FB6A1AF89883000BAF7F /* ExUIView+Mask.m */,
+			);
+			path = "ExUIView+Mask";
+			sourceTree = "<group>";
+		};
+		DD20FB6B1AF89883000BAF7F /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				DD20FB6C1AF89883000BAF7F /* FXBlurView.h */,
+				DD20FB6D1AF89883000BAF7F /* FXBlurView.m */,
+			);
+			path = FXBlurView;
+			sourceTree = "<group>";
+		};
 		DD70094E1AE68F5E00878EE7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				DD20FB331AF8985F000BAF7F /* Chat */,
 				DDA1E2DB1AF7840B001E5CC5 /* Browser */,
 				DD70094F1AE6900800878EE7 /* Launch */,
 			);
@@ -274,6 +402,8 @@
 		DD7009531AE690AD00878EE7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DD20FB681AF89883000BAF7F /* ExUIView+Mask */,
+				DD20FB6B1AF89883000BAF7F /* FXBlurView */,
 				DDA1E2D41AF775FB001E5CC5 /* YIInnerShadow */,
 				DDA1E2D01AF77474001E5CC5 /* TabButton */,
 				DD17E3871AF6233700B2C3DF /* MBProgressHUD */,
@@ -384,6 +514,10 @@
 		DD8D48E71AF1CAA500811436 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DD20FB2D1AF89852000BAF7F /* Message.h */,
+				DD20FB2E1AF89852000BAF7F /* Message.m */,
+				DD20FB2F1AF89852000BAF7F /* Product.h */,
+				DD20FB301AF89852000BAF7F /* Product.m */,
 				DD8D48EA1AF1CCB300811436 /* Country.h */,
 				DD8D48EB1AF1CCB300811436 /* Country.m */,
 				DD9C85471AF4661F00E32CE3 /* User.h */,
@@ -522,9 +656,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD20FB631AF8985F000BAF7F /* ProductCell.xib in Resources */,
+				DD20FB5C1AF8985F000BAF7F /* ContactTabBar.xib in Resources */,
+				DD20FB611AF8985F000BAF7F /* MessageInputVC.xib in Resources */,
 				DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */,
 				DD7C214C1AE6870D00BEB3B0 /* Main.storyboard in Resources */,
+				DD20FB651AF8985F000BAF7F /* SharedProductVC.xib in Resources */,
+				DD20FB671AF8985F000BAF7F /* StatusOptionView.xib in Resources */,
+				DD20FB5F1AF8985F000BAF7F /* GroupVC.xib in Resources */,
 				DD7C21511AE6870D00BEB3B0 /* LaunchScreen.xib in Resources */,
+				DD20FB5A1AF8985F000BAF7F /* ContactListVC.xib in Resources */,
+				DD20FB561AF8985F000BAF7F /* ChatMessageCell.xib in Resources */,
+				DD20FB581AF8985F000BAF7F /* ContactListCell.xib in Resources */,
 				DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */,
 				DD17E3B21AF68EAE00B2C3DF /* GooglePlus.bundle in Resources */,
 				DD7C214E1AE6870D00BEB3B0 /* Images.xcassets in Resources */,
@@ -546,17 +689,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDA1E2DE1AF78428001E5CC5 /* BrowserHomeVC.m in Sources */,
+				DD20FB661AF8985F000BAF7F /* StatusOptionView.m in Sources */,
 				DD8D48EC1AF1CCB300811436 /* Country.m in Sources */,
+				DD20FB5B1AF8985F000BAF7F /* ContactTabBar.m in Sources */,
 				DDA1E2D31AF77474001E5CC5 /* TabButton.m in Sources */,
+				DD20FB6E1AF89883000BAF7F /* ExUIView+Mask.m in Sources */,
+				DD20FB5D1AF8985F000BAF7F /* ContactTabBarItem.m in Sources */,
+				DD20FB641AF8985F000BAF7F /* SharedProductVC.m in Sources */,
+				DD20FB621AF8985F000BAF7F /* ProductCell.m in Sources */,
+				DD20FB551AF8985F000BAF7F /* ChatMessageCell.m in Sources */,
+				DD20FB5E1AF8985F000BAF7F /* GroupVC.m in Sources */,
 				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
+				DD20FB541AF8985F000BAF7F /* ChatVC.m in Sources */,
 				DDF875931AF0B731006181E5 /* ExNSString.m in Sources */,
 				DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */,
 				DD9C85491AF4661F00E32CE3 /* User.m in Sources */,
 				DDA1E2DA1AF775FB001E5CC5 /* YIInnerShadowView.m in Sources */,
 				DDA1E2D91AF775FB001E5CC5 /* YIInnerShadowLayer.m in Sources */,
+				DD20FB601AF8985F000BAF7F /* MessageInputVC.m in Sources */,
 				DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */,
+				DD20FB571AF8985F000BAF7F /* ContactListCell.m in Sources */,
 				DDC47CCE1AE7B39800759DCF /* TermsVC.m in Sources */,
+				DD20FB311AF89852000BAF7F /* Message.m in Sources */,
+				DD20FB321AF89852000BAF7F /* Product.m in Sources */,
 				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
+				DD20FB591AF8985F000BAF7F /* ContactListVC.m in Sources */,
 				DD9C85521AF521A200E32CE3 /* ExNSDate.m in Sources */,
 				DD17E38D1AF64B8800B2C3DF /* QBUser.m in Sources */,
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
@@ -568,6 +725,7 @@
 				DD17E3A21AF68C1500B2C3DF /* FHSTwitterEngine.m in Sources */,
 				DD9C854F1AF4F77900E32CE3 /* DatePopoverVC.m in Sources */,
 				DD70095C1AE6C58600878EE7 /* LoginVC.m in Sources */,
+				DD20FB6F1AF89883000BAF7F /* FXBlurView.m in Sources */,
 				DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */,
 				DD9C854C1AF4F76000E32CE3 /* ListPopoverVC.m in Sources */,
 			);

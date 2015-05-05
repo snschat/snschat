@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="400" id="KGk-i7-Jjw" customClass="ProductCell">
+            <rect key="frame" x="0.0" y="0.0" width="117" height="231"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TH-YU-rXF">
+                        <rect key="frame" x="0.0" y="0.0" width="117" height="211"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fTS-id-Lra">
+                                <rect key="frame" x="0.0" y="0.0" width="117" height="155"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="155" id="s8B-bx-gD1"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiC-Og-WKy">
+                                <rect key="frame" x="0.0" y="165" width="117" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" misplaced="YES" text="Contrast-pannelled bow" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDa-d0-QZX">
+                                <rect key="frame" x="0.0" y="184" width="117" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="fTS-id-Lra" firstAttribute="leading" secondItem="6TH-YU-rXF" secondAttribute="leading" id="Ak3-aO-u5N"/>
+                            <constraint firstItem="GiC-Og-WKy" firstAttribute="leading" secondItem="6TH-YU-rXF" secondAttribute="leading" id="E3S-W0-KWN"/>
+                            <constraint firstItem="GiC-Og-WKy" firstAttribute="bottom" secondItem="yDa-d0-QZX" secondAttribute="top" id="KNK-tW-3aV"/>
+                            <constraint firstAttribute="trailing" secondItem="GiC-Og-WKy" secondAttribute="trailing" id="ZlG-i0-B4n"/>
+                            <constraint firstAttribute="trailing" secondItem="fTS-id-Lra" secondAttribute="trailing" id="ahg-GS-ULZ"/>
+                            <constraint firstItem="fTS-id-Lra" firstAttribute="top" secondItem="6TH-YU-rXF" secondAttribute="top" id="bBT-Pq-2HW"/>
+                            <constraint firstItem="yDa-d0-QZX" firstAttribute="leading" secondItem="6TH-YU-rXF" secondAttribute="leading" id="eqh-FW-kiJ"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yDa-d0-QZX" secondAttribute="bottom" id="lBx-PV-hLG"/>
+                            <constraint firstItem="GiC-Og-WKy" firstAttribute="top" secondItem="fTS-id-Lra" secondAttribute="bottom" constant="10" id="uIB-GU-f0F"/>
+                            <constraint firstAttribute="trailing" secondItem="yDa-d0-QZX" secondAttribute="trailing" id="wHA-va-aK2"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="6TH-YU-rXF" secondAttribute="trailing" id="5Ta-s6-mgS"/>
+                    <constraint firstItem="6TH-YU-rXF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9Ev-ey-EJU"/>
+                    <constraint firstItem="6TH-YU-rXF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="C6Y-mL-nxn"/>
+                    <constraint firstAttribute="bottom" secondItem="6TH-YU-rXF" secondAttribute="bottom" constant="19" id="ev3-SQ-ZgQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="productDesc" destination="yDa-d0-QZX" id="pBb-Cv-1B7"/>
+                <outlet property="productImg" destination="fTS-id-Lra" id="M11-Ke-ZqA"/>
+                <outlet property="productName" destination="GiC-Og-WKy" id="2oi-r0-o7k"/>
+            </connections>
+            <point key="canvasLocation" x="157.5" y="396"/>
+        </tableViewCell>
+    </objects>
+</document>
