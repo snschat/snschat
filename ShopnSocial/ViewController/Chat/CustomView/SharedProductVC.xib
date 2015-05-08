@@ -26,14 +26,13 @@
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vf3-zH-GIr">
                     <rect key="frame" x="35" y="48" width="120" height="605"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="SgY-17-iIX"/>
                         <outlet property="delegate" destination="-1" id="gLQ-vx-dGR"/>
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="vf3-zH-GIr" secondAttribute="trailing" constant="35" id="6PI-BA-1Gx"/>
                 <constraint firstAttribute="bottom" secondItem="vf3-zH-GIr" secondAttribute="bottom" id="B6N-hh-6fZ"/>

@@ -82,6 +82,15 @@
     
     //Place the UIImage in a UIImageView
     self.backImg.image = viewImage;
+    
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    
+    UIVisualEffectView *visualEffectView;
+    visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    
+    visualEffectView.frame = self.backImg.bounds;
+    [self.backImg addSubview:visualEffectView];
 
 }
 /*

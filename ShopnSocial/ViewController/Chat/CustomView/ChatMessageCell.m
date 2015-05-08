@@ -12,8 +12,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.containerView.layer.cornerRadius = 10;
+    self.containerView.layer.cornerRadius = 5;
     self.containerView.layer.masksToBounds = true;
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
