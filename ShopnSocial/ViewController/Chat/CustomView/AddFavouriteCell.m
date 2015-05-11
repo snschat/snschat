@@ -1,20 +1,17 @@
 //
-//  ChatMessageCell.m
+//  AddFavouriteCell.m
 //  ShopnSocial
 //
-//  Created by rock on 5/3/15.
+//  Created by rock on 5/9/15.
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
-#import "ChatMessageCell.h"
+#import "AddFavouriteCell.h"
 
-@implementation ChatMessageCell
+@implementation AddFavouriteCell
 
 - (void)awakeFromNib {
     // Initialization code
-    self.containerView.layer.cornerRadius = 5;
-    self.containerView.layer.masksToBounds = true;
-    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,6 +19,5 @@
 
     // Configure the view for the selected state
 }
-
 
 @end

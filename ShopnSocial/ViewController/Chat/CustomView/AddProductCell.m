@@ -1,20 +1,17 @@
 //
-//  ChatMessageCell.m
+//  AddProductCell.m
 //  ShopnSocial
 //
-//  Created by rock on 5/3/15.
+//  Created by rock on 5/9/15.
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
-#import "ChatMessageCell.h"
+#import "AddProductCell.h"
 
-@implementation ChatMessageCell
+@implementation AddProductCell
 
 - (void)awakeFromNib {
     // Initialization code
-    self.containerView.layer.cornerRadius = 5;
-    self.containerView.layer.masksToBounds = true;
-    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,6 +19,5 @@
 
     // Configure the view for the selected state
 }
-
 
 @end

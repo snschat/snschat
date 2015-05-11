@@ -10,6 +10,7 @@
 #import "ExUIView+Mask.h"
 #import "ExUIView+Border.h"
 #import "FXBlurView.h"
+#import "UIImageEffects.h"
 #import "MessageInputVC.h"
 #import "SharedProductVC.h"
 
@@ -122,7 +123,7 @@
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    UIImage *endImage = viewImage;
+    UIImage * endImage = [UIImageEffects imageByApplyingBlurToImage:viewImage withRadius:30 tintColor:[UIColor clearColor] saturationDeltaFactor:1.5 maskImage:nil];
     
     //Place the UIImage in a UIImageView
     self.backImg.image = endImage;
