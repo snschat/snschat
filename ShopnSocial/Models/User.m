@@ -21,6 +21,8 @@ static User* gCurrentUser = nil;
 
 @implementation User
 
+#pragma mark - class methods
+
 + (User*)getUserByNameSync:(NSString*)username;
 {
     return [self getUserByField:@"UserName" value:username];
@@ -84,13 +86,12 @@ static User* gCurrentUser = nil;
     user.customObject = [QBCOCustomObject customObject];
     QBCOCustomObject* object = user.customObject;
     
-    NSString* md5Password = [user.Password MD5String];
+    NSString* md5Password = user.Password;
     
     object.className = QB_Class_Name;
     
     [object.fields setObject:user.Username forKey:@"UserName"];
     [object.fields setObject:user.Email forKey:@"Email"];
-    [object.fields setObject:md5Password  forKey:@"Password"];
     
     if (user.Location != nil) [object.fields setObject:user.Location forKey:@"Location"];
     if (user.Birthday != nil) [object.fields setObject:[user.Birthday stringWithFormat:[NSDate dateFormatString]] forKey:@"Birthday"];
@@ -99,8 +100,6 @@ static User* gCurrentUser = nil;
     if (user.FacebookID != nil) [object.fields setObject:user.FacebookID forKey:@"facebookID"];
     if (user.TwitterID != nil) [object.fields setObject:user.TwitterID forKey:@"twitterID"];
     if (user.GoogleID != nil) [object.fields setObject:user.GoogleID forKey:@"googleID"];
-    
-    [object.fields setObject:md5Password forKey:@"QPassword"];
     
     __block User* __user = user;
     [QBRequest createObject:object successBlock:^(QBResponse *response, QBCOCustomObject *object) {
@@ -133,6 +132,55 @@ static User* gCurrentUser = nil;
     return user.customObject != nil;
 }
 
++ (User*)changePassword:(User*)user oldPassword:(NSString*)oldPassword newPassword:(NSString*)newPassword
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+
+    if (user.qbuUser == nil) return nil;
+    
+    QBUUser* qbuUser = user.qbuUser;
+    
+    __block User* __user = user;
+    
+    qbuUser.oldPassword = oldPassword;
+    qbuUser.password = newPassword;
+    
+    [QBRequest updateUser:qbuUser successBlock:^(QBResponse *response, QBUUser *user) {
+        __user.qbuUser = user;
+        dispatch_semaphore_signal(sema);
+    } errorBlock:^(QBResponse *response) {
+        __user = nil;
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return __user;
+}
+
++ (User*)resetPassword:(User*)user
+{
+    if (user.customObject == nil) return nil;
+    
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    __block User* __user = user;
+    
+    [QBRequest resetUserPasswordWithEmail:user.Email
+                             successBlock:^(QBResponse *response) {
+                                 dispatch_semaphore_signal(sema);
+                             } errorBlock:^(QBResponse *response) {
+                                 __user = nil;
+                                 dispatch_semaphore_signal(sema);
+                             }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    [user setNeedChangePasswordSync:YES];
+    
+    return __user;
+};
+
 #pragma mark -
 
 + (User*)currentUser
@@ -150,13 +198,10 @@ static User* gCurrentUser = nil;
 + (User*)loginUserSync:(NSString*)email password:(NSString*)password
 {
     User* user = [self getUserByEmailSync:email];
-    NSString* md5Password = [password MD5String];
     
     if (user == nil) return nil;
     
-    if ([md5Password isEqual:user.Password] == false) return nil;
-    
-    QBUUser* qbuUser = [self loginQBUUserSync:user.Email password:user.QPassword];
+    QBUUser* qbuUser = [self loginQBUUserSync:user.Email password:password];
     
     if (qbuUser == nil) return nil;
     
@@ -192,7 +237,6 @@ static User* gCurrentUser = nil;
     user.customObject = co;
     user.Username = co.fields[@"UserName"];
     user.Email = co.fields[@"Email"];
-    user.Password = co.fields[@"Password"];
     user.Location = co.fields[@"Location"];
     user.Birthday = birthday == nil ? nil : [NSDate dateFromString:birthday withFormat:[NSDate dateFormatString]];
     user.Gender = co.fields[@"Gender"];
@@ -201,9 +245,35 @@ static User* gCurrentUser = nil;
     user.TwitterID = co.fields[@"twitterID"];
     user.GoogleID = co.fields[@"googleID"];
     
-    user.QPassword = co.fields[@"QPassword"];
-    
     user.qbuUser = nil;
+}
+
+#pragma mark - instance methods
+
+- (BOOL) isNeedChangePasswordSync
+{
+    return (BOOL)self.customObject.fields[@"needChangePassword"];
+}
+
+- (BOOL) setNeedChangePasswordSync:(BOOL)isNeed
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    [self.customObject.fields setValue:[NSNumber numberWithBool:isNeed] forKey:@"needChangePassword"];
+    
+    __block BOOL __result = NO;
+    [QBRequest updateObject:self.customObject
+               successBlock:^(QBResponse *response, QBCOCustomObject *object) {
+                   __result = YES;
+                   dispatch_semaphore_signal(sema);
+               } errorBlock:^(QBResponse *response) {
+                   __result = NO;
+                   dispatch_semaphore_signal(sema);
+               }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return __result;
 }
 
 @end

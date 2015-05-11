@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD13A38F1B00534700E1CF66 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A38C1B00534700E1CF66 /* FBEncryptorAES.m */; };
+		DD13A3901B00534700E1CF66 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A38E1B00534700E1CF66 /* NSData+Base64.m */; };
 		DD17E3841AF5F34600B2C3DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D48FA1AF21D1E00811436 /* SystemConfiguration.framework */; };
 		DD17E3851AF5F34E00B2C3DF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D48F51AF1FF7100811436 /* MobileCoreServices.framework */; };
 		DD17E3861AF5F35200B2C3DF /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D48ED1AF1FDE400811436 /* libxml2.dylib */; };
@@ -27,6 +29,7 @@
 		DD17E3BE1AF6902800B2C3DF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3B81AF68F6700B2C3DF /* AssetsLibrary.framework */; };
 		DD17E3C01AF6903600B2C3DF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3BF1AF6903600B2C3DF /* AVFoundation.framework */; };
 		DD17E3C21AF6905900B2C3DF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3C11AF6905900B2C3DF /* MediaPlayer.framework */; };
+		DD199FFF1AFC895800954161 /* ResetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD199FFE1AFC895800954161 /* ResetPasswordVC.m */; };
 		DD20FB311AF89852000BAF7F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB2E1AF89852000BAF7F /* Message.m */; };
 		DD20FB321AF89852000BAF7F /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB301AF89852000BAF7F /* Product.m */; };
 		DD20FB541AF8985F000BAF7F /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB351AF8985F000BAF7F /* ChatVC.m */; };
@@ -81,6 +84,7 @@
 		DDA1E2DA1AF775FB001E5CC5 /* YIInnerShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1E2D81AF775FB001E5CC5 /* YIInnerShadowView.m */; };
 		DDA1E2DE1AF78428001E5CC5 /* BrowserHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1E2DD1AF78428001E5CC5 /* BrowserHomeVC.m */; };
 		DDA1E2E31AF860ED001E5CC5 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA1E2E21AF860ED001E5CC5 /* Global.m */; };
+		DDAB7C5E1AFE200300617EC5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAB7C5D1AFE200300617EC5 /* Security.framework */; };
 		DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CC51AE784F100759DCF /* SignupVC.m */; };
 		DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC81AE7B21D00759DCF /* privacy.html */; };
 		DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */ = {isa = PBXBuildFile; fileRef = DDC47CC91AE7B21D00759DCF /* terms.html */; };
@@ -100,6 +104,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DD13A38B1B00534700E1CF66 /* FBEncryptorAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
+		DD13A38C1B00534700E1CF66 /* FBEncryptorAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
+		DD13A38D1B00534700E1CF66 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		DD13A38E1B00534700E1CF66 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		DD17E3881AF6233700B2C3DF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		DD17E3891AF6233700B2C3DF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		DD17E38B1AF64B8800B2C3DF /* QBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBUser.h; sourceTree = "<group>"; };
@@ -120,6 +128,8 @@
 		DD17E3BA1AF68F7200B2C3DF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DD17E3BF1AF6903600B2C3DF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DD17E3C11AF6905900B2C3DF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		DD199FFD1AFC895800954161 /* ResetPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordVC.h; sourceTree = "<group>"; };
+		DD199FFE1AFC895800954161 /* ResetPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordVC.m; sourceTree = "<group>"; };
 		DD20FB2D1AF89852000BAF7F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		DD20FB2E1AF89852000BAF7F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		DD20FB2F1AF89852000BAF7F /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
@@ -213,6 +223,7 @@
 		DDA1E2E01AF860DC001E5CC5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		DDA1E2E11AF860ED001E5CC5 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		DDA1E2E21AF860ED001E5CC5 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
+		DDAB7C5D1AFE200300617EC5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DDC47CC41AE784F100759DCF /* SignupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupVC.h; sourceTree = "<group>"; };
 		DDC47CC51AE784F100759DCF /* SignupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupVC.m; sourceTree = "<group>"; };
 		DDC47CC81AE7B21D00759DCF /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
@@ -236,6 +247,7 @@
 				DD17E3BD1AF6902800B2C3DF /* AddressBook.framework in Frameworks */,
 				DD17E3BE1AF6902800B2C3DF /* AssetsLibrary.framework in Frameworks */,
 				DD8D48FB1AF21D1E00811436 /* SystemConfiguration.framework in Frameworks */,
+				DDAB7C5E1AFE200300617EC5 /* Security.framework in Frameworks */,
 				DD8D48F61AF1FF7100811436 /* MobileCoreServices.framework in Frameworks */,
 				DD8D48EE1AF1FDE400811436 /* libxml2.dylib in Frameworks */,
 				DD8D48F11AF1FE1100811436 /* libz.dylib in Frameworks */,
@@ -265,6 +277,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD13A38A1B00534700E1CF66 /* FBEncryptorAES */ = {
+			isa = PBXGroup;
+			children = (
+				DD13A38B1B00534700E1CF66 /* FBEncryptorAES.h */,
+				DD13A38C1B00534700E1CF66 /* FBEncryptorAES.m */,
+				DD13A38D1B00534700E1CF66 /* NSData+Base64.h */,
+				DD13A38E1B00534700E1CF66 /* NSData+Base64.m */,
+			);
+			path = FBEncryptorAES;
+			sourceTree = "<group>";
+		};
 		DD17E3871AF6233700B2C3DF /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +443,8 @@
 				DD9C854B1AF4F76000E32CE3 /* ListPopoverVC.m */,
 				DD9C854D1AF4F77900E32CE3 /* DatePopoverVC.h */,
 				DD9C854E1AF4F77900E32CE3 /* DatePopoverVC.m */,
+				DD199FFD1AFC895800954161 /* ResetPasswordVC.h */,
+				DD199FFE1AFC895800954161 /* ResetPasswordVC.m */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -427,6 +452,7 @@
 		DD7009531AE690AD00878EE7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DD13A38A1B00534700E1CF66 /* FBEncryptorAES */,
 				DD20FB701AF8AED2000BAF7F /* C360PopoverBackgroundView */,
 				DD20FB681AF89883000BAF7F /* ExUIView+Mask */,
 				DD20FB6B1AF89883000BAF7F /* FXBlurView */,
@@ -518,6 +544,7 @@
 				DD17E3AD1AF68EAE00B2C3DF /* GoogleSDK */,
 				DD17E38E1AF6876400B2C3DF /* FacebookSDK */,
 				DD17E3961AF6876400B2C3DF /* TwitterSDK */,
+				DDAB7C5D1AFE200300617EC5 /* Security.framework */,
 				DD17E3C11AF6905900B2C3DF /* MediaPlayer.framework */,
 				DD17E3BF1AF6903600B2C3DF /* AVFoundation.framework */,
 				DD17E3BA1AF68F7200B2C3DF /* StoreKit.framework */,
@@ -724,12 +751,15 @@
 				DD20FB5D1AF8985F000BAF7F /* ContactTabBarItem.m in Sources */,
 				DD20FB641AF8985F000BAF7F /* SharedProductVC.m in Sources */,
 				DD20FB621AF8985F000BAF7F /* ProductCell.m in Sources */,
+				DD199FFF1AFC895800954161 /* ResetPasswordVC.m in Sources */,
+				DD13A38F1B00534700E1CF66 /* FBEncryptorAES.m in Sources */,
 				DD20FB551AF8985F000BAF7F /* ChatMessageCell.m in Sources */,
 				DD20FB5E1AF8985F000BAF7F /* GroupVC.m in Sources */,
 				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
 				DD20FB771AF8B37A000BAF7F /* FavoriteVC.m in Sources */,
 				DD20FB541AF8985F000BAF7F /* ChatVC.m in Sources */,
 				DDF875931AF0B731006181E5 /* ExNSString.m in Sources */,
+				DD13A3901B00534700E1CF66 /* NSData+Base64.m in Sources */,
 				DD20FB731AF8AED2000BAF7F /* C360PopoverBackgroundView.m in Sources */,
 				DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */,
 				DD9C85491AF4661F00E32CE3 /* User.m in Sources */,
@@ -899,6 +929,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/include/libxml2,
+					./ShopnSocial/Frameworks/JSMailSender/JSMailSender,
 				);
 				INFOPLIST_FILE = ShopnSocial/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -930,6 +961,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/include/libxml2,
+					./ShopnSocial/Frameworks/JSMailSender/JSMailSender,
 				);
 				INFOPLIST_FILE = ShopnSocial/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

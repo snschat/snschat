@@ -10,6 +10,10 @@
 	<string>ShopnSocial</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>6B6C5660DE7DE3F7589D9979C80F3DA374511A5C</key>
+		<string>git://github.com/jetseven/Base64-Additions.git</string>
+		<key>6E0D1FEAC326D135DF5ABD0FDECA6AAEB2FAC028</key>
+		<string>https://github.com/jetseven/JSMailSender.git</string>
 		<key>93C687BFA97FA7A211194A22B04F0FADDF5CA882</key>
 		<string>https://github.com/snschat/snschat.git</string>
 	</dict>
@@ -17,6 +21,10 @@
 	<string>ShopnSocial.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>6B6C5660DE7DE3F7589D9979C80F3DA374511A5C</key>
+		<string>../../ShopnSocial/Frameworks/JSMailSender/Base64-Additions</string>
+		<key>6E0D1FEAC326D135DF5ABD0FDECA6AAEB2FAC028</key>
+		<string>../../../temp1503/JSMailSender</string>
 		<key>93C687BFA97FA7A211194A22B04F0FADDF5CA882</key>
 		<string>../..</string>
 	</dict>
@@ -28,6 +36,22 @@
 	<string>93C687BFA97FA7A211194A22B04F0FADDF5CA882</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6B6C5660DE7DE3F7589D9979C80F3DA374511A5C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Base64-Additions</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6E0D1FEAC326D135DF5ABD0FDECA6AAEB2FAC028</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JSMailSender</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

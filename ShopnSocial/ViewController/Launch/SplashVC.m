@@ -58,11 +58,24 @@
                                               NSLog(@"Session create failed");
                                           }];
         
-//        [NSTimer scheduledTimerWithTimeInterval:2.0
-//                                         target:self
-//                                       selector:@selector(onSplashTimer:)
-//                                       userInfo:nil
-//                                        repeats:NO];
+//        [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
+//            NSLog(@"Session created");
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                
+//                NSArray* countries = [Country getCountriesSync];
+//                NSLog(@"Success %lu countries", (unsigned long)countries.count);
+//                
+//                [QBRequest resetUserPasswordWithEmail:@"covernal@hotmail.com" successBlock:^(QBResponse *response) {
+//                    NSLog(@"successed password change");
+//                } errorBlock:^(QBResponse *response) {
+//                    NSLog(@"fail");
+//                }];
+//                
+//                //[self gotoNext];
+//            });
+//        } errorBlock:^(QBResponse *response) {
+//            NSLog(@"Session create failed");
+//        }];
     }
     else
     {
@@ -92,6 +105,7 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString* useremail = [Global sharedGlobal].LoginedUserEmail;
+        NSString* password = [Global sharedGlobal].LoginedUserPassword;
 
         if (useremail != nil)
         {
@@ -100,21 +114,29 @@
             if (user != nil)
             {
                 NSString* qusername = user.Email;
-                NSString* qpassword = user.QPassword;
+                NSString* qpassword = password;
                 
                 QBUUser* qbuUser = [User loginQBUUserSync:qusername password:qpassword];
-                user.qbuUser = qbuUser;
-                [User setCurrentUser:user];
                 
-                UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];
-                [self.navigationController pushViewController:vc animated:YES];
-                
-                return;
+                if (qbuUser != nil)
+                {
+                    user.qbuUser = qbuUser;
+                    [User setCurrentUser:user];
+
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    });
+                    
+                    return;
+                }
             }
         }
         
-        UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        [self.navigationController pushViewController:vc animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+            [self.navigationController pushViewController:vc animated:YES];
+        });
     });
 }
 

@@ -17,5 +17,13 @@
 #define TwitterConsumerKey @"h5OJ4f7R3QfKZFvf2vI7lh883"
 #define TwitterConsumerSecret @"d4ORBnaF28eyRr2n2VRBOaSZw0LKAvmyAanOQRSqUBeJnl4oCH"
 
+#pragma mark - password@shopnsocial.com
+#define PasswordEmailSmptHost @"smtp.live.com"
+#define PasswordEmailSmptPort 587
+#define PasswordEmailAccount @"passwordsns@hotmail.com"
+#define PasswordEmailPassword @"Evoodioz"
+
+#pragma mark - AES KEY
+#define AesStoreKey @"AesStorePrivateKey"
 
 #endif

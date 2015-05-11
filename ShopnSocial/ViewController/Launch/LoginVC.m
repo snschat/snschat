@@ -195,7 +195,9 @@
             });
         }
         else {
+            // if success to login user, save its info as logined user info
             [Global sharedGlobal].LoginedUserEmail = self.loginUsername.text;
+            [Global sharedGlobal].LoginedUserPassword = self.loginPassword.text;
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self onLoginSuccess];

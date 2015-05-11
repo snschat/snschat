@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) NSString* Username;
 @property (nonatomic, strong) NSString* Email;
-@property (nonatomic, strong) NSString* Password;
 @property (nonatomic, strong) NSNumber* Location;
 @property (nonatomic, strong) NSDate* Birthday;
 @property (nonatomic, strong) NSString* Gender;
@@ -25,8 +24,11 @@
 @property (nonatomic, strong) NSString* TwitterID;
 @property (nonatomic, strong) NSString* GoogleID;
 
-@property (nonatomic, strong) NSString* QPassword;
 
+// non-saved field
+@property (nonatomic, strong) NSString* Password;
+
+// class methods
 
 + (User*)getUserByNameSync:(NSString*)username;
 + (User*)getUserByEmailSync:(NSString*)email;
@@ -35,9 +37,17 @@
 + (User*)getUserByGooglePlusSync:(NSString*)gid;
 + (BOOL)createNewUserSync:(User*)user;
 
++ (User*)changePassword:(User*)user oldPassword:(NSString*)oldPassword newPassword:(NSString*)newPassword;
++ (User*)resetPassword:(User*)user;
+
 + (User*)currentUser;
 + (void)setCurrentUser:(User*)user;
 + (User*)loginUserSync:(NSString*)email password:(NSString*)password;
 + (QBUUser*)loginQBUUserSync:(NSString*)username password:(NSString*)password;
 
+
+// instance methods
+
+- (BOOL) isNeedChangePasswordSync;
+- (BOOL) setNeedChangePasswordSync:(BOOL)isNeed;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "Global.h"
+#import "FBEncryptorAES.h"
 
 static Global* gShared = nil;
 
@@ -39,6 +40,20 @@ static Global* gShared = nil;
 -(void) setLoginedUserEmail:(NSString *)LogginedUserEmail
 {
     [store setObject:LogginedUserEmail forKey:@"LoginedUserEmail"];
+    [store synchronize];
+}
+
+-(NSString*) LoginedUserPassword
+{
+    NSString* result = [store stringForKey:@"LoginedUserPassword"];
+    result = [FBEncryptorAES decryptBase64String:result keyString:AesStoreKey];
+    return result;
+}
+
+-(void) setLoginedUserPassword:(NSString *)LoginedUserPassword
+{
+    LoginedUserPassword = [FBEncryptorAES encryptBase64String:LoginedUserPassword keyString:AesStoreKey separateLines:NO];
+    [store setObject:LoginedUserPassword forKey:@"LoginedUserPassword"];
     [store synchronize];
 }
 

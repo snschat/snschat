@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Constants.h"
+
 @interface Global : NSObject
 
 +(Global*) sharedGlobal;
 
 @property (nonatomic, strong) NSString* LoginedUserEmail;
+@property (nonatomic, strong) NSString* LoginedUserPassword;
 
 @end

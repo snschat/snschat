@@ -16,8 +16,9 @@
 @end
 
 
-@interface NSString (MD5)
+@interface NSString (Crytation)
 
 - (NSString *)MD5String;
-
+- (NSString *) randomStringWithLength: (int) len;
 @end
+

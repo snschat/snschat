@@ -13,6 +13,7 @@
 
 #import "User.h"
 #import <Quickblox/Quickblox.h>
+#import "FBEncryptorAES.h"
 
 @interface ShopnSocialTests : XCTestCase
 
@@ -83,5 +84,23 @@
     sleep(10000);
     
     XCTAssert(true, @"Oh yeah");
+}
+
+- (void)testAESEncrypt
+{
+    NSString* planText = @"Hello";
+    NSString* key = @"key";
+    
+    NSString* encrypted = [FBEncryptorAES encryptBase64String:planText
+                                                    keyString:key
+                                                separateLines:NO];
+    
+    NSLog(@"encrypted string : %@", encrypted);
+    
+    NSString* decrypted = [FBEncryptorAES decryptBase64String:encrypted keyString:key];
+    
+    NSLog(@"decrypted string: %@", decrypted);
+    
+    XCTAssert([planText isEqualToString:decrypted], @"Oh yeah");
 }
 @end

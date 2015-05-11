@@ -240,16 +240,24 @@
         
         BOOL result = [User createNewUserSync:newUser];
         
+        // if sucess to create new user, login with user info.
         if (result) {
             NSString* username = newUser.Email;
-            NSString* qpassword = newUser.QPassword;
+            NSString* qpassword = newUser.Password;
             
             QBUUser* qbuUser = [User loginQBUUserSync:username password:qpassword];
             newUser.qbuUser = qbuUser;
             
             [User setCurrentUser:newUser];
             
-            [Global sharedGlobal].LoginedUserEmail = newUser.Password;
+            // save current user info with logined user info.
+            [Global sharedGlobal].LoginedUserEmail = newUser.Email;
+            [Global sharedGlobal].LoginedUserPassword = newUser.Password;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];
+                [self.navigationController pushViewController:vc animated:YES];
+            });
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
