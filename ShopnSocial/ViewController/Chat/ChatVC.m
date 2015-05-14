@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
+#import "User.h"
+#import "Chat.h"
+
 #import "ChatVC.h"
 #import "ExUIView+Mask.h"
 #import "ExUIView+Border.h"
@@ -13,12 +16,13 @@
 #import "UIImageEffects.h"
 #import "MessageInputVC.h"
 #import "SharedProductVC.h"
-
+#import "AddContactVC.h"
 @interface ChatVC ()
 {
     GroupVC * groupVC;
     ContactListVC * contactVC;
     ContactTabBar * tabBar;
+    StatusOptionVC * statusMenu;
 }
 
 @end
@@ -28,7 +32,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    //Login to chat
+    [[QBChat instance] addDelegate:self];
+    [Chat loginToChat];
+    [NSTimer scheduledTimerWithTimeInterval:60 target:[QBChat instance] selector:@selector(sendPresence) userInfo:nil repeats:YES];
+    
     // Do any additional setup after loading the view.
     
     //Initailize Tabbar
@@ -89,6 +97,26 @@
     [productVC didMoveToParentViewController: self];
     
     [self.sharedBoard border:1.0f color:[UIColor lightGrayColor]];
+    
+    /*
+     * Status Option Menu Initialization
+     */
+    
+    statusMenu = [[StatusOptionVC alloc] initWithNibName:@"StatusOptionVC" bundle:[NSBundle mainBundle]];
+    statusMenu.view.hidden = YES;
+    statusMenu.delegate = self;
+    statusMenu.view.translatesAutoresizingMaskIntoConstraints = YES;
+    [self addChildViewController: statusMenu];
+    [self.view addSubview: statusMenu.view];
+    [statusMenu didMoveToParentViewController: self];
+    
+    NSString * statusStr = [User currentUser].customObject.fields[@"status"];
+    [statusMenu setCurrentStatusStr: statusStr];
+    [[QBChat instance] sendPresenceWithStatus: statusStr];
+    
+    self.m_profileName.text = [User currentUser].Username;
+    self.m_profileStatus.text = statusStr;
+    
     
 }
 - (void) viewWillAppear:(BOOL)animated
@@ -208,6 +236,17 @@
 {
     self.mainBoard.hidden = NO;
 }
+- (void) onAddContactTouched
+{
+    AddContactVC * addContactVC = [self.storyboard instantiateViewControllerWithIdentifier: @"AddContactVC"];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:addContactVC];
+    nav.navigationBarHidden = YES;
+    UIPopoverController * popover = [[UIPopoverController alloc] initWithContentViewController: nav];
+    popover.delegate = self;
+    
+    nav.view.superview.layer.cornerRadius = 0;
+    [popover presentPopoverFromRect:self.leftPane.frame inView:self.mainBoard permittedArrowDirections:0 animated:YES];
+}
 
 #pragma mark GroupVCDelegate
 - (void) onGroupSelected:(id) group
@@ -215,4 +254,46 @@
     self.mainBoard.hidden = NO;
 }
 
+- (IBAction)onClickStatus:(id)sender {
+    
+    if(statusMenu.view.hidden == NO)
+        return;
+    
+    CGRect frame = self.profileBar.frame;
+    self.profileBar.frame = frame;
+    
+    frame.origin = [[self.profileBar superview] convertPoint:frame.origin toView:self.view];
+    frame.size.height = 0;
+    
+    statusMenu.view.frame = frame;
+    statusMenu.view.hidden = NO;
+    
+    frame.size.height = [statusMenu originalHeight];
+    frame.origin.y -= [statusMenu originalHeight];
+    [UIView animateWithDuration:1.0f animations:^{
+
+        statusMenu.view.frame = frame;
+    }];
+}
+
+- (void) onChooseStatus:(id) sender :(NSInteger) status
+{
+    self.m_profileStatus.text = [User currentUser].customObject.fields[@"status"];
+    statusMenu.view.hidden = YES;
+}
+- (void) onCollapseTouched:(id)sender
+{
+    statusMenu.view.hidden = YES;
+}
+
+#pragma mark QBChatDelegate
+- (void) chatDidLogin
+{
+    
+}
+
+- (void) chatDidNotLogin
+{
+    
+}
 @end

@@ -8,6 +8,7 @@
 
 #import "ContactListVC.h"
 #import "ContactListCell.h"
+#import "User.h"
 
 @interface ContactListVC ()
 
@@ -17,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     UINib * nib = [UINib nibWithNibName:@"ContactListCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"contact_list_cell"];
@@ -31,7 +33,9 @@
         [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     }
     self.tableView.tableFooterView = [UIView new];
+    
 
+    [[QBChat instance] addDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,14 +52,40 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void) fetchContactList
+{
+    contactList = [NSMutableArray array];
+    
+    NSArray * contacts = [QBChat instance].contactList.contacts;
+    NSArray * pendingContacts = [QBChat instance].contactList.pendingApproval;
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray * users = [User getUsersFromContactsSync: contacts];
+        NSArray * pendingUsers = [User getUsersFromContactsSync: pendingContacts];
+        for(User * user in users)
+        {
+            user.bPending = NO;
+        }
+        for(User * user in pendingUsers)
+        {
+            user.bPending = YES;
+        }
+        [contactList addObjectsFromArray: pendingUsers];
+        [contactList addObjectsFromArray: users];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setContactListData: contactList];
+        });
+    });
+}
 
 - (IBAction)onAddContactTouched:(id)sender {
-    
+    [self.delegate onAddContactTouched];
 }
 
 - (void) setContactListData:(NSArray *) _listData
 {
-    contactListData = [NSMutableArray arrayWithArray: _listData];
+    contactList = [NSMutableArray arrayWithArray: _listData];
     [self.tableView reloadData];
 }
 
@@ -74,7 +104,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return contactList.count;
 }
 
 // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -100,13 +130,12 @@
     }
     
     cell.backgroundColor = [UIColor clearColor];
-    id data = [contactListData objectAtIndex: indexPath.row];
+    User * user = [contactList objectAtIndex: indexPath.row];
     //TODO: Populate data
 //    cell.avatarImgView.image = ;
-//    cell.contactName.text = [NSString stringWithFormat: @"Contact%i", indexPath.row];
-//    cell.status.text = ;
+    cell.contactName.text = user.Username;
+    cell.status.text = user.customObject.fields[@"status"];
 
-    
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
@@ -117,10 +146,19 @@
 {
     if(self.delegate)
     {
-        id data = [contactListData objectAtIndex: indexPath.row];
+        id data = [contactList objectAtIndex: indexPath.row];
         [self.delegate onContactSelected: data];
     }
 }
 
+#pragma mark QBChat Delegate
+- (void) chatContactListDidChange:(QBContactList *)contactList
+{
+    [self fetchContactList];
+}
+- (void) chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status
+{
+    
+}
 
 @end

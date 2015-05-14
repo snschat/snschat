@@ -1,17 +1,20 @@
 //
-//  AddFavouriteCell.m
+//  AddContactCell.m
 //  ShopnSocial
 //
-//  Created by rock on 5/9/15.
+//  Created by rock on 5/11/15.
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
-#import "AddFavouriteCell.h"
+#import "AddContactCell.h"
 
-@implementation AddFavouriteCell
+@implementation AddContactCell
 
 - (void)awakeFromNib {
     // Initialization code
+    self.avatarImg.layer.masksToBounds = YES;
+    self.avatarImg.layer.cornerRadius = 22;
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

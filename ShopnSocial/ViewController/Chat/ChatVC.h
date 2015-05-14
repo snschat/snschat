@@ -10,8 +10,9 @@
 #import "ContactTabBar.h"
 #import "ContactListVC.h"
 #import "GroupVC.h"
+#import "StatusOptionVC.h"
 
-@interface ChatVC : UIViewController<ContactTabBarDelegate, ContactListVCDelegate, GroupVCDelegate>
+@interface ChatVC : UIViewController<ContactTabBarDelegate, ContactListVCDelegate, GroupVCDelegate, StatusOptionVCDelegate, QBChatDelegate, UIPopoverControllerDelegate>
 
 //TapBar control
 @property (weak, nonatomic) IBOutlet UIView *m_tabbarContainer;
@@ -30,9 +31,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *contactName;
 @property (weak, nonatomic) IBOutlet UILabel *contactStatus;
 
+@property (weak, nonatomic) IBOutlet UIView *leftPane;
 @property (weak, nonatomic) IBOutlet UIView *mainBoard;
 @property (weak, nonatomic) IBOutlet UIView *messageBoard;
 @property (weak, nonatomic) IBOutlet UIView *sharedBoard;
+@property (weak, nonatomic) IBOutlet UIView *profileBar;
 
 - (void) prepareBackgroundImage:(UIView *)underView;
 @end

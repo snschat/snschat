@@ -48,8 +48,92 @@ static User* gCurrentUser = nil;
     return [self getUserByField:@"googleID" value:gid];
 }
 
++ (QBUUser *) getQBUserFromUserSync:(User *) user
+{
+    if(user.qbuUser != nil)
+        return user.qbuUser;
+    
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    NSArray * emailArr = @[user.Email];
+    
+    __block QBUUser * qbUser = nil;
+    
+    [QBRequest usersWithEmails:emailArr successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+        for(QBUUser * _qbUser in users)
+        {
+            qbUser = _qbUser;
+            break;
+        }
+        dispatch_semaphore_signal(sema);
+    } errorBlock:^(QBResponse *response) {
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    return qbUser;
+}
 
-+ (User*)getUserByField:(NSString*)field value:(NSString*)value;
++ (User *) getUserFromContactSync:(QBContactListItem*) contact
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block User * user = nil;
+    __block QBUUser * qbUser = nil;
+    [QBRequest userWithID: contact.userID successBlock:^(QBResponse *response, QBUUser *_qbUser) {
+        qbUser = _qbUser;
+        dispatch_semaphore_signal(sema);
+    } errorBlock:^(QBResponse *response) {
+        dispatch_semaphore_signal(sema);
+    }];
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    user = [self getUserByEmailSync: qbUser.email];
+    user.qbuUser = qbUser;
+    return user;
+}
+
++ (NSArray *) getUsersFromContactsSync:(NSArray *) contacts
+{
+    NSMutableArray * userArr = [NSMutableArray array];
+    
+    for(QBContactListItem * contact in contacts)
+    {
+        User * user = [self getUserFromContactSync: contact];
+        [userArr addObject: user];
+    }
+    return userArr;
+}
+
++ (BOOL) setCurrentUserStatusSync:(NSString *) status
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    __block BOOL bResult;
+    QBCOCustomObject * object = [QBCOCustomObject customObject];
+    object.className = QB_Class_Name;
+
+    User * curUser = [User currentUser];
+    
+    [object.fields setObject:status forKey:@"status"];
+    object.ID = curUser.customObject.ID;
+    
+    [QBRequest updateObject:object successBlock:^(QBResponse *response, QBCOCustomObject *object) {
+        dispatch_semaphore_signal(sema);
+        curUser.customObject = object;
+        bResult = YES;
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"Response error: %@", [response.error description]);
+        bResult = NO;
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    [[QBChat instance] sendPresenceWithStatus: status];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return bResult;
+}
+
++ (User*)getUserByField:(NSString*)field value:(NSString*)value
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
@@ -77,6 +161,38 @@ static User* gCurrentUser = nil;
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     
     return user;
+}
++ (NSArray *) searchUsersByPrefixSync:(NSString *) prefix
+{
+    
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    NSMutableDictionary * getRequest = [NSMutableDictionary dictionaryWithDictionary: @{
+                                                                                        @"UserName[ctn]" : prefix
+                                                                                      
+                                                                                        }];
+    __block NSMutableArray * resultArr;
+    resultArr = [NSMutableArray array];
+    
+    [QBRequest objectsWithClassName:QB_Class_Name
+                    extendedRequest:getRequest
+                       successBlock:^(QBResponse *response, NSArray *objects, QBResponsePage *page) {
+                           for (QBCOCustomObject* co in objects) {
+                               User * user = [[User alloc] init];
+                               [self mapFromQT:co toUser:user];
+                               [resultArr addObject: user];
+                               break;
+                           }
+                           dispatch_semaphore_signal(sema);
+                       } errorBlock:^(QBResponse *response) {
+                           NSLog(@"Response error: %@", [response.error description]);
+                           dispatch_semaphore_signal(sema);
+                       }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return resultArr;
+
 }
 
 + (BOOL)createNewUserSync:(User*)user
@@ -219,6 +335,7 @@ static User* gCurrentUser = nil;
                          password:password
                      successBlock:^(QBResponse *response, QBUUser *user) {
                          __user = user;
+                         __user.password = password;
                          dispatch_semaphore_signal(sema);
                      } errorBlock:^(QBResponse *response) {
                          __user = nil;
@@ -233,7 +350,6 @@ static User* gCurrentUser = nil;
 + (void)mapFromQT:(QBCOCustomObject*)co toUser:(User*)user
 {
     NSString* birthday = co.fields[@"Birthday"];
-    
     user.customObject = co;
     user.Username = co.fields[@"UserName"];
     user.Email = co.fields[@"Email"];

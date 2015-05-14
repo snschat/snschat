@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Quickblox/Quickblox.h>
 
 @protocol ContactListVCDelegate
 - (void) onContactSelected:(id) contact;
+- (void) onAddContactTouched;
 @end
 
-@interface ContactListVC : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ContactListVC : UIViewController<UITableViewDataSource, UITableViewDelegate, QBChatDelegate>
 {
-    NSMutableArray * contactListData;
+    NSMutableArray * contactList;
 }
 
 - (void) setContactListData:(NSArray *) _listData;

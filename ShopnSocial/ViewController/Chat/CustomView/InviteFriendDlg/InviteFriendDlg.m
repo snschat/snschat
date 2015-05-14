@@ -1,18 +1,18 @@
 //
-//  AddProductVC.m
+//  InviteFriendDlg.m
 //  ShopnSocial
 //
-//  Created by rock on 5/9/15.
+//  Created by rock on 5/11/15.
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
-#import "AddProductVC.h"
+#import "InviteFriendDlg.h"
 
-@interface AddProductVC ()
+@interface InviteFriendDlg ()
 
 @end
 
-@implementation AddProductVC
+@implementation InviteFriendDlg
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,5 +33,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)onInviteTouched:(id)sender {
+}
+- (IBAction)onBackTouched:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

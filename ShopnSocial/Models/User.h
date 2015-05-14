@@ -27,6 +27,7 @@
 
 // non-saved field
 @property (nonatomic, strong) NSString* Password;
+@property (nonatomic) BOOL bPending;
 
 // class methods
 
@@ -45,7 +46,13 @@
 + (User*)loginUserSync:(NSString*)email password:(NSString*)password;
 + (QBUUser*)loginQBUUserSync:(NSString*)username password:(NSString*)password;
 
++ (QBUUser *) getQBUserFromUserSync:(User *) user;
++ (NSArray *) searchUsersByPrefixSync:(NSString *) prefix;
 
++ (BOOL) setCurrentUserStatusSync:(NSString *) status;
+
++ (User *) getUserFromContactSync:(QBContactListItem*) contact;
++ (NSArray *) getUsersFromContactsSync:(NSArray *) contacts;
 // instance methods
 
 - (BOOL) isNeedChangePasswordSync;
