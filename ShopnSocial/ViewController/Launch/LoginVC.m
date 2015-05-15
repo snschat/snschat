@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
+#import "ChatService.h"
 #import "LoginVC.h"
 #import "ExUILabel+AutoSize.h"
 #import "ExUIView+Border.h"

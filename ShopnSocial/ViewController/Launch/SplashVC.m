@@ -9,7 +9,7 @@
 #import "SplashVC.h"
 #import "ExNetwork.h"
 
-
+#import "ChatService.h"
 #import "Global.h"
 #import "User.h"
 
@@ -118,7 +118,7 @@
                 {
                     user.qbuUser = qbuUser;
                     [User setCurrentUser:user];
-
+                    
                     [[Global sharedGlobal] initUserData];
 
                     dispatch_async(dispatch_get_main_queue(), ^{

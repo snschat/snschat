@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Quickblox/Quickblox.h>
 
 @interface ChatMessageCell : UITableViewCell
 
@@ -15,5 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageText;
 @property (weak, nonatomic) IBOutlet UILabel *statusText;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+
+- (void) configureCellWithMessage:(QBChatMessage *) message;
 
 @end

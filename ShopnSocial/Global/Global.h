@@ -11,13 +11,14 @@
 #import "Constants.h"
 
 #import "Country.h"
-#import "Message.h"
 #import "Product.h"
 #import "User.h"
 
 #import "ProductCategory.h"
 #import "Store.h"
 #import "FeaturedStore.h"
+
+#import "ChatService.h"
 
 @interface Global : NSObject
 

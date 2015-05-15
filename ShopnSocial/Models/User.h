@@ -45,7 +45,13 @@
 + (User*)loginUserSync:(NSString*)email password:(NSString*)password;
 + (QBUUser*)loginQBUUserSync:(NSString*)username password:(NSString*)password;
 
++ (QBUUser *) getQBUserFromUserSync:(User *) user;
++ (NSArray *) searchUsersByPrefixSync:(NSString *) prefix;
 
++ (BOOL) setCurrentUserStatusSync:(NSString *) status;
+
++ (User *) getUserByIDSync:(NSInteger) userID;
++ (NSArray *) getUsersFromContactsSync:(NSArray *) contacts;
 // instance methods
 
 - (BOOL) isNeedChangePasswordSync;

@@ -35,6 +35,12 @@ static Global* gShared = nil;
 
 -(void) initUserData
 {
+    User * user = [self currentUser];
+    
+    //Login to chat service
+    [[ChatService shared] loginWithUser:user.qbuUser completionBlock:nil];
+
+    
     [ProductCategory getCategoriesSync];
     
     [self getFeatureStoreSync];

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="AddContactCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eww-DT-chG">
+                        <rect key="frame" x="63" y="11" width="170" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="c7X-II-H7R"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sv7-HM-sHB">
+                        <rect key="frame" x="248" y="7" width="65" height="30"/>
+                        <color key="backgroundColor" red="0.062745098040000002" green="0.63137254899999995" blue="0.15686274510000001" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="GwT-8y-RJk"/>
+                            <constraint firstAttribute="height" constant="30" id="iZy-fQ-7DI"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <state key="normal" title="Invite">
+                            <color key="titleColor" red="0.99607849120000003" green="0.99215692280000001" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kj3-9C-Gzw">
+                        <rect key="frame" x="10" y="0.0" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="ZVA-OK-BOb"/>
+                            <constraint firstAttribute="height" constant="44" id="rbD-a3-5YM"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="centerY" secondItem="Sv7-HM-sHB" secondAttribute="centerY" id="Dy4-UV-fc7"/>
+                    <constraint firstItem="Sv7-HM-sHB" firstAttribute="leading" secondItem="eww-DT-chG" secondAttribute="trailing" constant="15" id="Enu-h3-4cQ"/>
+                    <constraint firstItem="kj3-9C-Gzw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HVZ-tl-wV9"/>
+                    <constraint firstAttribute="centerY" secondItem="eww-DT-chG" secondAttribute="centerY" id="fhV-ei-h1z"/>
+                    <constraint firstAttribute="centerY" secondItem="kj3-9C-Gzw" secondAttribute="centerY" id="oyq-s3-M8V"/>
+                    <constraint firstItem="eww-DT-chG" firstAttribute="leading" secondItem="kj3-9C-Gzw" secondAttribute="trailing" constant="9" id="rxB-0c-PFn"/>
+                    <constraint firstAttribute="trailing" secondItem="Sv7-HM-sHB" secondAttribute="trailing" constant="7" id="yCd-es-NNH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImg" destination="kj3-9C-Gzw" id="e9E-iT-SME"/>
+                <outlet property="contactName" destination="eww-DT-chG" id="fmr-0t-88u"/>
+                <outlet property="inviteBtn" destination="Sv7-HM-sHB" id="wFv-wH-HdL"/>
+            </connections>
+            <point key="canvasLocation" x="211" y="345"/>
+        </tableViewCell>
+    </objects>
+</document>

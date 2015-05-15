@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Quickblox/Quickblox.h>
+#import "KSEnhancedKeyboard.h"
+#import "ChatService.h"
 
-@interface MessageInputVC : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextViewDelegate>
+@interface MessageInputVC : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextViewDelegate, KSEnhancedKeyboardDelegate, ChatServiceDelegate>
 {
     CGRect prevFrame;
 }
 @property (weak, nonatomic) IBOutlet UITableView *messageTable;
 @property (weak, nonatomic) IBOutlet UITextView *inputBox;
-- (void) setMessageData:(NSArray *) _msgList;
+
+- (void) setChatDlg:(QBChatDialog *) dlg;
 @end
