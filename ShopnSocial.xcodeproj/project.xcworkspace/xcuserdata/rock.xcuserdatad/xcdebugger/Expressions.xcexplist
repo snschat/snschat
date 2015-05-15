@@ -11,12 +11,37 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "+[User currentUser]:User.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[SnsHomePageVC refreshRecommendBar]:SnsHomePageVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.scrollRecommedBar.subviews">
+            </PersistentString>
+            <PersistentString
+               value = "_v.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CategoryPopoverVC viewDidLoad]:CategoryPopoverVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "pc.LocationCode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__20-[LoginVC onTwitter]_block_invoke:LoginVC.m">
          <PersistentStrings>
             <PersistentString
                value = "[FHSTwitterEngine sharedEngine]">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CategoryPopoverVC tableView:didSelectRowAtIndexPath:]:CategoryPopoverVC.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

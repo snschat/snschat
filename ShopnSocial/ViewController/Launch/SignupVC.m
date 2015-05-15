@@ -50,6 +50,38 @@
     
     redColor = self.signupMessageLabel.textColor;
     
+    //
+    
+    NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIKeyboardWillShowNotification
+     object:nil
+     queue:mainQueue
+     usingBlock:^(NSNotification *note) {
+         NSDictionary* dict = note.userInfo;
+         NSValue* frame = (NSValue*)[dict valueForKey:UIKeyboardFrameEndUserInfoKey];
+         
+         [UIView animateWithDuration:0.3f animations:^{
+             CGRect frame = self.view.frame;
+             frame.origin.y = -190;
+             self.view.frame = frame;
+         }];
+     }];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIKeyboardWillHideNotification
+     object:nil
+     queue:mainQueue
+     usingBlock:^(NSNotification *note) {
+         [UIView animateWithDuration:0.3f animations:^{
+             CGRect frame = self.view.frame;
+             frame.origin.y = 0;
+             self.view.frame = frame;
+         }];
+     }];
+    
+    //
+    
     [self.interrupterView.superview bringSubviewToFront:self.interrupterView];
     self.interrupterView.hidden = YES;
     
@@ -253,6 +285,7 @@
             // save current user info with logined user info.
             [Global sharedGlobal].LoginedUserEmail = newUser.Email;
             [Global sharedGlobal].LoginedUserPassword = newUser.Password;
+            [[Global sharedGlobal] initUserData];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];
@@ -624,6 +657,22 @@
                          [self.signupConfirm.superview border:0 color:redColor];
                      } completion:^(BOOL finished) {
                      }];
+}
+
+#pragma mark -
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.signupUsername)
+        [self.signupEmail becomeFirstResponder];
+    else if (textField == self.signupEmail)
+        [self.signupPassword becomeFirstResponder];
+    else if(textField == self.signupPassword)
+        [self.signupConfirm becomeFirstResponder];
+    else
+        [textField resignFirstResponder];
+    
+    return YES;
 }
 
 @end

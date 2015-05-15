@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
+
 #import "ResetPasswordVC.h"
 #import "ExUILabel+AutoSize.h"
 #import "ExUIView+Border.h"
@@ -29,6 +31,34 @@
     [super viewDidLoad];
     
     redColor = self.infoNoInternet.textColor;
+    
+    NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIKeyboardWillShowNotification
+     object:nil
+     queue:mainQueue
+     usingBlock:^(NSNotification *note) {
+         NSDictionary* dict = note.userInfo;
+         NSValue* frame = (NSValue*)[dict valueForKey:UIKeyboardFrameEndUserInfoKey];
+         
+         [UIView animateWithDuration:0.3f animations:^{
+             CGRect frame = self.view.frame;
+             frame.origin.y = -190;
+             self.view.frame = frame;
+         }];
+     }];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIKeyboardWillHideNotification
+     object:nil
+     queue:mainQueue
+     usingBlock:^(NSNotification *note) {
+         [UIView animateWithDuration:0.3f animations:^{
+             CGRect frame = self.view.frame;
+             frame.origin.y = 0;
+             self.view.frame = frame;
+         }];
+     }];
 }
 
 - (IBAction)onSend {
@@ -42,6 +72,7 @@
     {
         [self hideMessage:YES];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self.txtEmail resignFirstResponder];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
         {
             User* user = [User getUserByEmailSync:email];
@@ -51,7 +82,6 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self showContactUsMessage];
                 });
-                return;
             }
             else
             {
@@ -70,6 +100,29 @@
             });
         });
     }
+}
+
+- (IBAction)onMailPassword:(id)sender {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *composeViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
+        //        [composeViewController setMailComposeDelegate:self];
+        [composeViewController setToRecipients:@[@"password@shopnsocial.com"]];
+        //        [composeViewController setSubject:@""];
+        [self presentViewController:composeViewController animated:YES completion:nil];
+    }
+}
+
+- (IBAction)goForgottenUsername {
+    NSMutableArray* vcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    [vcs removeLastObject];
+    UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"FogottenUsernameVC"];
+    [vcs addObject:vc];
+    [self.navigationController setViewControllers:vcs animated:YES];
+}
+
+
+- (IBAction)goBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)onCancel {
@@ -131,22 +184,8 @@
 
 - (void) showResetedMessage {
     [self hideMessage:NO];
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         self.infoResetPassword.hidden = NO;
-                         self.interuptView.hidden = NO;
-                         [self.interuptView.superview bringSubviewToFront:self.interuptView];
-                         
-                         CGRect frame = self.inputView.frame;
-                         frame.origin.y = self.infoNoInternet.frame.origin.y + self.infoNoInternet.frame.size.height;
-                         self.inputView.frame = frame;
-                         
-                         self.inputView.alpha = 0.3;
-                         self.description1.alpha = 0.3;
-                         self.description2.alpha = 0.4;
-                         
-                     } completion:^(BOOL finished) {
-                     }];
+    self.resetView.hidden = YES;
+    self.infoResetPassword.hidden = NO;
 }
 
 - (void) showContactUsMessage {
@@ -165,4 +204,12 @@
                      }];
 }
 
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self onSend];
+    return YES;
+}
 @end

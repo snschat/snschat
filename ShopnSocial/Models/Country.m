@@ -10,17 +10,18 @@
 
 #define QB_Class_Name @"Country"
 
-static NSMutableArray* countries = nil;
+static NSMutableArray* gCountries = nil;
+static NSMutableDictionary* gDicCountries = nil;
 
 @implementation Country
 
-+(NSArray*)getCountriesSync//:(void (^)(NSArray *countries))successBlock errorBlock:(void (^)())errorBlock
++(NSArray*)getCountriesSync
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     
-    if (countries != nil || countries.count != 0)
+    if (gCountries != nil || gCountries.count != 0)
     {
-        return countries;
+        return gCountries;
     }
     
     NSMutableDictionary * getRequest = [NSMutableDictionary dictionaryWithDictionary: @{
@@ -31,27 +32,42 @@ static NSMutableArray* countries = nil;
     [QBRequest objectsWithClassName:QB_Class_Name
                     extendedRequest:getRequest
                        successBlock:^(QBResponse *response, NSArray *objects, QBResponsePage *page) {
-                           if (countries == nil)
-                               countries = [NSMutableArray array];
+                           if (gCountries == nil)
+                               gCountries = [NSMutableArray array];
                            
                            for (QBCOCustomObject* co in objects) {
                                Country* entry = [[Country alloc] init];
                                entry.customObject = co;
                                entry.Code = co.fields[@"code"];
                                entry.Name = co.fields[@"name"];
-                               [countries addObject:entry];
+                               [gCountries addObject:entry];
                            }
                            
                            dispatch_semaphore_signal(sema);
                        } errorBlock:^(QBResponse *response) {
                            NSLog(@"Response error: %@", [response.error description]);
-                           countries = [NSMutableArray array];
+                           gCountries = [NSMutableArray array];
                            dispatch_semaphore_signal(sema);
                        }];
     
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     
-    return countries;
+    return gCountries;
+}
+
++(NSDictionary*)getCountryDictionarySync
+{
+    if (gDicCountries != nil) return gDicCountries;
+    
+    [self getCountriesSync];
+    
+    gDicCountries = [NSMutableDictionary dictionary];
+    
+    for (Country* co in gCountries) {
+        [gDicCountries setObject:co forKey:co.Code];
+    }
+    
+    return gDicCountries;
 }
 
 @end

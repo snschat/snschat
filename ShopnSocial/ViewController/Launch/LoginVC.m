@@ -198,6 +198,7 @@
             // if success to login user, save its info as logined user info
             [Global sharedGlobal].LoginedUserEmail = self.loginUsername.text;
             [Global sharedGlobal].LoginedUserPassword = self.loginPassword.text;
+            [[Global sharedGlobal] initUserData];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self onLoginSuccess];
@@ -216,7 +217,7 @@
 - (void)onLoginSuccess
 {
     NSLog(@"Login Successed - %@", [User currentUser]);
- 
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];
@@ -482,6 +483,8 @@
 - (void) loginWithUser:(User*)user
 {
     [Global sharedGlobal].LoginedUserEmail = user.Email;
+    [[Global sharedGlobal] initUserData];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [self onLoginSuccess];
     });

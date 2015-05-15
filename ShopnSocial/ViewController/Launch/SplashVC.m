@@ -41,41 +41,37 @@
     {
         [self showInternet];
         
-        QBSessionParameters *parameters = [QBSessionParameters new];
-        parameters.userLogin = @"mazb19";
-        parameters.userPassword = @"evoodioz";
+//        QBSessionParameters *parameters = [QBSessionParameters new];
+//        parameters.userLogin = @"mazb19";
+//        parameters.userPassword = @"evoodioz";
+//        
+//        [QBRequest createSessionWithExtendedParameters:parameters
+//                                          successBlock:^(QBResponse *response, QBASession *session) {
+//                                              NSLog(@"Session created");
+//                                              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//
+//                                                  NSArray* countries = [Country getCountriesSync];
+//                                                  NSLog(@"Success %lu countries", (unsigned long)countries.count);
+//                                                  [self gotoNext];
+//                                              });
+//                                          } errorBlock:^(QBResponse *response) {
+//                                              NSLog(@"Session create failed");
+//                                          }];
         
-        [QBRequest createSessionWithExtendedParameters:parameters
-                                          successBlock:^(QBResponse *response, QBASession *session) {
-                                              NSLog(@"Session created");
-                                              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-                                                  NSArray* countries = [Country getCountriesSync];
-                                                  NSLog(@"Success %lu countries", (unsigned long)countries.count);
-                                                  [self gotoNext];
-                                              });
-                                          } errorBlock:^(QBResponse *response) {
-                                              NSLog(@"Session create failed");
-                                          }];
-        
-//        [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
-//            NSLog(@"Session created");
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                
-//                NSArray* countries = [Country getCountriesSync];
-//                NSLog(@"Success %lu countries", (unsigned long)countries.count);
-//                
-//                [QBRequest resetUserPasswordWithEmail:@"covernal@hotmail.com" successBlock:^(QBResponse *response) {
-//                    NSLog(@"successed password change");
-//                } errorBlock:^(QBResponse *response) {
-//                    NSLog(@"fail");
-//                }];
-//                
-//                //[self gotoNext];
-//            });
-//        } errorBlock:^(QBResponse *response) {
-//            NSLog(@"Session create failed");
-//        }];
+        [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
+            NSLog(@"Session created");
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSLog(@"Session created");
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    NSArray* countries = [Country getCountriesSync];
+                    NSLog(@"Success %lu countries", (unsigned long)countries.count);
+                    [self gotoNext];
+                });
+            });
+        } errorBlock:^(QBResponse *response) {
+            NSLog(@"Session create failed");
+        }];
     }
     else
     {
@@ -122,6 +118,8 @@
                 {
                     user.qbuUser = qbuUser;
                     [User setCurrentUser:user];
+
+                    [[Global sharedGlobal] initUserData];
 
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];

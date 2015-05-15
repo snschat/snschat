@@ -26,4 +26,9 @@
 #pragma mark - AES KEY
 #define AesStoreKey @"AesStorePrivateKey"
 
+#pragma mark
+
+#define GoogleSuggestionURL @"http://suggestqueries.google.com/complete/search?output=chrome&hl=en&q="
+#define GoogleSearchPageURL @"https://www.google.co.in/search?q="
+
 #endif

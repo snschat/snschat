@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResetPasswordVC : UIViewController
+@interface ResetPasswordVC : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *interuptView;
 @property (strong, nonatomic) IBOutlet UIView *inputView;
@@ -16,12 +16,16 @@
 @property (strong, nonatomic) IBOutlet UITextField *txtEmail;
 @property (strong, nonatomic) IBOutlet UILabel *infoNoInternet;
 @property (strong, nonatomic) IBOutlet UIView *infoContactUs;
-@property (strong, nonatomic) IBOutlet UILabel *infoResetPassword;
+@property (strong, nonatomic) IBOutlet UIView *resetView;
+
+@property (strong, nonatomic) IBOutlet UIView *infoResetPassword;
 
 @property (strong, nonatomic) IBOutlet UIView *description1;
+
 @property (strong, nonatomic) IBOutlet UIView *description2;
 
 - (IBAction)onSend;
 
 - (IBAction)onCancel;
+
 @end

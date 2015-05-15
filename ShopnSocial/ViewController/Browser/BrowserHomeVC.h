@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BrowserHomeVC : UIViewController
+@interface BrowserHomeVC : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *chatbar;
 @property (strong, nonatomic) IBOutlet UIButton *buttonChatSlider;
+
+
+@property (strong, nonatomic) IBOutlet UIView *mainview;
 
 @end

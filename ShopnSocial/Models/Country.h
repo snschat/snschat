@@ -15,8 +15,8 @@
 @property (nonatomic, strong) NSNumber* Code;
 @property (nonatomic, strong) NSString* Name;
 
-+(NSArray*)getCountriesSync;//:(void (^)(NSArray *countries))successBlock errorBlock:(void (^)())errorBlock;
-
++(NSArray*)getCountriesSync;
++(NSDictionary*)getCountryDictionarySync;
 
 
 @end

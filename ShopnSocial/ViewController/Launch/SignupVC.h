@@ -11,9 +11,10 @@
 #import "ListPopoverVC.h"
 #import "DatePopoverVC.h"
 
+#import "Global.h"
 #import "User.h"
 
-@interface SignupVC : UIViewController <ListPopoverDelegate, DatePopoverDelegate>
+@interface SignupVC : UIViewController <ListPopoverDelegate, DatePopoverDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *signupView;
 @property (strong, nonatomic) IBOutlet UILabel *signupMessageLabel;

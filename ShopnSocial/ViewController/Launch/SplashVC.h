@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Country.h"
+
+#import "Global.h"
 
 @interface SplashVC : UIViewController
 

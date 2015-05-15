@@ -94,8 +94,9 @@
         
         [self setNeedsImageUpdate];
         
-        self.layer.cornerRadius = 0;
+        //self.layer.cornerRadius = 0;
         self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:55.0f / 0xff green:160.0f/0xff blue:226.0f/0xff alpha:1];
     }
     return self;
 }
