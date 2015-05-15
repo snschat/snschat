@@ -11,6 +11,9 @@
 @interface UILabel (dynamicSizeMe)
 
 - (float) fitHeight;
+- (float) expectedWidth;
 - (float) expectedHeight;
+
 +(float) expectedHeight:(CGFloat) width :(UIFont *) font :(NSString *)text;
++(float) expectedWidth:(CGFloat) height :(UIFont *) font :(NSString *)text;
 @end

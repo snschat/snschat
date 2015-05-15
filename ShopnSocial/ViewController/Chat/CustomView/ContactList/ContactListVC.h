@@ -8,15 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <Quickblox/Quickblox.h>
+#import "ChatService.h"
+#import "ContactListCell.h"
 
 @protocol ContactListVCDelegate
 - (void) onContactSelected:(id) contact;
 - (void) onAddContactTouched;
 @end
 
-@interface ContactListVC : UIViewController<UITableViewDataSource, UITableViewDelegate, QBChatDelegate>
+@interface ContactListVC : UIViewController<UITableViewDataSource, UITableViewDelegate, ChatServiceDelegate, ContactListCellDelegate>
 {
     NSMutableArray * contactList;
+    
+    NSMutableArray * availableList;
+    NSMutableArray * waitingList;
 }
 
 - (void) setContactListData:(NSArray *) _listData;

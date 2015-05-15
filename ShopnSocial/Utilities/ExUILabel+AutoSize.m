@@ -36,6 +36,22 @@
     return calculatedSize.size.height;
 
 }
+- (float) expectedWidth
+{
+    [self setLineBreakMode:NSLineBreakByWordWrapping];
+    
+    CGSize expectedSize = CGSizeMake(FLT_MAX, self.frame.size.height);
+    
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          self.font, NSFontAttributeName,
+                                          nil];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.text attributes:attributesDictionary];
+    
+    CGRect calculatedSize = [string boundingRectWithSize:expectedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    return calculatedSize.size.height;
+}
 
 +(float) expectedHeight:(CGFloat) width :(UIFont *) font :(NSString *)text
 {
@@ -51,6 +67,22 @@
     CGRect calculatedSize = [string boundingRectWithSize:expectedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     
     return calculatedSize.size.height;
+
+}
+
++(float) expectedWidth:(CGFloat) height :(UIFont *) font :(NSString *)text
+{
+    CGSize expectedSize = CGSizeMake(FLT_MAX, height);
+    
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          font, NSFontAttributeName,
+                                          
+                                          nil];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text attributes:attributesDictionary];
+    
+    CGRect calculatedSize = [string boundingRectWithSize:expectedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    return calculatedSize.size.width;
 
 }
 @end

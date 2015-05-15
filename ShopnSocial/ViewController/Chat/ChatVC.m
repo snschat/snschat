@@ -7,7 +7,7 @@
 //
 
 #import "User.h"
-#import "Chat.h"
+#import "ChatService.h"
 
 #import "ChatVC.h"
 #import "ExUIView+Mask.h"
@@ -23,6 +23,7 @@
     ContactListVC * contactVC;
     ContactTabBar * tabBar;
     StatusOptionVC * statusMenu;
+    MessageInputVC * msgVC;
 }
 
 @end
@@ -31,11 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //Login to chat
-    [[QBChat instance] addDelegate:self];
-    [Chat loginToChat];
-    [NSTimer scheduledTimerWithTimeInterval:60 target:[QBChat instance] selector:@selector(sendPresence) userInfo:nil repeats:YES];
     
     // Do any additional setup after loading the view.
     
@@ -78,7 +74,7 @@
      */
     frame = self.messageBoard.frame;
     frame.origin = CGPointZero;
-    MessageInputVC * msgVC = [[MessageInputVC alloc] initWithNibName:@"MessageInputVC" bundle:[NSBundle mainBundle]];
+    msgVC = [[MessageInputVC alloc] initWithNibName:@"MessageInputVC" bundle:[NSBundle mainBundle]];
     msgVC.view.frame = frame;
     [self addChildViewController: msgVC];
     [self.messageBoard addSubview: msgVC.view];
@@ -112,7 +108,7 @@
     
     NSString * statusStr = [User currentUser].customObject.fields[@"status"];
     [statusMenu setCurrentStatusStr: statusStr];
-    [[QBChat instance] sendPresenceWithStatus: statusStr];
+    [[ChatService shared] sendPresenceWithStatus: statusStr];
     
     self.m_profileName.text = [User currentUser].Username;
     self.m_profileStatus.text = statusStr;
@@ -232,10 +228,66 @@
 }
 
 #pragma mark ContactListVCDelegate
-- (void) onContactSelected:(id) contact
+- (void) onContactSelected:(id) _contact
 {
-    self.mainBoard.hidden = NO;
+    Contact * contact = _contact;
+    
+    //Show chat view if contact was approved
+    if(contact.bPending || contact.bWaiting)
+    {
+        self.mainBoard.hidden = YES;
+        return;
+    }
+    
+    self.contactName.text = contact.user.Username;
+    self.contactStatus.text = contact.user.customObject.fields[@"status"];
+    
+    //Create chat dialog and attach to Message Input VC
+    __block QBChatDialog * chatDlg;
+    [[ChatService shared] requestDialogsWithCompletionBlock:^{
+        for(QBChatDialog *dialog in [ChatService shared].dialogs)
+        {
+            switch (dialog.type) {
+                case QBChatDialogTypePrivate:
+                {
+                    if(dialog.recipientID == contact.user.qbuUser.ID)
+                        chatDlg = dialog;
+                }
+                    break;
+                case QBChatDialogTypeGroup:
+                {
+                    
+                }
+                    break;
+                case  QBChatDialogTypePublicGroup:
+                {
+                    
+                }
+                default:
+                    break;
+            }
+        }
+        if(chatDlg == nil)
+        {
+            chatDlg = [QBChatDialog new];
+            chatDlg.type = QBChatDialogTypePrivate;
+            chatDlg.occupantIDs = @[@(contact.user.qbuUser.ID)];
+            [QBRequest createDialog: chatDlg successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
+                [msgVC setChatDlg: createdDialog];
+                self.mainBoard.hidden = NO;
+            } errorBlock:^(QBResponse *response) {
+                
+            }];
+        }
+        else
+        {
+            [msgVC setChatDlg:chatDlg];
+            self.mainBoard.hidden = NO;
+        }
+        
+    }];
 }
+
 - (void) onAddContactTouched
 {
     AddContactVC * addContactVC = [self.storyboard instantiateViewControllerWithIdentifier: @"AddContactVC"];
@@ -254,6 +306,7 @@
     self.mainBoard.hidden = NO;
 }
 
+#pragma mark StatusOptionVC Delegate
 - (IBAction)onClickStatus:(id)sender {
     
     if(statusMenu.view.hidden == NO)
@@ -286,13 +339,7 @@
     statusMenu.view.hidden = YES;
 }
 
-#pragma mark QBChatDelegate
-- (void) chatDidLogin
-{
-    
-}
-
-- (void) chatDidNotLogin
+- (void) updateContactInfo
 {
     
 }

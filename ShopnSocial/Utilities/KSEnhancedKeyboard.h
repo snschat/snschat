@@ -7,7 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+@protocol KSEnhancedKeyboardDelegate
+
+- (void)nextDidTouchDown;
+- (void)previousDidTouchDown;
+- (void)doneDidTouchDown;
+
+@end
 
 @interface KSEnhancedKeyboard : NSObject
+
+- (UIToolbar *)getToolbarWithPrevEnabled:(BOOL)prevEnabled NextEnabled:(BOOL)nextEnabled DoneEnabled:(BOOL)doneEnabled;
+@property (nonatomic, strong) id <KSEnhancedKeyboardDelegate> delegate;
 
 @end

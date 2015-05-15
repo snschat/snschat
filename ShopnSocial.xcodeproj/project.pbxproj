@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DD0590DC1AFE7175002A14CA /* StatusOptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0590DA1AFE7175002A14CA /* StatusOptionVC.m */; };
 		DD0590DD1AFE7175002A14CA /* StatusOptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD0590DB1AFE7175002A14CA /* StatusOptionVC.xib */; };
+		DD09A3C11B05CDDB00796501 /* KSEnhancedKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = DD09A3C01B05CDDB00796501 /* KSEnhancedKeyboard.m */; };
 		DD0F74221AFC89E300E443E0 /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0F74211AFC89E300E443E0 /* UIImageEffects.m */; };
 		DD17E3841AF5F34600B2C3DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D48FA1AF21D1E00811436 /* SystemConfiguration.framework */; };
 		DD17E3851AF5F34E00B2C3DF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D48F51AF1FF7100811436 /* MobileCoreServices.framework */; };
@@ -30,7 +31,7 @@
 		DD17E3BE1AF6902800B2C3DF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3B81AF68F6700B2C3DF /* AssetsLibrary.framework */; };
 		DD17E3C01AF6903600B2C3DF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3BF1AF6903600B2C3DF /* AVFoundation.framework */; };
 		DD17E3C21AF6905900B2C3DF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD17E3C11AF6905900B2C3DF /* MediaPlayer.framework */; };
-		DD20FB311AF89852000BAF7F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB2E1AF89852000BAF7F /* Message.m */; };
+		DD1BB9B51B05967A00B81BA5 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = DD1BB9B41B05967A00B81BA5 /* Contact.m */; };
 		DD20FB321AF89852000BAF7F /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB301AF89852000BAF7F /* Product.m */; };
 		DD20FB541AF8985F000BAF7F /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB351AF8985F000BAF7F /* ChatVC.m */; };
 		DD20FB551AF8985F000BAF7F /* ChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD20FB381AF8985F000BAF7F /* ChatMessageCell.m */; };
@@ -61,7 +62,6 @@
 		DD3CB1781AFE1A38000276CF /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD3CB1731AFE1A38000276CF /* ProductCell.xib */; };
 		DD3CB1791AFE1A38000276CF /* SharedProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3CB1751AFE1A38000276CF /* SharedProductVC.m */; };
 		DD3CB17A1AFE1A38000276CF /* SharedProductVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD3CB1761AFE1A38000276CF /* SharedProductVC.xib */; };
-		DD48224F1B01F3A300205283 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = DD48224E1B01F3A300205283 /* Chat.m */; };
 		DD7009521AE6902800878EE7 /* SplashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009511AE6902800878EE7 /* SplashVC.m */; };
 		DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009551AE6927700878EE7 /* ExNetwork.m */; };
 		DD7009591AE6931400878EE7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7009581AE6931400878EE7 /* Reachability.m */; };
@@ -98,6 +98,7 @@
 		DDC47CCE1AE7B39800759DCF /* TermsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CCD1AE7B39800759DCF /* TermsVC.m */; };
 		DDC47CD11AE7B68F00759DCF /* PrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC47CD01AE7B68F00759DCF /* PrivacyVC.m */; };
 		DDF875931AF0B731006181E5 /* ExNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF875921AF0B731006181E5 /* ExNSString.m */; };
+		DDFF03CF1B04E27400C10342 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFF03CE1B04E27400C10342 /* ChatService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,8 @@
 		DD0590D91AFE7175002A14CA /* StatusOptionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusOptionVC.h; sourceTree = "<group>"; };
 		DD0590DA1AFE7175002A14CA /* StatusOptionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusOptionVC.m; sourceTree = "<group>"; };
 		DD0590DB1AFE7175002A14CA /* StatusOptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusOptionVC.xib; sourceTree = "<group>"; };
+		DD09A3BF1B05CDDB00796501 /* KSEnhancedKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSEnhancedKeyboard.h; sourceTree = "<group>"; };
+		DD09A3C01B05CDDB00796501 /* KSEnhancedKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSEnhancedKeyboard.m; sourceTree = "<group>"; };
 		DD0F74201AFC89E300E443E0 /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageEffects.h; sourceTree = "<group>"; };
 		DD0F74211AFC89E300E443E0 /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageEffects.m; sourceTree = "<group>"; };
 		DD17E3881AF6233700B2C3DF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -136,8 +139,8 @@
 		DD17E3BA1AF68F7200B2C3DF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DD17E3BF1AF6903600B2C3DF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DD17E3C11AF6905900B2C3DF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		DD20FB2D1AF89852000BAF7F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		DD20FB2E1AF89852000BAF7F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		DD1BB9B31B05967A00B81BA5 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		DD1BB9B41B05967A00B81BA5 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		DD20FB2F1AF89852000BAF7F /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		DD20FB301AF89852000BAF7F /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		DD20FB341AF8985F000BAF7F /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
@@ -189,8 +192,6 @@
 		DD3CB1741AFE1A38000276CF /* SharedProductVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedProductVC.h; sourceTree = "<group>"; };
 		DD3CB1751AFE1A38000276CF /* SharedProductVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedProductVC.m; sourceTree = "<group>"; };
 		DD3CB1761AFE1A38000276CF /* SharedProductVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SharedProductVC.xib; sourceTree = "<group>"; };
-		DD48224D1B01F3A300205283 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
-		DD48224E1B01F3A300205283 /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 		DD7009501AE6902800878EE7 /* SplashVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashVC.h; sourceTree = "<group>"; };
 		DD7009511AE6902800878EE7 /* SplashVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashVC.m; sourceTree = "<group>"; };
 		DD7009541AE6927700878EE7 /* ExNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExNetwork.h; sourceTree = "<group>"; };
@@ -255,6 +256,8 @@
 		DDC47CD01AE7B68F00759DCF /* PrivacyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyVC.m; sourceTree = "<group>"; };
 		DDF875911AF0B731006181E5 /* ExNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExNSString.h; sourceTree = "<group>"; };
 		DDF875921AF0B731006181E5 /* ExNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExNSString.m; sourceTree = "<group>"; };
+		DDFF03CD1B04E27400C10342 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatService.h; path = ChatService/ChatService.h; sourceTree = "<group>"; };
+		DDFF03CE1B04E27400C10342 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatService.m; path = ChatService/ChatService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -557,6 +560,8 @@
 				DDF875921AF0B731006181E5 /* ExNSString.m */,
 				DD9C85501AF521A200E32CE3 /* ExNSDate.h */,
 				DD9C85511AF521A200E32CE3 /* ExNSDate.m */,
+				DD09A3BF1B05CDDB00796501 /* KSEnhancedKeyboard.h */,
+				DD09A3C01B05CDDB00796501 /* KSEnhancedKeyboard.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 		DD7C213F1AE6870D00BEB3B0 /* ShopnSocial */ = {
 			isa = PBXGroup;
 			children = (
+				DDFF03CC1B04E22B00C10342 /* ChatService */,
 				DD8D48E21AF1C8BB00811436 /* Frameworks */,
 				DDC47CC71AE7B21200759DCF /* Resource */,
 				DDA1E2DF1AF860DC001E5CC5 /* Global */,
@@ -652,8 +658,6 @@
 		DD8D48E71AF1CAA500811436 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DD20FB2D1AF89852000BAF7F /* Message.h */,
-				DD20FB2E1AF89852000BAF7F /* Message.m */,
 				DD20FB2F1AF89852000BAF7F /* Product.h */,
 				DD20FB301AF89852000BAF7F /* Product.m */,
 				DD8D48EA1AF1CCB300811436 /* Country.h */,
@@ -662,8 +666,8 @@
 				DD9C85481AF4661F00E32CE3 /* User.m */,
 				DD17E38B1AF64B8800B2C3DF /* QBUser.h */,
 				DD17E38C1AF64B8800B2C3DF /* QBUser.m */,
-				DD48224D1B01F3A300205283 /* Chat.h */,
-				DD48224E1B01F3A300205283 /* Chat.m */,
+				DD1BB9B31B05967A00B81BA5 /* Contact.h */,
+				DD1BB9B41B05967A00B81BA5 /* Contact.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -727,6 +731,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		DDFF03CC1B04E22B00C10342 /* ChatService */ = {
+			isa = PBXGroup;
+			children = (
+				DDFF03CD1B04E27400C10342 /* ChatService.h */,
+				DDFF03CE1B04E27400C10342 /* ChatService.m */,
+			);
+			name = ChatService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -776,10 +789,11 @@
 				TargetAttributes = {
 					DD7C213C1AE6870D00BEB3B0 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 722Q2V2XP8;
+						DevelopmentTeam = BC9ZS39VLY;
 					};
 					DD7C21551AE6870D00BEB3B0 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = BC9ZS39VLY;
 						TestTargetID = DD7C213C1AE6870D00BEB3B0;
 					};
 				};
@@ -854,6 +868,7 @@
 				DD20FB551AF8985F000BAF7F /* ChatMessageCell.m in Sources */,
 				DD20FB5E1AF8985F000BAF7F /* GroupVC.m in Sources */,
 				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
+				DDFF03CF1B04E27400C10342 /* ChatService.m in Sources */,
 				DD20FB771AF8B37A000BAF7F /* FavoriteVC.m in Sources */,
 				DD20FB541AF8985F000BAF7F /* ChatVC.m in Sources */,
 				DD0F74221AFC89E300E443E0 /* UIImageEffects.m in Sources */,
@@ -865,12 +880,12 @@
 				DDA1E2DA1AF775FB001E5CC5 /* YIInnerShadowView.m in Sources */,
 				DDA1E2D91AF775FB001E5CC5 /* YIInnerShadowLayer.m in Sources */,
 				DD20FB601AF8985F000BAF7F /* MessageInputVC.m in Sources */,
+				DD1BB9B51B05967A00B81BA5 /* Contact.m in Sources */,
 				DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */,
 				DD37307E1B013DCA0078F7E0 /* InviteFriendDlg.m in Sources */,
 				DDAF96C01B00B90300109B32 /* NSData+Base64.m in Sources */,
 				DDC47CCE1AE7B39800759DCF /* TermsVC.m in Sources */,
 				DDAF96BF1B00B90300109B32 /* FBEncryptorAES.m in Sources */,
-				DD20FB311AF89852000BAF7F /* Message.m in Sources */,
 				DD20FB321AF89852000BAF7F /* Product.m in Sources */,
 				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
 				DD9C85521AF521A200E32CE3 /* ExNSDate.m in Sources */,
@@ -889,8 +904,8 @@
 				DD20FB6F1AF89883000BAF7F /* FXBlurView.m in Sources */,
 				DD3730811B01454A0078F7E0 /* AddMediaContactVC.m in Sources */,
 				DD3730731B012D200078F7E0 /* AddProductVC.m in Sources */,
+				DD09A3C11B05CDDB00796501 /* KSEnhancedKeyboard.m in Sources */,
 				DD7009561AE6927700878EE7 /* ExNetwork.m in Sources */,
-				DD48224F1B01F3A300205283 /* Chat.m in Sources */,
 				DD9C854C1AF4F76000E32CE3 /* ListPopoverVC.m in Sources */,
 				DD3730691B012C7A0078F7E0 /* ContactListCell.m in Sources */,
 			);
@@ -1022,8 +1037,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sonny Jimenez (6FJGYN85G9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sonny Jimenez (6FJGYN85G9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShopnSocial/Frameworks",
@@ -1045,7 +1060,7 @@
 					"-lxml2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "19671490-db16-41e2-b39c-ceb09cfa3eb1";
 			};
 			name = Debug;
 		};
@@ -1053,8 +1068,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sonny Jimenez (6FJGYN85G9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sonny Jimenez (6FJGYN85G9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShopnSocial/Frameworks",
@@ -1076,7 +1091,7 @@
 					"-lxml2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "19671490-db16-41e2-b39c-ceb09cfa3eb1";
 			};
 			name = Release;
 		};

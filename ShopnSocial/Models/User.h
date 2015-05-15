@@ -27,7 +27,6 @@
 
 // non-saved field
 @property (nonatomic, strong) NSString* Password;
-@property (nonatomic) BOOL bPending;
 
 // class methods
 
@@ -51,7 +50,7 @@
 
 + (BOOL) setCurrentUserStatusSync:(NSString *) status;
 
-+ (User *) getUserFromContactSync:(QBContactListItem*) contact;
++ (User *) getUserByIDSync:(NSInteger) userID;
 + (NSArray *) getUsersFromContactsSync:(NSArray *) contacts;
 // instance methods
 

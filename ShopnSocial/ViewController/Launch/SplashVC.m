@@ -9,7 +9,7 @@
 #import "SplashVC.h"
 #import "ExNetwork.h"
 
-
+#import "ChatService.h"
 #import "Global.h"
 #import "User.h"
 
@@ -122,6 +122,9 @@
                 {
                     user.qbuUser = qbuUser;
                     [User setCurrentUser:user];
+                    
+                    //Login to chat service
+                    [[ChatService shared] loginWithUser:user.qbuUser completionBlock:nil];
 
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];

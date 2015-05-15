@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
 @interface Contact : NSObject
-
+@property(nonatomic, strong) User * user;
+@property (nonatomic) BOOL bWaiting;
+@property (nonatomic) BOOL bPending;
 @end

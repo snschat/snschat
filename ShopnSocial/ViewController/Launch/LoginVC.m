@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 rock. All rights reserved.
 //
 
+#import "ChatService.h"
 #import "LoginVC.h"
 #import "ExUILabel+AutoSize.h"
 #import "ExUIView+Border.h"
@@ -216,7 +217,11 @@
 - (void)onLoginSuccess
 {
     NSLog(@"Login Successed - %@", [User currentUser]);
- 
+    
+    User * user = [User currentUser];
+    //Login to chat service
+    [[ChatService shared] loginWithUser:user.qbuUser completionBlock:nil];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserHomeVC"];

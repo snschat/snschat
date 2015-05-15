@@ -9,6 +9,8 @@
 #import "ContactListVC.h"
 #import "ContactListCell.h"
 #import "User.h"
+#import "Contact.h"
+#import "ChatService.h"
 
 @interface ContactListVC ()
 
@@ -34,13 +36,31 @@
     }
     self.tableView.tableFooterView = [UIView new];
     
-
-    [[QBChat instance] addDelegate:self];
+    waitingList = [NSMutableArray array];
+    availableList = [NSMutableArray array];
+    contactList = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[ChatService shared] addDelegate:self];
+    
+    availableList = [ChatService shared].contactUsers;
+    waitingList = [ChatService shared].waitingUsers;
+    
+    [self reloadTableData];
+}
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[ChatService shared] removeDelegate:self];
 }
 
 /*
@@ -52,32 +72,6 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (void) fetchContactList
-{
-    contactList = [NSMutableArray array];
-    
-    NSArray * contacts = [QBChat instance].contactList.contacts;
-    NSArray * pendingContacts = [QBChat instance].contactList.pendingApproval;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray * users = [User getUsersFromContactsSync: contacts];
-        NSArray * pendingUsers = [User getUsersFromContactsSync: pendingContacts];
-        for(User * user in users)
-        {
-            user.bPending = NO;
-        }
-        for(User * user in pendingUsers)
-        {
-            user.bPending = YES;
-        }
-        [contactList addObjectsFromArray: pendingUsers];
-        [contactList addObjectsFromArray: users];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setContactListData: contactList];
-        });
-    });
-}
 
 - (IBAction)onAddContactTouched:(id)sender {
     [self.delegate onAddContactTouched];
@@ -85,8 +79,8 @@
 
 - (void) setContactListData:(NSArray *) _listData
 {
-    contactList = [NSMutableArray arrayWithArray: _listData];
-    [self.tableView reloadData];
+    availableList = [NSMutableArray arrayWithArray: _listData];
+    [self reloadTableData];
 }
 
 #pragma mark UITableViewDelegate
@@ -99,6 +93,8 @@
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
         //TODO: Delete contact
+        Contact * contact = [contactList objectAtIndex: indexPath.row];
+        [[QBChat instance] removeUserFromContactList: contact.user.qbuUser.ID];
     }
 }
 
@@ -130,15 +126,31 @@
     }
     
     cell.backgroundColor = [UIColor clearColor];
-    User * user = [contactList objectAtIndex: indexPath.row];
+    Contact * contact = [contactList objectAtIndex: indexPath.row];
+    
     //TODO: Populate data
+    
 //    cell.avatarImgView.image = ;
-    cell.contactName.text = user.Username;
-    cell.status.text = user.customObject.fields[@"status"];
+    cell.contactName.text = contact.user.Username;
+    cell.status.text = contact.user.customObject.fields[@"status"];
+    cell.indexPath = indexPath;
+    
+    if(contact.bWaiting)
+    {
+        [cell setAnnotations: @[@ANNOT_CONFIRM]];
+        cell.delegate = self;
+    }
+    else if(contact.bPending)
+    {
+        [cell setAnnotations: @[@ANNOT_AWAITING]];
+    }
+    else
+        [cell setAnnotations: @[]];
 
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
+
     return cell;
 }
 
@@ -150,15 +162,68 @@
         [self.delegate onContactSelected: data];
     }
 }
+- (void) reloadTableData
+{
+    [contactList removeAllObjects];
+    [contactList addObjectsFromArray: waitingList];
+    [contactList addObjectsFromArray: availableList];
+    [self.tableView reloadData];
+}
+#pragma mark ChatService Delegate
+- (BOOL)chatDidReceiveMessage:(QBChatMessage *)message
+{
+    if([message markable])
+    {
+        [[QBChat instance] readMessage: message];
+    }
+    return YES;//Not processed here
+}
+- (void) chatDidReadMessageWithID:(NSString *)messageID
+{
+    
+}
 
-#pragma mark QBChat Delegate
+- (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID
+{
+    return NO;//Not processed here
+}
+- (void)chatDidLogin
+{
+    
+}
 - (void) chatContactListDidChange:(QBContactList *)contactList
 {
-    [self fetchContactList];
+    
 }
 - (void) chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status
 {
     
 }
 
+- (void) chatContactUsersDidChange:(NSMutableArray *) contactUsers
+{
+    availableList = contactUsers;
+    [self reloadTableData];
+}
+- (void) chatDidReceiveContactAddRequestFromUser:(NSUInteger)userID
+{
+    waitingList = [ChatService shared].waitingUsers;
+    [self reloadTableData];
+}
+
+#pragma mark ContactListCellDelegate
+- (void) onAcceptTouched:(id) cell
+{
+    ContactListCell * contactCell = cell;
+    Contact * contact = [contactList objectAtIndex: contactCell.indexPath.row];
+    [[ChatService shared] confirmAddContactRequest: contact];
+}
+
+- (void) onDeclineTouched:(id) cell
+{
+    ContactListCell * contactCell = cell;
+    Contact * contact = [contactList objectAtIndex: contactCell.indexPath.row];
+    [[ChatService shared] rejectAddContactRequest:contact];
+    
+}
 @end

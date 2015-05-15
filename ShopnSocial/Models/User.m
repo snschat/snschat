@@ -73,12 +73,12 @@ static User* gCurrentUser = nil;
     return qbUser;
 }
 
-+ (User *) getUserFromContactSync:(QBContactListItem*) contact
++ (User *) getUserByIDSync:(NSInteger) userID
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     __block User * user = nil;
     __block QBUUser * qbUser = nil;
-    [QBRequest userWithID: contact.userID successBlock:^(QBResponse *response, QBUUser *_qbUser) {
+    [QBRequest userWithID: userID successBlock:^(QBResponse *response, QBUUser *_qbUser) {
         qbUser = _qbUser;
         dispatch_semaphore_signal(sema);
     } errorBlock:^(QBResponse *response) {
@@ -97,7 +97,7 @@ static User* gCurrentUser = nil;
     
     for(QBContactListItem * contact in contacts)
     {
-        User * user = [self getUserFromContactSync: contact];
+        User * user = [self getUserByIDSync: contact.userID];
         [userArr addObject: user];
     }
     return userArr;
@@ -181,7 +181,6 @@ static User* gCurrentUser = nil;
                                User * user = [[User alloc] init];
                                [self mapFromQT:co toUser:user];
                                [resultArr addObject: user];
-                               break;
                            }
                            dispatch_semaphore_signal(sema);
                        } errorBlock:^(QBResponse *response) {
@@ -233,6 +232,7 @@ static User* gCurrentUser = nil;
     QBUUser* qbuser = [QBUUser user];
     qbuser.login = user.Email;
     qbuser.email = user.Email;
+    qbuser.fullName = user.Username;
     qbuser.password = md5Password;
     
     [QBRequest signUp:qbuser successBlock:^(QBResponse *response, QBUUser *user) {
