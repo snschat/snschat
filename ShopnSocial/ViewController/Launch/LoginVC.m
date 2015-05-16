@@ -199,6 +199,8 @@
             // if success to login user, save its info as logined user info
             [Global sharedGlobal].LoginedUserEmail = self.loginUsername.text;
             [Global sharedGlobal].LoginedUserPassword = self.loginPassword.text;
+            [Global sharedGlobal].currentUser = user;
+            
             [[Global sharedGlobal] initUserData];
             
             dispatch_async(dispatch_get_main_queue(), ^{
