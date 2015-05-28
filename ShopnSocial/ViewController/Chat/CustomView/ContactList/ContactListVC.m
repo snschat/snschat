@@ -21,6 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
+                                                 name:kDialogUpdatedNotification object:nil];
+
+    
     // Do any additional setup after loading the view from its nib.
     UINib * nib = [UINib nibWithNibName:@"ContactListCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"contact_list_cell"];
@@ -35,7 +39,6 @@
         [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     }
     self.tableView.tableFooterView = [UIView new];
-    
     waitingList = [NSMutableArray array];
     availableList = [NSMutableArray array];
     contactList = [NSMutableArray array];
@@ -53,7 +56,7 @@
     
     availableList = [ChatService shared].contactUsers;
     waitingList = [ChatService shared].waitingUsers;
-    
+
     [self reloadTableData];
 }
 - (void) viewWillDisappear:(BOOL)animated
@@ -145,7 +148,21 @@
         [cell setAnnotations: @[@ANNOT_AWAITING]];
     }
     else
+    {
         [cell setAnnotations: @[]];
+        NSArray * dialogs = [ChatService shared].dialogs;
+        for(QBChatDialog * dialog in dialogs)
+        {
+            if(dialog.recipientID == contact.user.UserID &&  dialog.unreadMessagesCount > 0)
+            {
+                [cell setBadgeNumber: dialog.unreadMessagesCount];
+                [cell setAnnotations:@[@(ANNOT_BADGE)]];
+                break;
+            }
+                
+        }
+    }
+    
 
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
@@ -170,18 +187,6 @@
     [self.tableView reloadData];
 }
 #pragma mark ChatService Delegate
-- (BOOL)chatDidReceiveMessage:(QBChatMessage *)message
-{
-    if([message markable])
-    {
-        [[QBChat instance] readMessage: message];
-    }
-    return YES;//Not processed here
-}
-- (void) chatDidReadMessageWithID:(NSString *)messageID
-{
-    
-}
 
 - (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID
 {
@@ -224,6 +229,20 @@
     ContactListCell * contactCell = cell;
     Contact * contact = [contactList objectAtIndex: contactCell.indexPath.row];
     [[ChatService shared] rejectAddContactRequest:contact];
+}
+- (BOOL) chatDidReceiveMessage:(QBChatMessage *)message
+{
+    NSArray * dialogs = [ChatService shared].dialogs;
     
+    for(QBChatDialog * dialog in dialogs)
+    {
+        if([dialog.ID isEqualToString: message.customParameters[@"dialog_id"]])
+        {
+            dialog.unreadMessagesCount ++;
+        }
+    }
+    
+    [self.tableView reloadData];
+    return YES;
 }
 @end

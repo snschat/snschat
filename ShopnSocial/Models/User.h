@@ -14,6 +14,7 @@
 @property (nonatomic, strong) QBCOCustomObject* customObject;
 @property (nonatomic, strong) QBUUser* qbuUser;
 
+@property (nonatomic) NSUInteger UserID;
 @property (nonatomic, strong) NSString* Username;
 @property (nonatomic, strong) NSString* Email;
 @property (nonatomic, strong) NSNumber* Location;
@@ -27,7 +28,7 @@
 
 // non-saved field
 @property (nonatomic, strong) NSString* Password;
-
+@property (nonatomic, strong) NSString* Status;
 // class methods
 
 + (User*)getUserByNameSync:(NSString*)username;
@@ -46,14 +47,15 @@
 + (QBUUser*)loginQBUUserSync:(NSString*)username password:(NSString*)password;
 
 + (QBUUser *) getQBUserFromUserSync:(User *) user;
-+ (NSArray *) searchUsersByPrefixSync:(NSString *) prefix;
++ (NSArray *) searchUsersByNamePrefixSync:(NSString *) prefix;
++ (NSArray *) searchUsersByEmailPrefixSync: (NSString *) email;
 
 + (BOOL) setCurrentUserStatusSync:(NSString *) status;
 
 + (User *) getUserByIDSync:(NSInteger) userID;
 + (NSArray *) getUsersFromContactsSync:(NSArray *) contacts;
 // instance methods
-
+- (void) updateFromQT:(QBCOCustomObject *) co;
 - (BOOL) isNeedChangePasswordSync;
 - (BOOL) setNeedChangePasswordSync:(BOOL)isNeed;
 @end

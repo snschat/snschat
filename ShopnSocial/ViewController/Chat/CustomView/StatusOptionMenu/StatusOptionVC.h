@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @protocol StatusOptionVCDelegate
-- (void) onChooseStatus:(id) sender :(NSInteger) status;
+- (void) onChooseStatus:(id) sender :(NSInteger) statusIdx;
 - (void) onCollapseTouched:(id) sender;
 @end
 
