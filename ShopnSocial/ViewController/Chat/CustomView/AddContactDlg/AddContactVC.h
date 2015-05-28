@@ -13,7 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *inviteLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel *searchMsg;
+@property (weak, nonatomic) IBOutlet UILabel *resultMsg;
+@property (weak, nonatomic) IBOutlet UIView *searchResult;
 
 @property (weak, nonatomic) IBOutlet UILabel *facebookLabel;
 @property (weak, nonatomic) IBOutlet UILabel *twitterLabel;

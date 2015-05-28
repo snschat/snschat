@@ -50,8 +50,10 @@
 
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock;
 - (void)leaveRoom:(QBChatRoom *)room;
+- (void)createRoom: (NSString *) roomName :(NSArray *) occupantIDs;
 
-- (NSMutableArray *)messagsForDialogId:(NSString *)dialogId;
+- (NSMutableArray *)messagsForDialogId:(NSString *)dialogID;
+- (BOOL)loadHistoryForDialogIDSync:(NSString *) dialogID :(NSDate *) fromDate;
 - (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId;
 - (void)addMessage:(QBChatAbstractMessage *)message forDialogId:(NSString *)dialogId;
 
@@ -64,4 +66,7 @@
 
 - (void) addDelegate:(id<ChatServiceDelegate>)delegate;
 - (void) removeDelegate:(id<ChatServiceDelegate>) delegate;
+
+- (BOOL) createChatGroupSync: (NSArray *) contacts title:(NSString *) name;
+- (QBChatMessage *) createChatNotificationForGroupChatCreation: (QBChatDialog *) dialog;
 @end

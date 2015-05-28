@@ -3,6 +3,17 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[ContactListVC tableView:cellForRowAtIndexPath:]:ContactListVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dialog.recipientID">
+            </PersistentString>
+            <PersistentString
+               value = "dialog.unreadMessagesCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "+[Country getCountries:errorBlock:]:Country.m">
          <PersistentStrings>
             <PersistentString

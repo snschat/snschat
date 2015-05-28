@@ -11,12 +11,15 @@
 #import "KSEnhancedKeyboard.h"
 #import "ChatService.h"
 
-@interface MessageInputVC : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextViewDelegate, KSEnhancedKeyboardDelegate, ChatServiceDelegate>
+@interface MessageInputVC : UIViewController<UITableViewDataSource, UITableViewDelegate, KSEnhancedKeyboardDelegate, ChatServiceDelegate>
 {
     CGRect prevFrame;
+    CGFloat keyboardHeight;
+    CGFloat orgHeight;
 }
 @property (weak, nonatomic) IBOutlet UITableView *messageTable;
 @property (weak, nonatomic) IBOutlet UITextView *inputBox;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewLeadingConstraint;
 
 - (void) setChatDlg:(QBChatDialog *) dlg;
 @end

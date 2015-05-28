@@ -17,6 +17,10 @@
 #import "MessageInputVC.h"
 #import "SharedProductVC.h"
 #import "AddContactVC.h"
+#import "CustomNavigationVC.h"
+#import "CreateGroupVC.h"
+#import "MBProgressHUD.h"
+
 @interface ChatVC ()
 {
     GroupVC * groupVC;
@@ -106,6 +110,9 @@
     [self.view addSubview: statusMenu.view];
     [statusMenu didMoveToParentViewController: self];
     
+    /*
+     * Send initial state to all users within his contact.
+     */
     NSString * statusStr = [User currentUser].customObject.fields[@"status"];
     [statusMenu setCurrentStatusStr: statusStr];
     [[ChatService shared] sendPresenceWithStatus: statusStr];
@@ -118,6 +125,10 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    if([ChatService shared].currentUser == nil) //If user didn't login chat service, pop back to previous view.
+    {
+        [self.navigationController popViewControllerAnimated: YES];
+    }
     
     //Prepare background
     if(!self.backImg.image)
@@ -132,6 +143,13 @@
             [self prepareBackgroundImage:vc.view];
         }
     }
+
+    
+    [MBProgressHUD showHUDAddedTo: self.view animated:YES];
+    [[ChatService shared] requestDialogsWithCompletionBlock:^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [contactVC reloadTableData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -167,10 +185,10 @@
     
 }
 - (IBAction)onNewChatBtnTouched:(id)sender {
-    
+    [self selectContactTab];
 }
 - (IBAction)onGroupChatBtnTouched:(id)sender {
-    
+    [self selectGroupTab];
 }
 - (IBAction)onCloseBtnTouched:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -244,7 +262,9 @@
     
     //Create chat dialog and attach to Message Input VC
     __block QBChatDialog * chatDlg;
+    
     [[ChatService shared] requestDialogsWithCompletionBlock:^{
+
         for(QBChatDialog *dialog in [ChatService shared].dialogs)
         {
             switch (dialog.type) {
@@ -259,7 +279,7 @@
                     
                 }
                     break;
-                case  QBChatDialogTypePublicGroup:
+                case QBChatDialogTypePublicGroup:
                 {
                     
                 }
@@ -284,19 +304,18 @@
             [msgVC setChatDlg:chatDlg];
             self.mainBoard.hidden = NO;
         }
-        
     }];
 }
 
 - (void) onAddContactTouched
 {
     AddContactVC * addContactVC = [self.storyboard instantiateViewControllerWithIdentifier: @"AddContactVC"];
-    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:addContactVC];
+    CustomNavigationVC * nav = [[CustomNavigationVC alloc] initWithRootViewController:addContactVC];
     nav.navigationBarHidden = YES;
     UIPopoverController * popover = [[UIPopoverController alloc] initWithContentViewController: nav];
     popover.delegate = self;
     
-    nav.view.superview.layer.cornerRadius = 0;
+//    nav.view.superview.layer.cornerRadius = 0;
     [popover presentPopoverFromRect:self.leftPane.frame inView:self.mainBoard permittedArrowDirections:0 animated:YES];
 }
 
@@ -304,6 +323,19 @@
 - (void) onGroupSelected:(id) group
 {
     self.mainBoard.hidden = NO;
+}
+
+//Invoked when create group button was touched.
+- (void) showCreateGroup
+{
+    CreateGroupVC * vc = [self.storyboard instantiateViewControllerWithIdentifier: @"CreateGroupVC"];
+    
+    vc.contacts = [ChatService shared].contactUsers;
+    
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:vc];
+    popover.delegate = self;
+    [popover presentPopoverFromRect:self.leftPane.frame inView:self.mainBoard permittedArrowDirections:0 animated:YES];
+    
 }
 
 #pragma mark StatusOptionVC Delegate
@@ -338,9 +370,19 @@
 {
     statusMenu.view.hidden = YES;
 }
+#pragma mark Group/Contact Tab Control
 
-- (void) updateContactInfo
+- (void) selectGroupTab
 {
-    
+    ContactTabBarItem * item = [tabBar itemAtIdx: 1];
+    [tabBar selectItemAtIndex: 1];
+    [self onSwitchTab:nil :item];
 }
+- (void) selectContactTab
+{
+    ContactTabBarItem * item = [tabBar itemAtIdx: 0];
+    [tabBar selectItemAtIndex: 0];
+    [self onSwitchTab: nil : item];
+}
+
 @end

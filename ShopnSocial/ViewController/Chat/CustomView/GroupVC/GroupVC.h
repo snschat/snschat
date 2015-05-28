@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol GroupVCDelegate
+#import "ContactListCell.h"
+#import "ChatService.h"
+
+@protocol GroupVCDelegate<NSObject>
 - (void) onGroupSelected:(id) group;
+- (void) showCreateGroup;
 @end
 
-@interface GroupVC : UIViewController<UITableViewDelegate , UITableViewDataSource>
+@interface GroupVC : UIViewController<UITableViewDelegate , UITableViewDataSource, ContactListCellDelegate, ChatServiceDelegate>
 {
     NSMutableArray * groupListData;
     

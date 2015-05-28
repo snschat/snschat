@@ -10,6 +10,8 @@
 #import "AddMediaContactVC.h"
 #import "AddContactCell.h"
 #import "User.h"
+#import "ExNSString.h"
+
 @interface AddContactVC ()
 {
 
@@ -30,6 +32,8 @@
     self.inviteLabel.attributedText = attributeString;
     self.tableView.tableFooterView = [[UIView alloc] init];
     
+    self.resultMsg.hidden = YES;
+    
     UINib * cellNib = [UINib nibWithNibName:@"AddContactCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"AddContactCell"];
     
@@ -37,6 +41,9 @@
         [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     }
 }
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -74,7 +81,6 @@
 - (IBAction)onFacebookConnectTouched:(id)sender {
     
 }
-
 - (IBAction)onDeviceConnectTouched:(id)sender {
     
 }
@@ -101,22 +107,50 @@
     }
 }
 
-- (void) searchUsersByPrefix:(NSString *) prefix
+- (void) searchUsersByName:(NSString *) name
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.userArr = [User searchUsersByPrefixSync: prefix];
+        self.userArr = [User searchUsersByNamePrefixSync: name];
         dispatch_async(dispatch_get_main_queue(), ^{
+            if(self.userArr.count > 0)
+            {
+                self.resultMsg.hidden = YES;
+            }
+            else
+            {
+                self.resultMsg.hidden = NO;
+            }
             [self.tableView reloadData];
         });
     });
 }
+- (void) searchUsersByEmail:(NSString *) email
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.userArr = [User searchUsersByEmailPrefixSync: email];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if(self.userArr.count > 0)
+                self.resultMsg.hidden = YES;
+            else
+                self.resultMsg.hidden = NO;
+            
+            [self.tableView reloadData];
+        });
+    });
+
+}
+
 #pragma mark UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     NSMutableString * curText = [NSMutableString stringWithString:textField.text];
     
     [curText replaceCharactersInRange:range withString:string];
-    [self searchUsersByPrefix: curText];
+    if([curText isValidEmail])
+        [self searchUsersByEmail: curText];
+    else
+        [self searchUsersByName: curText];
     return YES;
 }
 

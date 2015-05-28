@@ -7,6 +7,10 @@
 //
 
 #import "ChatService.h"
+#import "ChatMessage.h"
+
+#define MAX_MESSAGE_HISTORY 5000
+
 typedef void(^CompletionBlock)();
 typedef void(^JoinRoomCompletionBlock)(QBChatRoom *);
 typedef void(^CompletionBlockWithResult)(NSArray *);
@@ -94,6 +98,19 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (void)leaveRoom:(QBChatRoom *)room{
     [[QBChat instance] leaveRoom:room];
 }
+- (void) createRoom: (NSString *) roomName :(NSArray *) occupantIDs
+{
+    QBChatDialog * chatDialog = [QBChatDialog new];
+    chatDialog.name = roomName;
+    chatDialog.type = QBChatDialogTypeGroup;
+    chatDialog.occupantIDs = occupantIDs;
+    
+    [QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
+        
+    } errorBlock:^(QBResponse *response) {
+        
+    }];
+}
 
 - (void)setUsers:(NSMutableArray *)users
 {
@@ -113,8 +130,29 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         messages = [NSMutableArray array];
         [self.messages setObject:messages forKey:dialogId];
     }
-    
     return messages;
+}
+
+- (BOOL) loadHistoryForDialogIDSync:(NSString *) dialogID :(NSDate *) fromDate
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block BOOL bResult = FALSE;
+    [QBRequest messagesWithDialogID:dialogID
+                    extendedRequest:fromDate == nil ? nil : @{@"date_sent[gt]": @([fromDate timeIntervalSince1970])}
+                            forPage:nil
+                       successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
+                           if(messages.count > 0){
+                               [[ChatService shared] addMessages:messages forDialogId:dialogID];
+                           }
+                           bResult = TRUE;
+                           dispatch_semaphore_signal(sema);
+                           
+                       } errorBlock:^(QBResponse *response) {
+                           bResult = FALSE;
+                           dispatch_semaphore_signal(sema);
+                       }];
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    return bResult;
 }
 
 - (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId{
@@ -129,6 +167,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (void)addMessage:(QBChatAbstractMessage *)message forDialogId:(NSString *)dialogId{
     NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
     if(messagesArray != nil){
+        
         [messagesArray addObject:message];
     }else{
         NSMutableArray *messages = [NSMutableArray array];
@@ -226,7 +265,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void)chatDidFailWithError:(NSInteger)code{
     // relogin here
-    [[QBChat instance] loginWithUser:self.currentUser];
+//    [[QBChat instance] loginWithUser: self.currentUser];
 }
 
 - (void)chatRoomDidEnter:(QBChatRoom *)room{
@@ -242,17 +281,11 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     for(id<ChatServiceDelegate> delegate in self.delegates)
     {
         if([delegate respondsToSelector:@selector(chatDidReceiveMessage:)]){
-            processed = [delegate chatDidReceiveMessage:message];
+            processed |= [delegate chatDidReceiveMessage:message];
         }
     }
     
     if(!processed){
-//        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
-//                                                       description:message.text
-//                                                              type:TWMessageBarMessageTypeInfo];
-//        
-//        [[SoundService instance] playNotificationSound];
-        
         NSString *dialogId = message.customParameters[@"dialog_id"];
         [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
     }
@@ -292,6 +325,20 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void) chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status
 {
+    if(self.contactUsers && status)
+    {
+        for(Contact * contact in self.contactUsers)
+        {
+            if(contact.user.qbuUser.ID == userID)
+            {
+                if(isOnline)
+                    contact.user.Status = status;
+                else
+                    contact.user.Status = @"Offline";
+            }
+        }
+    }
+    
     for(id<ChatServiceDelegate> delegate in self.delegates)
     {
         if([delegate respondsToSelector: @selector(chatDidReceiveContactItemActivity:isOnline:status:)])
@@ -326,6 +373,28 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 }
 - (void) chatDidReadMessageWithID:(NSString *)messageID
 {
+    //Mark the message as read.
+    NSEnumerator * enumerator = self.messages.objectEnumerator;
+    id obj;
+    while((obj = [enumerator nextObject]) != nil)
+    {
+        NSArray * dlgMsgArr = obj;
+        for(QBChatAbstractMessage * message in dlgMsgArr)
+        {
+            if([message.ID isEqualToString: messageID])
+            {
+                if([message isKindOfClass: [QBChatHistoryMessage class]])
+                {
+                    [(QBChatHistoryMessage *) message setRead: YES];
+                }
+                else if([message isKindOfClass: [ChatMessage class]])
+                {
+                    [(ChatMessage *) message setRead:YES];
+                }
+            }
+        }
+    }
+    
     for(id<ChatServiceDelegate> delegate in self.delegates)
     {
         if([delegate respondsToSelector: @selector(chatDidReadMessageWithID:)])
@@ -394,4 +463,61 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [self.delegates removeObject: _delegate];
 }
 
+- (BOOL) createChatGroupSync: (NSArray *) contacts title:(NSString *) name
+{
+    __block BOOL bResult;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    NSMutableArray * _occupantIDs;
+    _occupantIDs = [NSMutableArray array];
+    
+    for(Contact * contact in contacts)
+    {
+        [_occupantIDs addObject: @(contact.user.UserID)];
+    }
+    
+    QBChatDialog * chatDialog = [QBChatDialog new];
+    chatDialog.name = name;
+    chatDialog.occupantIDs = _occupantIDs;
+    chatDialog.type = QBChatDialogTypeGroup;
+    
+    [QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
+        for(NSString * occupantID in createdDialog.occupantIDs)
+        {
+            QBChatMessage * inviteMessage = [self createChatNotificationForGroupChatCreation: createdDialog];
+            inviteMessage.recipientID = [occupantID integerValue];
+            [[QBChat instance] sendMessage: inviteMessage];
+        }
+        bResult = YES;
+        dispatch_semaphore_signal(sema);
+    } errorBlock:^(QBResponse *response) {
+        bResult = NO;
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    return bResult;
+}
+
+- (QBChatMessage *) createChatNotificationForGroupChatCreation: (QBChatDialog *) dialog
+{
+    User * currentUser = [User currentUser];
+    
+    NSString * inviteMsg = [NSString stringWithFormat: @"%@ invited you to group chatting", currentUser.Username];
+    
+    QBChatMessage * inviteMessage = [QBChatMessage message];
+    inviteMessage.text = inviteMsg;
+    
+    NSMutableDictionary * customParams = [NSMutableDictionary dictionary];
+    customParams[@"xmpp_room_jid"] = dialog.roomJID;
+    customParams[@"name"] = dialog.name;
+    customParams[@"_id"] = dialog.ID;
+    customParams[@"type"] = @(dialog.type);
+    customParams[@"occupants_ids"] = [dialog.occupantIDs componentsJoinedByString:@","];
+    
+    customParams[@"notification_type"] = @"1";
+    
+    inviteMessage.customParameters = customParams;
+    return inviteMessage;
+}
 @end

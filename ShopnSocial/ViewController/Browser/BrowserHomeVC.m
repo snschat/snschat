@@ -38,6 +38,11 @@
     addressText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:addressText.placeholder attributes:@{NSForegroundColorAttributeName: color}];
     [addressText addTarget:self action:@selector(onChangeAddressText:) forControlEvents:UIControlEventEditingChanged];
 }
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    [self loadHomePage];
+}
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {

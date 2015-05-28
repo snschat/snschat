@@ -10,6 +10,7 @@
 #import "ExUIView+Border.h"
 #import "ChatMessageCell.h"
 #import "ExUILabel+AutoSize.h"
+#import "ChatMessage.h"
 
 //Models
 #define MESSAGE_COLOR_PURPLE [UIColor colorWithRed:0.597 green:0.199 blue:0.398 alpha:1.0f]
@@ -49,6 +50,11 @@
     UIToolbar * toolbar = [enhancedKeyboard getToolbarWithPrevEnabled:NO NextEnabled:NO DoneEnabled:YES];
     enhancedKeyboard.delegate = self;
     self.inputBox.inputAccessoryView = toolbar;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    
+    keyboardHeight = 0;
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -113,7 +119,6 @@
 {
     
     QBChatAbstractMessage *chatMessage = [[[ChatService shared] messagsForDialogId: dialog.ID] objectAtIndex:indexPath.row];
-    NSString * senderName = [[ChatService shared].usersAsDictionary  objectForKey: @(chatMessage.senderID)];
     NSString * msgText = chatMessage.text;
     
     CGFloat nameTextHeight = [UILabel expectedHeight:64.0f :nameTextFont :@""];
@@ -122,27 +127,6 @@
     return maxHeight + 50;
 }
 
-#pragma mark UITextViewDelegate
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.inputBox.transform = CGAffineTransformMakeTranslation(0, -250);
-        self.messageTable.frame = CGRectMake(self.messageTable.frame.origin.x,
-                                                  self.messageTable.frame.origin.y,
-                                                  self.messageTable.frame.size.width,
-                                                  self.messageTable.frame.size.height-252);
-    }];
-}
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.inputBox.transform = CGAffineTransformIdentity;
-        self.messageTable.frame = CGRectMake(self.messageTable.frame.origin.x,
-                                                  self.messageTable.frame.origin.y,
-                                                  self.messageTable.frame.size.width,
-                                                  self.messageTable.frame.size.height+252);
-    }];
-}
 - (void) setChatDlg:(QBChatDialog *) dlg
 {
     //Load previous messages
@@ -161,23 +145,20 @@
     
     __weak __typeof(self)weakSelf = self;
     
-    [QBRequest messagesWithDialogID:dialog.ID
-                    extendedRequest:lastMessageDateSent == nil ? nil : @{@"date_sent[gt]": @([lastMessageDateSent timeIntervalSince1970])}
-                            forPage:nil
-                       successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
-                           if(messages.count > 0){
-                               [[ChatService shared] addMessages:messages forDialogId:dialog.ID];
-                           }
-                           
-                           [weakSelf.messageTable reloadData];
-                           NSInteger count = [[ChatService shared] messagsForDialogId:dialog.ID].count;
-                           if(count > 0){
-                               [weakSelf.messageTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
-                                                                 atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-                           }                      
-                       } errorBlock:^(QBResponse *response) {
-                           
-                       }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL bResult = [[ChatService shared] loadHistoryForDialogIDSync:dialog.ID :lastMessageDateSent];
+        if(bResult)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.messageTable reloadData];
+                NSInteger count = [[ChatService shared] messagsForDialogId:dialog.ID].count;
+                if(count > 0){
+                    [weakSelf.messageTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
+                                                 atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                }
+            });
+        }
+    });
 }
 
 #pragma mark KSEnhancedKeyboard
@@ -208,11 +189,11 @@
         // send message
         message.recipientID = [dialog recipientID];
         message.senderID = [ChatService shared].currentUser.ID;
-        
         [[ChatService shared] sendMessage:message];
         
         // save message
-        [[ChatService shared] addMessage:message forDialogId: dialog.ID];
+        
+        [[ChatService shared] addMessage:[ChatMessage messageWithChatMessage: message] forDialogId: dialog.ID];
         
         // Group Chat
     }else {
@@ -228,6 +209,11 @@
 }
 
 #pragma mark ChatService Delegate
+- (void)chatDidReadMessageWithID:(NSString *)messageID
+{
+    [self.messageTable reloadData];
+}
+
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message
 {
     if(message.senderID != dialog.recipientID){
@@ -235,7 +221,15 @@
     }
     
     // save message
-    [[ChatService shared] addMessage:message forDialogId:dialog.ID];
+    if([message markable])
+    {
+        [[QBChat instance] readMessage: message];
+    }
+    
+    ChatMessage * msgWrapper = [ChatMessage messageWithChatMessage:message];
+    msgWrapper.read = YES;
+    
+    [[ChatService shared] addMessage:msgWrapper forDialogId:dialog.ID];
     
     // Reload table
     [self.messageTable reloadData];
@@ -243,9 +237,9 @@
         [self.messageTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[ChatService shared] messagsForDialogId: dialog.ID] count]-1 inSection:0]
                                       atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-    
     return YES;
 }
+
 - (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID
 {
     if(![[dialog chatRoom].JID isEqualToString:roomJID]){
@@ -282,6 +276,32 @@
 - (void) chatDidReceiveContactAddRequestFromUser:(NSUInteger)userID
 {
     
+}
+
+- (void)keyboardDidShow:(NSNotification *)notification
+{
+    CGFloat height = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey ] CGRectValue].size.height;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.inputBox.transform = CGAffineTransformMakeTranslation(0, -height);
+        self.messageTable.frame = CGRectMake(self.messageTable.frame.origin.x,
+                                                  self.messageTable.frame.origin.y,
+                                                  self.messageTable.frame.size.width,
+                                                  self.messageTable.frame.size.height - (height - keyboardHeight));
+    }];
+    keyboardHeight = height;
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.inputBox.transform = CGAffineTransformIdentity;
+        self.messageTable.frame = CGRectMake(self.messageTable.frame.origin.x,
+                                             self.messageTable.frame.origin.y,
+                                             self.messageTable.frame.size.width,
+                                             self.messageTable.frame.size.height + keyboardHeight);
+    }];
+    keyboardHeight = 0;
 }
 
 @end

@@ -11,4 +11,5 @@
 @interface UIView (exBorder)
 
 - (void) border:(float) width color:(UIColor*) color;
+- (CALayer *) addBorder:(UIRectEdge) edge color:(UIColor *) color thickness:(CGFloat)thickness;
 @end

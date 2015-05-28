@@ -8,7 +8,13 @@
 
 #import "ContactListCell.h"
 #import "ExUILabel+AutoSize.h"
-
+@interface ContactListCell()
+{
+    UIColor * orgBadgeColor;
+    UIColor * orgAcceptColor;
+    UIColor * orgDeclineColor;
+}
+@end
 @implementation ContactListCell
 
 - (void)awakeFromNib {
@@ -20,16 +26,32 @@
     self.avatarImgView.layer.cornerRadius = frame.size.width / 2;
     self.avatarImgView.layer.masksToBounds = YES;
     self.annotView.hidden = YES;
-    self.badge.layer.cornerRadius = 4;
+    
+    self.badge.layer.cornerRadius = 5;
+    self.badge.layer.masksToBounds = YES;
+    
+    //Save original color of labels and buttons since they are cleared when the cell is selected
+    orgAcceptColor = self.accept.backgroundColor;
+    orgDeclineColor = self.decline.backgroundColor;
+    orgBadgeColor = self.badge.backgroundColor;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     
     [super setSelected:selected animated:animated];
     if(selected)
+    {
         self.m_backImg.hidden = NO;
+        
+        self.accept.backgroundColor = orgAcceptColor;
+        self.decline.backgroundColor = orgDeclineColor;
+        self.badge.backgroundColor = orgBadgeColor;
+    }
     else
+    {
         self.m_backImg.hidden = YES;
+    }
     // Configure the view for the selected state
     
 }
@@ -38,9 +60,8 @@
     self.badge.text = [NSString stringWithFormat:@"%i", badgeNum];
     CGRect frame = self.badge.frame;
  
-    frame.size.width = [self.badge expectedHeight];
+    frame.size.width = [self.badge expectedWidth] + 8;
     self.badge.frame = frame;
-    [self.badge sizeToFit];
 }
 
 - (void) setAnnotations:(NSArray *) annotArray
@@ -60,7 +81,7 @@
 
     CGPoint endPoint = CGPointMake(self.frame.size.width, 0);
     CGFloat estimated_width = 0;
-    CGFloat paddingX = 10;
+    CGFloat paddingX = 20;
     for(NSNumber * num in annotArray)
     {
         switch ([num integerValue]) {

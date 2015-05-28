@@ -25,6 +25,8 @@
 }
 
 - (void) setContactListData:(NSArray *) _listData;
+- (void) reloadTableData;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) id<ContactListVCDelegate> delegate;
 @end

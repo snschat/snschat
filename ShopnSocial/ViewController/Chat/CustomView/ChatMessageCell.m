@@ -8,6 +8,7 @@
 
 #import "ChatMessageCell.h"
 #import "ChatService.h"
+#import "ChatMessage.h"
 
 @implementation ChatMessageCell
 
@@ -22,11 +23,12 @@
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
 }
-- (void) configureCellWithMessage:(QBChatMessage *) message
+- (void) configureCellWithMessage:(id) message
 {
-    QBUUser * qbUser = [[ChatService shared].usersAsDictionary objectForKey: @(message.senderID)];
+    QBChatAbstractMessage * msg = message;
+    QBUUser * qbUser = [[ChatService shared].usersAsDictionary objectForKey: @(msg.senderID)];
     
-    if(message.senderID == [User currentUser].qbuUser.ID)
+    if(msg.senderID == [User currentUser].qbuUser.ID)
     {
         self.nameText.text = @"Me:";
     }
@@ -34,12 +36,20 @@
     {
         self.nameText.text = [NSString stringWithFormat:@"%@:" , qbUser.fullName];
     }
-    self.messageText.text = message.text;
-
+    self.messageText.text = msg.text;
+    self.statusText.hidden = YES;
     if([message isKindOfClass:[QBChatHistoryMessage class]])
     {
         QBChatHistoryMessage * hMsg = (QBChatHistoryMessage *)message;
-        if(hMsg.read)
+        
+        if([hMsg isRead])
+            self.statusText.hidden = YES;
+        else if(hMsg.senderID == [ChatService shared].currentUser.ID)
+            self.statusText.hidden = NO;
+    }
+    else if([message isKindOfClass: [ChatMessage class]])
+    {
+        if([message read])
             self.statusText.hidden = YES;
         else
             self.statusText.hidden = NO;
