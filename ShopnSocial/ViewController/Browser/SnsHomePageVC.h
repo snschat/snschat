@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ExUIView+Title.h"
+#import "SnsPageView.h"
 
 @interface SnsHomePageVC : UIViewController
 

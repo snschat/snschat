@@ -11,16 +11,19 @@
 
 typedef enum {
     TabButtonPositionLeft       = YIInnerShadowMaskRight | YIInnerShadowMaskTop,
-    TabButtonPositionMiddle     = YIInnerShadowMaskTop | YIInnerShadowMaskLeft | YIInnerShadowMaskRight,
-    TabButtonPositionRight      = YIInnerShadowMaskLeft | YIInnerShadowMaskTop
+    TabButtonPositionMiddle     = YIInnerShadowMaskTop,
+    TabButtonPositionRight      = YIInnerShadowMaskLeft | YIInnerShadowMaskTop,
+    TabButtonPositionNone = YIInnerShadowMaskNone
 } TabButtonPosition;
 
 
 @interface TabButton : UIButton
 
+@property (nonatomic, readonly) UIButton* CloseButton;
 @property (nonatomic, readwrite) TabButtonPosition position;
 @property (nonatomic, strong) YIInnerShadowView* innerShadow;
 
 -(void) select:(BOOL)isSelected;
+-(BOOL) isSelected;
 
 @end

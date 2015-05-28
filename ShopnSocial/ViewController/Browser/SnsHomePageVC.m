@@ -11,6 +11,7 @@
 #import "Global.h"
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
+#import "ExUIView+Title.h"
 
 @interface SnsHomePageVC () <JOLImageSliderDelegate>
 
@@ -32,10 +33,29 @@
     [self createFeaturedBar];
     [self createRecommendBar];
     [self createOfferView];
+    
+    self.view.title = @"Shop n Social Official Home Page - For tablets";
+    
+    if ([self.view.superview isKindOfClass:[SnsPageView class]])
+    {
+        SnsPageView* container = (SnsPageView*)self.view.superview;        
+        [container fireTitleChange:self.title sender:self.view];
+    }
 }
 
-- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
+- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index imageview:(UIImageView *)imageView {
     NSLog(@"Selected slide at index: %i", index);
+    
+    JOLImageSlide* slide = [self.featuredBrandSlider.slideArray objectAtIndex:index];
+    NSString* url = slide.url;
+    NSLog(@"Click Featured Item : %@", url);
+    
+    if ([self.view.superview isKindOfClass:[SnsPageView class]])
+    {
+        SnsPageView* container = (SnsPageView*)self.view.superview;
+        
+        [container openURL:url];
+    }
 }
 
 - (void) createFeaturedBar
@@ -46,6 +66,7 @@
         JOLImageSlide *slide = [[JOLImageSlide alloc] init];
         slide.title = fs.Name;
         slide.image = fs.ImageURL;
+        slide.url = fs.AffiliateURL;
         [slideSet addObject:slide];
     }
     
@@ -84,6 +105,10 @@
                 imageview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
                 
                 [self.scrollRecommedBar addSubview:imageview];
+                
+                imageview.title = st.AffiliateURL;
+                UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+                [imageview addGestureRecognizer:tap];
                 
                 x += w + 10;
             }
@@ -151,12 +176,29 @@
             imageview.contentMode = UIViewContentModeScaleAspectFit;
             [imageview setImageWithURL:[NSURL URLWithString:ft.ImageURL]];
             
+            imageview.title = ft.AffiliateURL;
+            UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+            [imageview addGestureRecognizer:tap];
+            
             [self.scrollOfferView addSubview:imageview];
             y += h + 5;
         }
         
         self.scrollOfferView.contentSize = CGSizeMake(0, y);
     });
+}
+
+-(void)handleGesture:(UIGestureRecognizer*)gestureRecognizer
+{
+    NSString* url = gestureRecognizer.view.title;
+    NSLog(@"Click Product Item : %@", url);
+    
+    if ([self.view.superview isKindOfClass:[SnsPageView class]])
+    {
+        SnsPageView* container = (SnsPageView*)self.view.superview;
+        
+        [container openURL:url];
+    }
 }
 
 @end

@@ -72,7 +72,8 @@
     
     [_label sizeToFit];
     CGRect frame = _label.frame;
-    frame.size.width = self.frame.size.width;
+    frame.size.width = self.frame.size.width - 10 - 20;
+    frame.origin.x = 0;
     frame.origin.y = self.frame.size.height / 2 - frame.size.height / 2;
     _label.frame = frame;
     
@@ -84,6 +85,16 @@
 -(void)setPosition:(TabButtonPosition)position
 {
     _innerShadow.shadowMask = (YIInnerShadowMask)position;
+}
+
+-(UIButton*)CloseButton
+{
+    return _imageClose;
+}
+
+-(BOOL) isSelected
+{
+    return _innerShadow.hidden;
 }
 
 -(void) select:(BOOL)isSelected

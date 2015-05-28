@@ -17,5 +17,6 @@
 
 @property (nonatomic, retain) NSString *image;
 @property (nonatomic, retain) NSString *title;
+@property (nonatomic, strong) NSString *url;
 
 @end

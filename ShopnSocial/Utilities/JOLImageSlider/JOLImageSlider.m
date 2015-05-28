@@ -8,6 +8,7 @@
 
 #import "JOLImageSlider.h"
 #import "UIImageView+WebCache.h"
+#import "ExUIView+Title.h"
 
 @implementation JOLImageSlider
 
@@ -117,6 +118,13 @@
         [imageView setContentMode:_contentMode];
         [imageView setTag:[_slideArray count]-1];
         [imageView setImageWithURL:[NSURL URLWithString:(NSString *)theSlide.image] placeholderImage:[UIImage imageNamed:_placeholderImage]];
+
+        //
+        // set url to image view's title property
+        //
+        imageView.title = theSlide.url;
+        //
+        //
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, (imageFrame.size.height - 28), imageFrame.size.width-70, 24)];
         titleLabel.text = theSlide.title;
@@ -212,8 +220,8 @@
 - (void) imageTapped:(UITapGestureRecognizer *)sender
 {
     if(_delegate)
-        if([_delegate respondsToSelector:@selector(imagePager:didSelectImageAtIndex:)])
-            [_delegate imagePager:self didSelectImageAtIndex:[(UIGestureRecognizer *)sender view].tag];
+        if([_delegate respondsToSelector:@selector(imagePager:didSelectImageAtIndex:imageview:)])
+            [_delegate imagePager:self didSelectImageAtIndex:[(UIGestureRecognizer *)sender view].tag imageview:(UIImageView*)sender.view];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
@@ -244,5 +252,6 @@
     // Drawing code
 }
 */
+
 
 @end

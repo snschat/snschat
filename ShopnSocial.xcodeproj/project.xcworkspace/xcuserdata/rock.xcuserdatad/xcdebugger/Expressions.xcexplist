@@ -3,15 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[ContactListVC tableView:cellForRowAtIndexPath:]:ContactListVC.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "dialog.recipientID">
-            </PersistentString>
-            <PersistentString
-               value = "dialog.unreadMessagesCount">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[CategoryPopoverVC tableView:didSelectRowAtIndexPath:]:CategoryPopoverVC.m">
       </ContextState>
       <ContextState
          contextName = "+[Country getCountries:errorBlock:]:Country.m">
@@ -44,6 +36,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[BrowserHomeVC updateTabBar]:BrowserHomeVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.layTabbar.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__20-[LoginVC onTwitter]_block_invoke:LoginVC.m">
          <PersistentStrings>
             <PersistentString
@@ -52,7 +52,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[CategoryPopoverVC tableView:didSelectRowAtIndexPath:]:CategoryPopoverVC.m">
+         contextName = "-[ContactListVC tableView:cellForRowAtIndexPath:]:ContactListVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dialog.recipientID">
+            </PersistentString>
+            <PersistentString
+               value = "dialog.unreadMessagesCount">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -125,6 +125,7 @@
 		DDE0DCE31B0485FA005DA34F /* FeaturedStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE0DCE21B0485FA005DA34F /* FeaturedStore.m */; };
 		DDE0DCE61B04D2C0005DA34F /* SnsCategoryPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE0DCE51B04D2C0005DA34F /* SnsCategoryPageVC.m */; };
 		DDE0DCE91B050EA0005DA34F /* SnsPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE0DCE81B050EA0005DA34F /* SnsPageView.m */; };
+		DDF6632F1B16B3CF00BE84E8 /* ExUIView+Title.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF6632E1B16B3CF00BE84E8 /* ExUIView+Title.m */; };
 		DDF875931AF0B731006181E5 /* ExNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF875921AF0B731006181E5 /* ExNSString.m */; };
 		DDFFFB8A1B033D31005F3D81 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDFFFB891B033D31005F3D81 /* Images.xcassets */; };
 /* End PBXBuildFile section */
@@ -336,6 +337,8 @@
 		DDE0DCE51B04D2C0005DA34F /* SnsCategoryPageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnsCategoryPageVC.m; sourceTree = "<group>"; };
 		DDE0DCE71B050EA0005DA34F /* SnsPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnsPageView.h; sourceTree = "<group>"; };
 		DDE0DCE81B050EA0005DA34F /* SnsPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnsPageView.m; sourceTree = "<group>"; };
+		DDF6632D1B16B3CF00BE84E8 /* ExUIView+Title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ExUIView+Title.h"; sourceTree = "<group>"; };
+		DDF6632E1B16B3CF00BE84E8 /* ExUIView+Title.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ExUIView+Title.m"; sourceTree = "<group>"; };
 		DDF875911AF0B731006181E5 /* ExNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExNSString.h; sourceTree = "<group>"; };
 		DDF875921AF0B731006181E5 /* ExNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExNSString.m; sourceTree = "<group>"; };
 		DDFFFB891B033D31005F3D81 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				DD6D4CA91B062AE4001846B0 /* KSEnhancedKeyboard.m */,
 				DD7009571AE6931400878EE7 /* Reachability.h */,
 				DD7009581AE6931400878EE7 /* Reachability.m */,
+				DDF6632D1B16B3CF00BE84E8 /* ExUIView+Title.h */,
+				DDF6632E1B16B3CF00BE84E8 /* ExUIView+Title.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1072,6 +1077,7 @@
 				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
 				DD6D4CF31B062B62001846B0 /* SharedProductVC.m in Sources */,
 				DD6D4CFB1B062C36001846B0 /* ChatService.m in Sources */,
+				DDF6632F1B16B3CF00BE84E8 /* ExUIView+Title.m in Sources */,
 				DD9C85521AF521A200E32CE3 /* ExNSDate.m in Sources */,
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
 				DD7C21431AE6870D00BEB3B0 /* main.m in Sources */,

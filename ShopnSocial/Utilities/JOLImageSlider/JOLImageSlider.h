@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JOLImageSlide.h"
+#import "SnsPageView.h"
 
 @class JOLImageSlider;
 
@@ -17,7 +18,7 @@
 
 @optional
 
-- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index;
+- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index imageview:(UIImageView*)imageView;
 
 @end
 

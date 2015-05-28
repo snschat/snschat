@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Global.h"
+#import "ExUIView+Title.h"
+#import "SnsPageView.h"
+#import "JOLImageSlider.h"
 
-@interface SnsCategoryPageVC : UIViewController
+@interface SnsCategoryPageVC : UIViewController <JOLImageSliderDelegate>
 
 @property (nonatomic, strong) ProductCategory* cateogry;
 

@@ -10,13 +10,14 @@
 #import "MBProgressHUD.h"
 #import "UIImageView+WebCache.h"
 
+
 @implementation SnsCategoryPageVC
 {
     IBOutlet UILabel *labelText;
     IBOutlet UIScrollView *scrollView;
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidLoad
 {
     [self loadData];
 }
@@ -26,6 +27,15 @@
     if (self.cateogry == nil) return;
     
     labelText.text = self.cateogry.Name;
+    
+    self.view.title = [NSString stringWithFormat:@"Category - %@", self.cateogry.Name];
+
+    if ([self.view.superview isKindOfClass:[SnsPageView class]])
+    {
+        SnsPageView* container = (SnsPageView*)self.view.superview;
+        
+        [container fireTitleChange:self.title sender:self.view];
+    }
     
     for (UIView* _v in scrollView.subviews) {
         [_v removeFromSuperview];
@@ -86,6 +96,10 @@
                     }
                     
                     [rowview addSubview:cell];
+                    
+                    cell.title = st.AffiliateURL;
+                    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+                    [cell addGestureRecognizer:tap];
                 }
                 
                 rowview.frame = CGRectMake(x, y, w, h);
@@ -99,5 +113,19 @@
         });
     });
 }
+
+-(void)handleGesture:(UIGestureRecognizer*)gestureRecognizer
+{
+    NSString* url = gestureRecognizer.view.title;
+    NSLog(@"Click Category Item : %@", url);
+    
+    if ([self.view.superview isKindOfClass:[SnsPageView class]])
+    {
+        SnsPageView* container = (SnsPageView*)self.view.superview;
+        
+        [container openURL:url];
+    }
+}
+
 
 @end
