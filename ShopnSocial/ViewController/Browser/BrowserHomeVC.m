@@ -23,6 +23,8 @@
     CategoryPopoverVC* popover;
     
     IBOutlet UITextField *addressText;
+    
+    NSMutableArray* tabPages;
 }
 -(void) viewDidLoad
 {
