@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#define ANNOT_AWAITING 0
-#define ANNOT_CONFIRM 1
-#define ANNOT_BADGE 2
-#define ANNOT_CALL 3
+#define CONTACT_ANNOT_AWAITING 0
+#define CONTACT_ANNOT_CONFIRM 1
+#define CONTACT_ANNOT_BADGE 2
+#define CONTACT_ANNOT_CALL 3
 
 @protocol ContactListCellDelegate<NSObject>
 - (void) onAcceptTouched:(id) cell;
 - (void) onDeclineTouched:(id) cell;
+- (void) onLongPressCell:(id) cell;
 @end
 
 @interface ContactListCell : UITableViewCell
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIView *annotView;
 @property (weak, nonatomic) IBOutlet UIImageView *m_backImg;
 
+@property (weak, nonatomic) IBOutlet UILabel *declineLabel;
 
 //Premade controls
 @property (weak, nonatomic) IBOutlet UILabel *awaitingLabel;
@@ -35,4 +37,5 @@
 @property (nonatomic, strong) NSIndexPath * indexPath;
 - (void) setBadgeNumber:(NSInteger) badgeNum;
 - (void) setAnnotations:(NSArray *) annotArray;
+- (void) setCellDeclined:(BOOL) bDeclined;
 @end

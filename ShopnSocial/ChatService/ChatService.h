@@ -12,8 +12,15 @@
 #import "Contact.h"
 
 #define kDialogUpdatedNotification @"kDialogUpdatedNotification"
+#define NOTIFY_GROUP_CHAT_CREATE @"1"
+#define NOTIFY_GROUP_CHAT_JOIN @"2"
+#define NOTIFY_GROUP_CHAT_DECLINE @"3"
+#define NOTIFY_GROUP_CHAT_LEFT @"4"
+#define NOTIFY_GROUP_CHAT_REMOVE @"5"
+#define NOTIFY_GROUP_CHAT_DELETE @"6"
 
 @protocol ChatServiceDelegate <NSObject>
+@optional
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message;
 - (void)chatDidReadMessageWithID:(NSString *) messageID;
 - (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID;
@@ -47,10 +54,11 @@
 - (void)sendMessage:(QBChatMessage *)message;
 - (void)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock;
 - (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom;
+- (BOOL)sendMessageWithoutJoin:(QBChatMessage* )message toRoom:(QBChatRoom *) chatRoom;
+
 
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock;
 - (void)leaveRoom:(QBChatRoom *)room;
-- (void)createRoom: (NSString *) roomName :(NSArray *) occupantIDs;
 
 - (NSMutableArray *)messagsForDialogId:(NSString *)dialogID;
 - (BOOL)loadHistoryForDialogIDSync:(NSString *) dialogID :(NSDate *) fromDate;
@@ -68,5 +76,7 @@
 - (void) removeDelegate:(id<ChatServiceDelegate>) delegate;
 
 - (BOOL) createChatGroupSync: (NSArray *) contacts title:(NSString *) name;
-- (QBChatMessage *) createChatNotificationForGroupChatCreation: (QBChatDialog *) dialog;
+- (QBChatMessage *) createChatNotificationForGroupChat: (QBChatDialog *) dialog;
+
+- (void) leaveGroupDialog:(QBChatDialog *) dialog :(NSInteger ) userID completionBlock:(void(^)(QBResponse *, QBChatDialog*))completionBlock;
 @end

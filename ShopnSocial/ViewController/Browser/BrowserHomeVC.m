@@ -10,6 +10,7 @@
 #import "TabButton.h"
 #import "UIImageView+WebCache.h"
 
+#import "StatusOptionVC.h"
 #import "SnsPageView.h"
 #import "SnsHomePageVC.h"
 #import "SnsCategoryPageVC.h"
@@ -27,6 +28,9 @@
     
     IBOutlet UITextField *addressText;
 
+    // user status
+    UIPopoverController *statusPopover;
+    
     // tab & pages
     SnsPageView* currentPage;
     NSMutableArray* tabPages;
@@ -53,6 +57,8 @@
 {
     [super viewWillAppear:animated];
 //    [self loadHomePage];
+    
+    self.lblUserStatus.text = [[Global sharedGlobal] currentUser].Status;
 }
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -124,6 +130,31 @@
     
     [popoverContainer removeFromSuperview];
     popover = nil;
+}
+
+#pragma mark - Top bar
+
+- (IBAction)onUserStatus
+{
+    StatusOptionVC *viewController = [[StatusOptionVC alloc] initWithNibName:@"StatusOptionVC" bundle:[NSBundle mainBundle]];
+    viewController.delegate = self;
+    
+    statusPopover = [[UIPopoverController alloc] initWithContentViewController:viewController];
+    //popover.delegate = self;
+    statusPopover.popoverContentSize = CGSizeMake(300, 205); //your custom size.
+    [statusPopover presentPopoverFromRect:[self.view convertRect:self.btnUserStatus.bounds fromView:self.btnUserStatus] inView:self.view permittedArrowDirections: UIPopoverArrowDirectionLeft | UIPopoverArrowDirectionUp animated:YES];
+}
+
+- (void) onChooseStatus:(id) sender :(NSInteger) statusIdx
+{
+    [statusPopover dismissPopoverAnimated:YES];
+    self.lblUserStatus.text = [[Global sharedGlobal] currentUser].Status;
+}
+
+- (void) onCollapseTouched:(id) sender
+{
+    [statusPopover dismissPopoverAnimated:YES];
+    self.lblUserStatus.text = [[Global sharedGlobal] currentUser].Status;
 }
 
 #pragma mark - Tab Buttons
@@ -416,6 +447,7 @@
     
     [currentPage refresh];
 }
+
 #pragma mark - Addressbar
 
 - (void)onChangeAddressText:(id)sender

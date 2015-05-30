@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AddGroupTableCell.h"
 #import "ChatService.h"
+@protocol CreateGroupVCDelegate<NSObject>
+- (void) onGroupDialogCreated;
+@end
 
 @interface CreateGroupVC : UIViewController<UITableViewDataSource, UITableViewDelegate, AddGroupTableCellDelegate, ChatServiceDelegate>
 
@@ -19,4 +22,5 @@
 
 @property (nonatomic, strong) NSArray * contacts;
 - (BOOL) isAvailableCreate;
+@property (nonatomic, strong) id<CreateGroupVCDelegate> delegate;
 @end

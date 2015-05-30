@@ -120,9 +120,16 @@
     if([self isAvailableCreate])
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[ChatService shared] createChatGroupSync:selectedContacts title:self.groupNameTxt.text];
+            BOOL bResult = [[ChatService shared] createChatGroupSync:selectedContacts title:self.groupNameTxt.text];
+            if(bResult)
+            {
+                if([self.delegate respondsToSelector:@selector(onGroupDialogCreated)])
+                    [self.delegate onGroupDialogCreated];
+            }
         });
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 - (IBAction)onBackTouched:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

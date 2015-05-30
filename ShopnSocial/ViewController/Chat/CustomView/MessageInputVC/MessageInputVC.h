@@ -16,6 +16,7 @@
     CGRect prevFrame;
     CGFloat keyboardHeight;
     CGFloat orgHeight;
+    NSArray * msgColors;
 }
 @property (weak, nonatomic) IBOutlet UITableView *messageTable;
 @property (weak, nonatomic) IBOutlet UITextView *inputBox;

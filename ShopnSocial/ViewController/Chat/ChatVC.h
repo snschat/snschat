@@ -11,8 +11,8 @@
 #import "ContactListVC.h"
 #import "GroupVC.h"
 #import "StatusOptionVC.h"
-
-@interface ChatVC : UIViewController<ContactTabBarDelegate, ContactListVCDelegate, GroupVCDelegate, StatusOptionVCDelegate, QBChatDelegate, UIPopoverControllerDelegate>
+#import "CreateGroupVC.h"
+@interface ChatVC : UIViewController<ContactTabBarDelegate, ContactListVCDelegate, GroupVCDelegate, StatusOptionVCDelegate, QBChatDelegate, UIPopoverControllerDelegate, CreateGroupVCDelegate>
 
 //TapBar control
 @property (weak, nonatomic) IBOutlet UIView *m_tabbarContainer;

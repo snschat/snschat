@@ -198,7 +198,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press here if you have forgotten your" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JJ4-Ue-8O6">
-                                                <rect key="frame" x="5" y="520.00000322549431" width="430" height="21"/>
+                                                <rect key="frame" x="5" y="520" width="430" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -343,7 +343,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="q2C-jb-D2e" userLabel="setting_btn">
-                                                        <rect key="frame" x="267" y="17" width="25" height="25"/>
+                                                        <rect key="frame" x="267.00000011444098" y="17" width="25" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" image="setting_btn">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -363,6 +363,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
+                                                            <action selector="onUserStatus" destination="aCx-wi-jIL" eventType="touchUpInside" id="0ex-7g-pU0"/>
                                                             <segue destination="9JE-aV-Lgm" kind="popover" popoverAnchorView="HWl-Nt-gmT" id="PHa-iN-E4A">
                                                                 <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                                             </segue>
@@ -634,10 +635,12 @@
                         <outlet property="btnNavForward" destination="Y3t-Ei-dDE" id="wUG-Uf-gHp"/>
                         <outlet property="btnNavHome" destination="076-83-MsD" id="Gjx-kv-A2q"/>
                         <outlet property="btnNavNewTab" destination="jSy-tK-gLC" id="7Mh-mT-Sh4"/>
+                        <outlet property="btnUserStatus" destination="HWl-Nt-gmT" id="Qc4-O2-1Di"/>
                         <outlet property="buttonChatSlider" destination="5nr-g1-VjF" id="rhR-c9-9dp"/>
                         <outlet property="chatbar" destination="Ng1-ew-w7Q" id="tAx-ZQ-C74"/>
                         <outlet property="laySearch" destination="mTY-co-VrC" id="GC3-uB-hwY"/>
                         <outlet property="layTabbar" destination="VQn-Of-MmO" id="3rN-Zt-n1e"/>
+                        <outlet property="lblUserStatus" destination="mQe-N3-bJ6" id="IVV-OF-xZp"/>
                         <outlet property="mainview" destination="ExZ-mK-Ise" id="TLW-m4-0hr"/>
                         <outlet property="searchTableView" destination="FpO-06-No3" id="Rh9-EQ-Dty"/>
                         <outlet property="topBar" destination="lqn-jc-PcW" id="Kpv-Cg-n6d"/>

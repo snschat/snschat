@@ -10,6 +10,10 @@
 #import "ContactListCell.h"
 #import "ChatService.h"
 #import "UIImageView+WebCache.h"
+#import "ExQBChatDialog.h"
+
+#import "GroupContact.h"
+#import "GroupContactCell.h"
 
 @interface GroupVC ()
 
@@ -23,6 +27,9 @@
     UINib* nib = [UINib nibWithNibName: @"ContactListCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"contact_list_cell"];
     
+    nib = [UINib nibWithNibName: @"GroupContactCell" bundle: [NSBundle mainBundle]];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"group_contact_cell"];
+    
     //Table View separator setting
     [self.tableView setSeparatorColor: [UIColor whiteColor]];
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -34,7 +41,7 @@
     }
     self.tableView.tableFooterView = [UIView new];
     
-    groupListData = [ChatService shared].dialogs;
+    [self setGroupListData: [ChatService shared].dialogs];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,52 +91,75 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ContactListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"contact_list_cell"];
-    
-    if(cell == nil)
+    id obj = [groupListData objectAtIndex: indexPath.row];
+    if([obj isKindOfClass: [QBChatDialog class]])
     {
-        //Alloc new cell
-        NSArray * controls = [[NSBundle mainBundle] loadNibNamed:@"ContactListCell" owner:nil options:nil];
+        ContactListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"contact_list_cell"];
         
-        for(id control in controls)
+        cell.backgroundColor = [UIColor clearColor];
+        
+        QBChatDialog* dlgInfo = [groupListData objectAtIndex: indexPath.row];
+        
+        //TODO: Populate data
+        cell.contactName.text = dlgInfo.name;
+        
+        //TODO : status info for chat dialog.
+        cell.status.text = @"";
+        
+        //TODO : load avatar image from QuickBlox
+        [cell.avatarImgView setImageWithURL:[NSURL URLWithString: dlgInfo.photo] placeholderImage: [UIImage imageNamed: @"avatar_s1"]];
+        cell.indexPath = indexPath;
+        [cell setCellDeclined: FALSE];
+        
+        if(![dlgInfo isAccepted: [User currentUser].qbuUser])
         {
-            if([control isKindOfClass:[ContactListCell class]])
-            {
-                cell = control;
-                break;
-            }
+            cell.delegate = self;
+            [cell setAnnotations: @[@(CONTACT_ANNOT_CONFIRM)]];
         }
+        else
+        {
+            [cell setAnnotations: @[]];
+        }
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
+        return cell;
+
     }
-    cell.backgroundColor = [UIColor clearColor];
-    
-    QBChatDialog* dlgInfo = [groupListData objectAtIndex: indexPath.row];
-    
-    //TODO: Populate data
-    cell.contactName.text = dlgInfo.name;
-    
-    //TODO : status info for chat dialog.
-    cell.status.text = @"";
-    
-    //TODO : load avatar image from QuickBlox
-    [cell.avatarImgView setImageWithURL:[NSURL URLWithString: dlgInfo.photo] placeholderImage: [UIImage imageNamed: @"avatar_s1"]];
-    cell.indexPath = indexPath;
-    
-    if(![[dlgInfo chatRoom] isJoined])
+    else if([obj isKindOfClass: [GroupContact class]])
     {
+        GroupContactCell * cell = [tableView dequeueReusableCellWithIdentifier: @"group_contact_cell"];
+        cell.backgroundColor = [UIColor clearColor];
+        
+        GroupContact * contact = [groupListData objectAtIndex: indexPath.row];
+        
+        cell.contactLabel.text = contact.user.Username;
+        cell.contactStatus.text = contact.user.Status;
+        
+        if(contact.contactStatus == GROUPCONTACT_ADDED)
+        {
+            [cell setAnnotations: @[@(GROUPCELL_ANNOT_REMOVE)]];
+        }
+        else if(contact.contactStatus == GROUPCONTACT_AVAILABLE)
+        {
+            [cell setAnnotations: @[@(GROUPCELL_ANNOT_ADD)]];
+        }
+        else if(contact.contactStatus == GROUPCONTACT_AWAITING){
+            [cell setAnnotations: @[@(GROUPCELL_ANNOT_AWAITING)]];
+        }
         cell.delegate = self;
-        [cell setAnnotations: @[@(ANNOT_CONFIRM)]];
+        //TODO: load avatar image here.
+//        cell.avatarImg.image =
+        return cell;
     }
-    
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-    return cell;
+    return [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:@"default"];
 }
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     QBChatDialog * dlgInfo = [groupListData objectAtIndex: indexPath.row];
-    if([[dlgInfo chatRoom] isJoined])
+
+    if([dlgInfo isAccepted: [User currentUser].qbuUser] )
     {
         return UITableViewCellEditingStyleDelete;
     }
@@ -144,6 +174,9 @@
         //TODO: Delete group
         QBChatDialog * dlgInfo = [groupListData objectAtIndex: indexPath.row];
         
+        [[ChatService shared] leaveGroupDialog:dlgInfo :[User currentUser].UserID completionBlock:^(QBResponse * response, QBChatDialog * dialog) {
+            [self reloadDialogs];
+        }];
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -159,26 +192,113 @@
 {
     ContactListCell * cell = obj;
     QBChatDialog * dlgInfo = [groupListData objectAtIndex: cell.indexPath.row];
-    [[dlgInfo chatRoom] joinRoom];
     
+    //Send notification to users
+    QBChatMessage * msg = [[ChatService shared] createChatNotificationForGroupChat: dlgInfo];
+    msg.text = [NSString stringWithFormat: @"%@ has joined the group", [User currentUser].Username];
+    msg.customParameters[@"notification_type"] = NOTIFY_GROUP_CHAT_JOIN;
+    msg.customParameters[@"user_id"] = @([ChatService shared].currentUser.ID);
+    msg.customParameters[@"save_to_history"] = @YES;
+    
+    NSMutableDictionary * dictionary = [NSMutableDictionary dictionaryWithDictionary:dlgInfo.data];
+    
+    NSMutableArray *accepted_users = [NSMutableArray array];
+    
+    if(![dlgInfo.data[@"accepted_users"] isEqual: [NSNull null]])
+        accepted_users = [NSMutableArray arrayWithArray: dlgInfo.data[@"accepted_users"]];
+    
+    [accepted_users addObject: @([User currentUser].UserID)];
+    
+    [dictionary setValue:@"GroupData" forKey:@"class_name"];
+    [dictionary setValue: accepted_users forKey:@"accepted_users"];
+    dlgInfo.data = dictionary;
+    
+    //Send join message.
+    [[ChatService shared] joinRoom:[dlgInfo chatRoom] completionBlock:^(QBChatRoom * chatRoom) {
+        [[ChatService shared] sendMessage:msg toRoom: chatRoom];
+        [[ChatService shared] leaveRoom: chatRoom];
+    }];
+    
+    //Update dialog
+    [QBRequest updateDialog:dlgInfo successBlock:^(QBResponse * response, QBChatDialog *dialog) {
+        [[ChatService shared] requestDialogsWithCompletionBlock:^{
+            [self setGroupListData: [ChatService shared].dialogs];
+        }];
+    } errorBlock:^(QBResponse *response) {
+        
+    }];
+
 }
 
 - (void) onDeclineTouched:(id) obj
 {
     ContactListCell * cell = obj;
     QBChatDialog * dlgInfo = [groupListData objectAtIndex: cell.indexPath.row];
-    //TODO : delete user from dialog
     
-    dlgInfo.pullOccupantsIDs = @[@([User currentUser].UserID)];
-    [QBRequest updateDialog: dlgInfo successBlock:^(QBResponse * response, QBChatDialog * dlgInfo) {
+    //TODO : delete user from dialog
+    [[ChatService shared] leaveGroupDialog:dlgInfo :[User currentUser].UserID completionBlock:^(QBResponse * response, QBChatDialog * dialog) {
+
         [groupListData removeObject: dlgInfo];
         [self.tableView reloadData];
-    } errorBlock:^(QBResponse *response) {
+    }];
+
+}
+- (void) onLongPressCell:(id) obj
+{
+    ContactListCell * cell = obj;
+    QBChatDialog * dlgInfo = [groupListData objectAtIndex: cell.indexPath.row];
+    NSArray * userArr = dlgInfo.data[@"accepted_users"];
+    NSArray * occupantUsers = dlgInfo.occupantIDs;
+    
+    for(id obj in occupantUsers)
+    {
+        NSInteger idx = [userArr indexOfObject: obj];
+        if(idx == NSNotFound)
+        {
+            
+        }
+    }
+}
+- (void) reloadDialogs
+{
+    [[ChatService shared] requestDialogsWithCompletionBlock:^{
+        [self setGroupListData: [ChatService shared].dialogs];
     }];
 }
+#pragma mark ChatService Delegate
 - (BOOL) chatDidReceiveMessage:(QBChatMessage *)message
 {
-//    if(message.customParameters)
+    NSString * notification_type = message.customParameters[@"notification_type"];
+    if([notification_type isEqualToString: @"1"])
+    {
+        NSString * dlgID = message.customParameters[@"_id"];
+        
+        [[ChatService shared] requestDialogUpdateWithId:dlgID completionBlock:^{
+            [self setGroupListData: [ChatService shared].dialogs];
+        }];
+        return YES;
+    }
+    else if([notification_type isEqualToString: NOTIFY_GROUP_CHAT_DECLINE])
+    {
+        NSString * dlgID = message.customParameters[@"_id"];
+        [[ChatService shared] requestDialogUpdateWithId:dlgID completionBlock:^{
+            [self setGroupListData: [ChatService shared].dialogs];
+        }];
+        return YES;
+    }
+    else if([notification_type isEqualToString: NOTIFY_GROUP_CHAT_DELETE])
+    {
+        NSString * dlgID = message.customParameters[@"_id"];
+        [[ChatService shared] requestDialogUpdateWithId:dlgID completionBlock:^{
+            [self setGroupListData: [ChatService shared].dialogs];
+        }];
+        return YES;
+    }
+
     return NO;
+}
+- (BOOL) chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID
+{
+    return YES;
 }
 @end

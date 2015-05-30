@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "SnsPageView.h"
+#import "StatusOptionVC.h"
 
-@interface BrowserHomeVC : UIViewController <UITextFieldDelegate, SnsPageDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface BrowserHomeVC : UIViewController <UITextFieldDelegate, SnsPageDelegate, UITableViewDataSource, UITableViewDelegate, StatusOptionVCDelegate>
 {
     NSArray* searchedProdcuts;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *topBar;
+@property (strong, nonatomic) IBOutlet UILabel *lblUserStatus;
+@property (strong, nonatomic) IBOutlet UIButton *btnUserStatus;
 
 @property (strong, nonatomic) IBOutlet UIView *chatbar;
 @property (strong, nonatomic) IBOutlet UIButton *buttonChatSlider;

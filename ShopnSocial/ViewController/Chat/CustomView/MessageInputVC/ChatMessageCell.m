@@ -28,13 +28,16 @@
     QBChatAbstractMessage * msg = message;
     QBUUser * qbUser = [[ChatService shared].usersAsDictionary objectForKey: @(msg.senderID)];
     
-    if(msg.senderID == [User currentUser].qbuUser.ID)
+    if(msg.senderID == [ChatService shared].currentUser.ID)
     {
         self.nameText.text = @"Me:";
     }
-    else
+    else if(qbUser == nil)
     {
-        self.nameText.text = [NSString stringWithFormat:@"%@:" , qbUser.fullName];
+        self.nameText.text = @"";
+    }
+    else{
+        self.nameText.text = qbUser.fullName;
     }
     self.messageText.text = msg.text;
     self.statusText.hidden = YES;

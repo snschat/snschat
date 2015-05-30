@@ -62,7 +62,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void)loginWithUser:(QBUUser *)user completionBlock:(void(^)())completionBlock{
     self.loginCompletionBlock = completionBlock;
-    
+    user.password = [QBBaseModule sharedModule].token;
     [[QBChat instance] loginWithUser:user];
 }
 
@@ -89,6 +89,10 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
 }
 
+- (BOOL) sendMessageWithoutJoin:(QBChatMessage* )message toRoom:(QBChatRoom *) chatRoom{
+    return [[QBChat instance] sendChatMessageWithoutJoin:message toRoom:chatRoom];
+}
+
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock{
     self.joinRoomCompletionBlock = completionBlock;
     
@@ -97,19 +101,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void)leaveRoom:(QBChatRoom *)room{
     [[QBChat instance] leaveRoom:room];
-}
-- (void) createRoom: (NSString *) roomName :(NSArray *) occupantIDs
-{
-    QBChatDialog * chatDialog = [QBChatDialog new];
-    chatDialog.name = roomName;
-    chatDialog.type = QBChatDialogTypeGroup;
-    chatDialog.occupantIDs = occupantIDs;
-    
-    [QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
-        
-    } errorBlock:^(QBResponse *response) {
-        
-    }];
 }
 
 - (void)setUsers:(NSMutableArray *)users
@@ -215,8 +206,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
                              break;
                          }
                      }
-                     
-                     [self.dialogs insertObject:dialogObjects.firstObject atIndex:0];
+                     if(dialogObjects.count > 0)
+                         [self.dialogs insertObject:dialogObjects.firstObject atIndex:0];
                      
                      if(!found){
                          [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:nil
@@ -269,7 +260,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 }
 
 - (void)chatRoomDidEnter:(QBChatRoom *)room{
-    self.joinRoomCompletionBlock(room);
+    if(self.joinRoomCompletionBlock)
+        self.joinRoomCompletionBlock(room);
     self.joinRoomCompletionBlock = nil;
 }
 
@@ -287,7 +279,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     
     if(!processed){
         NSString *dialogId = message.customParameters[@"dialog_id"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
+        if(dialogId)
+            [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
     }
 }
 
@@ -302,13 +295,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         }
     }
     
-//    if(!processed){
-//        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
-//                                                       description:message.text
-//                                                              type:TWMessageBarMessageTypeInfo];
-//        
-//        [[SoundService instance] playNotificationSound];
-//    }
 }
 
 - (void) chatContactListDidChange:(QBContactList *)contactList
@@ -448,7 +434,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         dispatch_async(dispatch_get_main_queue(), ^{
             for(id delegate in self.delegates)
             {
-                [delegate chatContactUsersDidChange: self.contactUsers];
+                if([delegate respondsToSelector: @selector( chatContactListDidChange:)])
+                    [delegate chatContactUsersDidChange: self.contactUsers];
             }
         });
     });
@@ -480,13 +467,22 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     chatDialog.name = name;
     chatDialog.occupantIDs = _occupantIDs;
     chatDialog.type = QBChatDialogTypeGroup;
+    chatDialog.data = @{@"class_name" : @"GroupData", @"accepted_users" : @[@(self.currentUser.ID)]};
     
+    QBUUser * user = [self currentUser];
     [QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
-        for(NSString * occupantID in createdDialog.occupantIDs)
+        for(NSNumber * occupantID in createdDialog.occupantIDs)
         {
-            QBChatMessage * inviteMessage = [self createChatNotificationForGroupChatCreation: createdDialog];
-            inviteMessage.recipientID = [occupantID integerValue];
-            [[QBChat instance] sendMessage: inviteMessage];
+            if(![occupantID isEqualToNumber: @(user.ID)])
+            {
+                QBChatMessage * inviteMessage = [self createChatNotificationForGroupChat:createdDialog];
+                
+                inviteMessage.text = [NSString stringWithFormat: @"%@ invited you to group chatting", user.fullName];
+                inviteMessage.customParameters[@"notification_type"] = NOTIFY_GROUP_CHAT_CREATE;
+                inviteMessage.recipientID = [occupantID integerValue];
+                
+                [[QBChat instance] sendMessage:inviteMessage];
+            }
         }
         bResult = YES;
         dispatch_semaphore_signal(sema);
@@ -499,14 +495,9 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     return bResult;
 }
 
-- (QBChatMessage *) createChatNotificationForGroupChatCreation: (QBChatDialog *) dialog
+- (QBChatMessage *) createChatNotificationForGroupChat: (QBChatDialog *) dialog
 {
-    User * currentUser = [User currentUser];
-    
-    NSString * inviteMsg = [NSString stringWithFormat: @"%@ invited you to group chatting", currentUser.Username];
-    
-    QBChatMessage * inviteMessage = [QBChatMessage message];
-    inviteMessage.text = inviteMsg;
+    QBChatMessage * message = [QBChatMessage message];
     
     NSMutableDictionary * customParams = [NSMutableDictionary dictionary];
     customParams[@"xmpp_room_jid"] = dialog.roomJID;
@@ -515,9 +506,55 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     customParams[@"type"] = @(dialog.type);
     customParams[@"occupants_ids"] = [dialog.occupantIDs componentsJoinedByString:@","];
     
-    customParams[@"notification_type"] = @"1";
-    
-    inviteMessage.customParameters = customParams;
-    return inviteMessage;
+    message.customParameters = customParams;
+    return message;
 }
+
+- (void) leaveGroupDialog:(QBChatDialog *) dialog :(NSInteger ) userID completionBlock:(void(^)(QBResponse *, QBChatDialog*))completionBlock
+{
+    __block BOOL bJoined = [[dialog chatRoom] isJoined];
+    
+    if(userID != [self currentUser].ID)
+    {
+        QBUUser * user = [self.usersAsDictionary objectForKey:@(userID)];
+        QBChatMessage * msg = [self createChatNotificationForGroupChat: dialog];
+        msg.text = [NSString stringWithFormat:@"%@ has been removed from the group",user.fullName ];
+        msg.customParameters[@"notification_type"] = NOTIFY_GROUP_CHAT_REMOVE;
+        
+        [self sendMessage:msg toRoom:[dialog chatRoom]];
+    }
+    
+    dialog.pullOccupantsIDs = @[@(userID)];
+    [QBRequest updateDialog: dialog successBlock:^(QBResponse * response, QBChatDialog * dlgInfo) {
+        completionBlock(response, dlgInfo);
+        
+        //TODO : Notify deleted users
+        for(NSNumber * occupantID in dlgInfo.occupantIDs)
+        {
+            if([occupantID isEqualToNumber: @(userID)])
+            {
+                
+                QBChatMessage * msg = [self createChatNotificationForGroupChat: dlgInfo];
+                if(!bJoined) //User declined invitation
+                {
+                    msg.text = [NSString stringWithFormat:@"%@ has declined the invitation", [self currentUser].fullName];
+                    msg.recipientID = [occupantID integerValue];
+                    msg.customParameters[@"notification_type"] = NOTIFY_GROUP_CHAT_DECLINE;
+                    msg.customParameters[@"save_to_history"] = @YES;
+                }
+                else
+                {
+                    msg.text = [NSString stringWithFormat:@"%@ has left the group", [self currentUser].fullName];
+                    msg.recipientID = [occupantID integerValue];
+                    msg.customParameters[@"notification_type"] = NOTIFY_GROUP_CHAT_LEFT;
+                    msg.customParameters[@"save_to_history"] = @YES;
+                }
+                [self sendMessage:msg toRoom:[dialog chatRoom]];
+//                [self sendMessageWithoutJoin: msg toRoom: [dialog chatRoom]];
+            }
+        }
+    } errorBlock:^(QBResponse *response) {
+    }];
+}
+
 @end

@@ -117,6 +117,7 @@
                 if (qbuUser != nil)
                 {
                     user.qbuUser = qbuUser;
+                    user.UserID = qbuUser.ID;
                     [User setCurrentUser:user];
                     
                     [[Global sharedGlobal] initUserData];

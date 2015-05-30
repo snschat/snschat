@@ -124,9 +124,9 @@ static User* gCurrentUser = nil;
     object.ID = curUser.customObject.ID;
     
     [QBRequest updateObject:object successBlock:^(QBResponse *response, QBCOCustomObject *object) {
-        dispatch_semaphore_signal(sema);
         [curUser updateFromQT: object];
         bResult = YES;
+        dispatch_semaphore_signal(sema);
     } errorBlock:^(QBResponse *response) {
         NSLog(@"Response error: %@", [response.error description]);
         bResult = NO;
@@ -233,7 +233,6 @@ static User* gCurrentUser = nil;
     if (user.TwitterID != nil) [object.fields setObject:user.TwitterID forKey:@"twitterID"];
     if (user.GoogleID != nil) [object.fields setObject:user.GoogleID forKey:@"googleID"];
     
-    
     __block User* __user = user;
 
     QBUUser* qbuser = [QBUUser user];
@@ -241,7 +240,11 @@ static User* gCurrentUser = nil;
     qbuser.email = user.Email;
     qbuser.fullName = user.Username;
     qbuser.password = md5Password;
-    
+
+
+    if (user.FacebookID != nil) qbuser.facebookID = user.FacebookID;
+    if (user.TwitterID != nil) qbuser.twitterID = user.TwitterID;
+
     [QBRequest signUp:qbuser successBlock:^(QBResponse *response, QBUUser *user) {
         __user.qbuUser = user;
         dispatch_semaphore_signal(sema);
@@ -345,7 +348,7 @@ static User* gCurrentUser = nil;
     if (qbuUser == nil) return nil;
     
     user.qbuUser = qbuUser;
-    
+    user.UserID = qbuUser.ID;
     return user;
 }
 
