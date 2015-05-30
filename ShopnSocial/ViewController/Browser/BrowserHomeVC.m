@@ -8,11 +8,14 @@
 
 #import "BrowserHomeVC.h"
 #import "TabButton.h"
+#import "UIImageView+WebCache.h"
 
 #import "SnsPageView.h"
 #import "SnsHomePageVC.h"
 #import "SnsCategoryPageVC.h"
 #import "CategoryPopoverVC.h"
+
+#import "ExNSArray+Swap.h"
 
 @interface BrowserHomeVC () <CategoryPopoverDelegate>
 
@@ -37,6 +40,10 @@
     
     addressText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:addressText.placeholder attributes:@{NSForegroundColorAttributeName: color}];
     [addressText addTarget:self action:@selector(onChangeAddressText:) forControlEvents:UIControlEventEditingChanged];
+    
+    [self.view bringSubviewToFront:self.laySearch];
+    self.laySearch.hidden = YES;
+
     
     [self initTab];
     [self onHome:nil];
@@ -86,6 +93,13 @@
         return NO;
     }
     return YES;
+}
+
+-(void)viewWillLayoutSubviews
+{
+    if (currentPage != nil) {
+        currentPage.frame = self.mainview.bounds;
+    }
 }
 
 -(void)onTapCategory:(ProductCategory*)category
@@ -249,7 +263,7 @@
     
     currentPage = page;
     currentPage.frame = self.mainview.bounds;
-    
+
     [self.mainview addSubview:currentPage];
     
     [self selectTabButtonAt:index];
@@ -285,10 +299,73 @@
 
 -(void)didSnsPageNavigationChanged:(SnsPageView*)page
 {
-    
+    [self updateNavigationBar:page];
+}
+
+-(void)didScrollDown:(SnsPageView*)page
+{
+    [self makeMiniNavigationBar];
+}
+
+-(void)didScrollReachedTop:(SnsPageView*)page
+{
+    [self makeFullNavigationBar];
 }
 
 #pragma mark - Navigator
+
+- (void) makeFullNavigationBar
+{
+    if (self.view.frame.origin.y == 0) return;
+
+    [UIView beginAnimations:nil context:nil];
+    self.view.frame = CGRectMake(
+                                 0,
+                                 0,
+                                 self.view.frame.size.width,
+                                 [UIScreen mainScreen].bounds.size.height);
+    [UIView commitAnimations];
+}
+
+- (void) makeMiniNavigationBar
+{
+    if (self.view.frame.origin.y < 0) return;
+    
+    [UIView beginAnimations:nil context:nil];
+    self.view.frame = CGRectMake(
+                                 0,
+                                 -self.topBar.frame.size.height,
+                                 self.view.frame.size.width,
+                                 [UIScreen mainScreen].bounds.size.height + self.topBar.frame.size.height);
+    [UIView commitAnimations];
+}
+
+- (void) updateNavigationBar:(SnsPageView*)page
+{
+    NSURL* url = page.url;
+    
+    NSString* fullURL = url.absoluteString;
+    
+    if (url == nil || [fullURL rangeOfString:@"about:" options:NSAnchoredSearch].length > 0) {
+        fullURL = @"";
+        self.btnNavFavorite.alpha = 1.0f;
+    }
+    else
+    {
+        NSMutableArray* favorites = [NSMutableArray arrayWithArray:[Global sharedGlobal].FavoriteURLs];
+        
+        if ([favorites indexOfObject:url.absoluteString] == NSNotFound)
+        {
+            self.btnNavFavorite.alpha = 1.0f;
+        }
+        else
+        {
+            self.btnNavFavorite.alpha = 0.2f;
+        }
+    }
+    
+    addressText.text = fullURL;
+}
 
 - (IBAction)onBack:(id)sender {
     [currentPage goBack];
@@ -307,6 +384,24 @@
 }
 
 - (IBAction)onFavorite:(id)sender {
+    if (currentPage == nil) return;
+    NSURL* url = currentPage.url;
+    if (url == nil || [url.scheme isEqual:@"about"]) return;
+    
+    NSMutableArray* favorites = [NSMutableArray arrayWithArray:[Global sharedGlobal].FavoriteURLs];
+    
+    if ([favorites indexOfObject:url.absoluteString] != NSNotFound)
+    {
+        [favorites removeObject:url.absoluteString];
+        [[Global sharedGlobal] setFavoriteURLs:favorites];
+    }
+    else
+    {
+        [favorites addObject:url.absoluteString];
+        [[Global sharedGlobal] setFavoriteURLs:favorites];
+    }
+    
+    [self updateNavigationBar:currentPage];
 }
 
 - (IBAction)onNewTab:(id)sender {
@@ -316,16 +411,128 @@
     [self loadHomePage];
 }
 
-
+- (IBAction)onRefresh:(id)sender {
+    if (currentPage == nil) return;
+    
+    [currentPage refresh];
+}
 #pragma mark - Addressbar
 
 - (void)onChangeAddressText:(id)sender
 {
+    [self searchProduct:addressText.text];
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        NSArray* array = [[Global sharedGlobal] getGoogleSuggestionSync:addressText.text];
 //        array = array;
 //    });
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSString* url = textField.text;
+    
+    if (![url hasPrefix:@"http://"] && ![url hasPrefix:@"https://"])
+    {
+        url = [NSString stringWithFormat:@"http://%@", url];
+    }
+    
+    [self openURL:url];
+    
+    return YES;
+}
+
+- (void)openURL:(NSString*)url
+{
+    if (currentPage == nil) {
+        [self addTabPage: [[SnsPageView alloc] init]];
+        [self openTabPageAt:0];
+    }
+    [currentPage openURL:url];
+}
+
+# pragma mark - search product table
+
+
+- (void)searchProduct:(NSString*)keyword
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray* stores = [Store getQuickStoresInLocationSync:[Global sharedGlobal].currentUser.Location.intValue keyword:keyword];
+        
+        stores = [stores sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            Store* st1 = (Store*) obj1;
+            Store* st2 = (Store*) obj2;
+            
+            NSRange searchRange1 = [st1.Retailer rangeOfString:keyword options:NSAnchoredSearch | NSCaseInsensitiveSearch];
+            NSRange searchRange2 = [st2.Retailer rangeOfString:keyword options:NSAnchoredSearch | NSCaseInsensitiveSearch];
+            
+            if (searchRange1.length == searchRange2.length)
+            {
+                NSComparisonResult result = [st1.Retailer compare:st2.Retailer options:NSCaseInsensitiveSearch];
+                return result;
+            }
+            else if (searchRange1.length > 0)
+                return NSOrderedAscending;
+            else
+                return NSOrderedDescending;
+            
+        }];
+        
+        searchedProdcuts = stores;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.laySearch.hidden = NO;
+            [self.searchTableView reloadData];
+        });
+    });
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [searchedProdcuts count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"cellview";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    Store* st = [searchedProdcuts objectAtIndex:indexPath.row];
+    
+    UIView* layCotainer = [cell viewWithTag:200];
+    UIImageView* imgLogo = (UIImageView*)[cell viewWithTag:201];
+    UILabel* lblTitle = (UILabel*)[cell viewWithTag:202];
+    UILabel* lblDescription = (UILabel*)[cell viewWithTag:203];
+    
+    imgLogo.contentMode = UIViewContentModeScaleAspectFit;
+    [imgLogo setImageWithURL:[NSURL URLWithString:st.LogoURL] placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+    }];
+    lblTitle.text = st.Retailer;
+    lblDescription.text = st.Description;
+    
+    layCotainer.frame = CGRectMake(0, 0, tableView.frame.size.width, layCotainer.frame.size.height);
+    
+    [layCotainer setNeedsLayout];
+    
+    return cell;
+}
+
+- (IBAction)onSearchGoogle {
+    NSString* googleURL = [NSString stringWithFormat:@"https://www.google.com/search?q=%@", addressText.text];
+
+    [addressText resignFirstResponder];
+    self.laySearch.hidden = YES;
+    [self openURL:googleURL];
+}
+
+- (IBAction)onTapOutsideOfSearchResult:(UITapGestureRecognizer *)sender {
+    [addressText resignFirstResponder];
+    self.laySearch.hidden = YES;
+}
+
 
 
 #pragma mark - Shopnsocial Home Page
@@ -348,7 +555,6 @@
     homepageVC = (SnsHomePageVC*)[self.storyboard instantiateViewControllerWithIdentifier:@"SnsHomePageVC"];
 
     [currentPage pushView:homepageVC.view];
-
 }
 
 #pragma mark -
@@ -395,7 +601,5 @@
          ];
     }
 }
-
-
 
 @end

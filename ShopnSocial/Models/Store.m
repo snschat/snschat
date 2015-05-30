@@ -91,6 +91,52 @@
     return __stores;
 }
 
++(NSArray*)getQuickStoresInLocationSync:(int)locationCode keyword:(NSString*)keyword
+{
+    NSArray* categories = [ProductCategory getCategoriesSync];
+    NSString* targets = @"";
+    
+    for (ProductCategory* pc in categories) {
+        if (pc.LocationCode != locationCode) continue;
+        
+        if (targets.length == 0)
+            targets = [NSString stringWithFormat:@"%@", pc.customObject.ID];
+        else
+            targets = [NSString stringWithFormat:@"%@,%@", targets, pc.customObject.ID];
+    }
+    
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+    NSMutableDictionary * getRequest = [NSMutableDictionary dictionaryWithDictionary: @{
+                                                                                        @"ParentID": targets,
+                                                                                        @"Retailer[ctn]": keyword,
+                                                                                        //@"IsQuickLink": @(YES),
+                                                                                        @"limit": @(100)
+                                                                                        }];
+    __block NSMutableArray* __stores;
+    [QBRequest objectsWithClassName:QB_Class_Name
+                    extendedRequest:getRequest
+                       successBlock:^(QBResponse *response, NSArray *objects, QBResponsePage *page) {
+                           __stores = [NSMutableArray array];
+                           
+                           for (QBCOCustomObject* co in objects) {
+                               Store* st = [[Store alloc] init];
+                               st.customObject = co;
+                               [__stores addObject:st];
+                           }
+                           
+                           dispatch_semaphore_signal(sema);
+                       } errorBlock:^(QBResponse *response) {
+                           NSLog(@"Response error: %@", [response.error description]);
+                           __stores = [NSMutableArray array];
+                           dispatch_semaphore_signal(sema);
+                       }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return __stores;
+}
+
 #pragma mark - properties
 
 -(NSString*) Retailer

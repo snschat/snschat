@@ -38,6 +38,8 @@
     
     int localID = [_currentUser.Location intValue];
     
+    if (localID == 0) localID = 1;
+    
     for (ProductCategory* pc in _categories) {
         if (pc.LocationCode == localID) {
             [localCategories addObject:pc];

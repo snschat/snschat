@@ -52,13 +52,46 @@
     
     currentView = nil;
     
-    webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 500, 500)];
+    webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     webview.delegate = (id<UIWebViewDelegate>)self;
+    webview.scrollView.delegate = (id<UIScrollViewDelegate>)self;
     [self addSubview:webview];
     
     //[webview stringByEvaluatingJavaScriptFromString:@"window.open('about:blank');"];
     
     historyPosition = 0;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    currentView.frame = self.bounds;
+}
+
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.superview != currentView) return;
+    
+    //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
+    
+    if (scrollView.contentOffset.y > 0)
+    {
+        // down scrolling
+        [self fireScrollDown];
+    }
+    else if (scrollView.contentOffset.y <= 0)
+    {
+        // up scrolling but already reached to the top.
+        [self fireScrollReachedTop];
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    NSLog(@"YES");
 }
 
 #pragma mark delegates
@@ -84,7 +117,32 @@
     }
 }
 
-#pragma mark - title
+-(void) fireNavigationChanged
+{
+    for (id<SnsPageDelegate> _d in delegates) {
+        if ([_d respondsToSelector:@selector(didSnsPageNavigationChanged:)])
+            [_d didSnsPageNavigationChanged:self];
+    }
+}
+
+-(void) fireScrollDown
+{
+    for (id<SnsPageDelegate> _d in delegates) {
+        if ([_d respondsToSelector:@selector(didScrollDown:)])
+            [_d didScrollDown:self];
+    }
+}
+
+-(void) fireScrollReachedTop
+{
+    for (id<SnsPageDelegate> _d in delegates) {
+        if ([_d respondsToSelector:@selector(didScrollReachedTop:)])
+            [_d didScrollReachedTop:self];
+    }
+}
+
+
+#pragma mark - title & url
 
 -(NSString*) title
 {
@@ -94,7 +152,15 @@
     return t;
 }
 
+
 #pragma mark -
+
+-(void) refresh
+{
+    if (currentView == webview) {
+        [webview reload];
+    }
+}
 
 -(void) openURL:(NSString*)urlString
 {
@@ -136,38 +202,7 @@
         historyPosition = [viewStacks1 count];
         NSString* url = [NSString stringWithFormat:@"about:blank?snsios=%d",  historyPosition];
         [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-         
-//        NSString* html = [NSString stringWithFormat:@"<html><body onload='goBackOrForwoard(%d);'></body><script  type='text/javascript'>var snsHistoryPosition = %d;</script></html>", historyPosition, historyPosition];
-//        NSString* url = [NSString stringWithFormat:@"http://%d.sns.com.ios/pages", historyPosition];
-//
-//        NSLog(@"\n%@\n%@", url, html);
-//        [webview loadHTMLString:html baseURL:[NSURL URLWithString:url]];
     }
-    
-    
-    
-//    historyPosition = [[webview stringByEvaluatingJavaScriptFromString:@"window.history.length"] intValue];
-//
-////    NSString* tempHTML = [NSString stringWithFormat:@"<html><head><title>temp html %d</title></head><body style='background:red;'>123123123</body></html>", historyPosition];
-//    //[webview loadHTMLString:tempHTML baseURL:nil];
-//    
-////    [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.com"]]];
-////    [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.bing.com"]]];
-//    static int gidx = 0;
-//    
-//    if (gidx++ %2 == 0)
-//        [webview stringByEvaluatingJavaScriptFromString:@"location.href='#snstop1';"];
-//        //[webview stringByEvaluatingJavaScriptFromString:@"window.open('http://www.google.com')"];
-//    else
-//        [webview stringByEvaluatingJavaScriptFromString:@"location.href='#snstop2';"];
-//        //[webview stringByEvaluatingJavaScriptFromString:@"window.open('http://www.bing.com')"];
-//    
-//    NSLog(@"%@", [webview stringByEvaluatingJavaScriptFromString:@"window.history.length"]);
-//    historyPosition = [[webview stringByEvaluatingJavaScriptFromString:@"window.history.length"] intValue];
-//    
-    
-    NSLog(@"%d", historyPosition);
-    NSLog(@"%d", historyPosition);
 }
 
 -(void) _removeCurrentView
@@ -175,10 +210,19 @@
     if (currentView == nil) return;
     if (webview == currentView)
     {
-        webview.frame = CGRectMake(0, 0, 500, 500);
+        webview.frame = CGRectMake(0, 0, 1, 1);
     }
     else
         [currentView removeFromSuperview];
+    
+    if (currentView != webview)
+    {
+        UIView* view2000 = [currentView viewWithTag:2000];
+        if (view2000 != nil && [view2000 isKindOfClass:[UIScrollView class]]) {
+            UIScrollView* scrollView = (UIScrollView*)view2000;
+            scrollView.delegate = nil;
+        }
+    }
 }
 
 -(void) _addCurrentView
@@ -188,7 +232,16 @@
         [self addSubview:currentView];
     
     currentView.frame = self.bounds;
-    
+
+//    if (currentView != webview)
+//    {
+//        UIView* view2000 = [currentView viewWithTag:2000];
+//        if (view2000 != nil && [view2000 isKindOfClass:[UIScrollView class]]) {
+//            UIScrollView* scrollView = (UIScrollView*)view2000;
+//            scrollView.delegate = (id<UIScrollViewDelegate>)self;
+//        }
+//    }
+
 }
 
 -(UIView*) topView
@@ -259,63 +312,38 @@
     if (viewStacks1.count == position + 1)
         [self _goBack];
     else if(viewStacks1.count + 1 == position)
+        
         [self _goForward];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSLog(@"webview is starting %@", request.URL);
-    
-//    JSContext *context =  [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"]; // Undocumented access
-//    context[@"goBackOrForwoard"] = ^(NSNumber* number) {
-//        [self goBackOrForwoard:number.intValue];
-//    };
-    
     return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-//    JSContext *context =  [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"]; // Undocumented access
-//    context[@"goBackOrForwoard"] = ^(NSNumber* number) {
-//        [self goBackOrForwoard:number.intValue];
-//    };
+    self.url = webview.request.mainDocumentURL;
+    [self fireNavigationChanged];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSLog(@"web is loading or done %d, %@", webview.isLoading, [webview stringByEvaluatingJavaScriptFromString:@"location.href"]);
 
+    self.url = webview.request.mainDocumentURL;
+    [self fireNavigationChanged];
+
     if (webview.isLoading) return;
     
-    NSString* url = [webview stringByEvaluatingJavaScriptFromString:@"location.href"];
-    NSRange range = [url rangeOfString:@"snsios="];
-    if (range.location == NSNotFound) return;
     
-    NSString* historyPositionStr = [url substringFromIndex:range.location + range.length ];
+    if (webview == currentView)
+    {
+        webview.title = [webview stringByEvaluatingJavaScriptFromString:@"document.title"];
+        [self fireTitleChange:webview.title sender:webview];
+    }
     
-    NSLog(@"snsHistoryPosition = %@", historyPositionStr);
-    
-    if (historyPositionStr.length == 0) return;
-    
-    [self goBackOrForwoard:[historyPositionStr intValue]];
-    
-    
-//    JSContext *context =  [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"]; // Undocumented access
-//    context[@"goBackOrForwoard"] = ^(NSNumber* number) {
-//        [self goBackOrForwoard:number.intValue];
-//    };
-    
-//    if (webview.isLoading) return;
-//    
-//    //if (webview == currentView)
-//    {
-//        [self pushView:webview];
-//    }
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
     NSString* url = [webview stringByEvaluatingJavaScriptFromString:@"location.href"];
     NSRange range = [url rangeOfString:@"snsios="];
     if (range.location == NSNotFound) return;

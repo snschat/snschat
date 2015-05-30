@@ -75,6 +75,34 @@ static Global* gShared = nil;
     [store synchronize];
 }
 
+-(NSString*) HomePage
+{
+    NSString* result = [store stringForKey:@"HomePage"];
+    return result;
+}
+
+-(void) setHomePage:(NSString *)homepage
+{
+    [store setObject:homepage forKey:@"HomePage"];
+    [store synchronize];
+}
+
+-(NSArray*) FavoriteURLs
+{
+    NSArray* result = [store objectForKey:@"FavoriteURLs"];
+    return result;
+}
+
+-(void) setFavoriteURLs:(NSArray *)FavoriteURLs
+{
+    [store setObject:FavoriteURLs forKey:@"FavoriteURLs"];
+    [store synchronize];
+}
+
+
+
+#pragma mark -
+
 -(User*)currentUser
 {
     return [User currentUser];

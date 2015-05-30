@@ -31,5 +31,7 @@
 
 +(NSArray*)getQuickStoresInLocationSync:(int)locationCode;
 
++(NSArray*)getQuickStoresInLocationSync:(int)locationCode keyword:(NSString*)keyword;
+
 
 @end

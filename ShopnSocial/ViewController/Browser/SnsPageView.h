@@ -11,7 +11,7 @@
 
 @class SnsPageView;
 
-@protocol SnsPageDelegate <NSObject, UIWebViewDelegate>
+@protocol SnsPageDelegate <NSObject, UIWebViewDelegate, UIScrollViewDelegate>
 
 @optional
 
@@ -19,14 +19,20 @@
 
 -(void)didSnsPageNavigationChanged:(SnsPageView*)page;
 
+-(void)didScrollDown:(SnsPageView*)page;
+
+-(void)didScrollReachedTop:(SnsPageView*)page;
+
 @end
 
 @interface SnsPageView : UIView
 
+-(void) refresh;
 -(void) openURL:(NSString*)url;
 
 -(void) pushView:(UIView*)view;
 -(UIView*) topView;
+
 
 -(void) goBack;
 -(void) goForward;
@@ -35,7 +41,11 @@
 -(BOOL) isEnableForward;
 
 -(NSString*) title;
--(void) setTitle:(NSString*) title;
+//-(void) setTitle:(NSString*) title;
+
+@property (nonatomic, strong) NSURL* url;
+
+
 
 /* WebFrameLoadDelegate method */
 //- (void)webView:(UIWebView *)webView windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject;

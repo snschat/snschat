@@ -26,7 +26,8 @@ static void *UIViewTitleKey;
 -(void) setTitle:(NSString*) title
 {
     NSString *result = objc_getAssociatedObject(self, &UIViewTitleKey);
-    if (result == nil) {
+    //if (result == nil)
+    {
         result = title;
         objc_setAssociatedObject(self, &UIViewTitleKey, result, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }

@@ -3,7 +3,15 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[CategoryPopoverVC tableView:didSelectRowAtIndexPath:]:CategoryPopoverVC.m">
+         contextName = "-[ContactListVC tableView:cellForRowAtIndexPath:]:ContactListVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dialog.recipientID">
+            </PersistentString>
+            <PersistentString
+               value = "dialog.unreadMessagesCount">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "+[Country getCountries:errorBlock:]:Country.m">
@@ -52,15 +60,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ContactListVC tableView:cellForRowAtIndexPath:]:ContactListVC.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "dialog.recipientID">
-            </PersistentString>
-            <PersistentString
-               value = "dialog.unreadMessagesCount">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "__38-[FHSTwitterEngineController loadView]_block_invoke_2:FHSTwitterEngine.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CategoryPopoverVC tableView:didSelectRowAtIndexPath:]:CategoryPopoverVC.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -107,6 +107,7 @@
                 [self.scrollRecommedBar addSubview:imageview];
                 
                 imageview.title = st.AffiliateURL;
+                [imageview setUserInteractionEnabled:YES];
                 UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
                 [imageview addGestureRecognizer:tap];
                 
@@ -177,6 +178,7 @@
             [imageview setImageWithURL:[NSURL URLWithString:ft.ImageURL]];
             
             imageview.title = ft.AffiliateURL;
+            [imageview setUserInteractionEnabled:YES];
             UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
             [imageview addGestureRecognizer:tap];
             

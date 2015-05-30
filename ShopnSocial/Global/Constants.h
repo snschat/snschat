@@ -14,8 +14,8 @@
 
 
 #pragma mark - Twitter
-#define TwitterConsumerKey @"h5OJ4f7R3QfKZFvf2vI7lh883"
-#define TwitterConsumerSecret @"d4ORBnaF28eyRr2n2VRBOaSZw0LKAvmyAanOQRSqUBeJnl4oCH"
+#define TwitterConsumerKey @"Tglz8m4aAGtk6zuJchvA3X98N"
+#define TwitterConsumerSecret @"rlFv6XyZLaK9W8ICxJeKyV8wYD1Yg8QNdrklWNOgMLAG7gY0bx"
 
 #pragma mark - password@shopnsocial.com
 #define PasswordEmailSmptHost @"smtp.live.com"

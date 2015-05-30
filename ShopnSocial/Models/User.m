@@ -233,20 +233,9 @@ static User* gCurrentUser = nil;
     if (user.TwitterID != nil) [object.fields setObject:user.TwitterID forKey:@"twitterID"];
     if (user.GoogleID != nil) [object.fields setObject:user.GoogleID forKey:@"googleID"];
     
+    
     __block User* __user = user;
-    [QBRequest createObject:object successBlock:^(QBResponse *response, QBCOCustomObject *object) {
-        __user.customObject = object;
-        dispatch_semaphore_signal(sema);
-    } errorBlock:^(QBResponse *response) {
-        __user.customObject = nil;
-        NSLog(@"%@", response);
-        dispatch_semaphore_signal(sema);
-    }];
-    
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 
-    if (user.customObject == nil) return NO;
-    
     QBUUser* qbuser = [QBUUser user];
     qbuser.login = user.Email;
     qbuser.email = user.Email;
@@ -262,6 +251,22 @@ static User* gCurrentUser = nil;
     }];
     
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    if (user.qbuUser == nil) return NO;
+    
+    [self loginQBUUserSync:user.Email password:md5Password];
+    
+    [QBRequest createObject:object successBlock:^(QBResponse *response, QBCOCustomObject *object) {
+        __user.customObject = object;
+        dispatch_semaphore_signal(sema);
+    } errorBlock:^(QBResponse *response) {
+        __user.customObject = nil;
+        NSLog(@"%@", response);
+        dispatch_semaphore_signal(sema);
+    }];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+
     
     return user.customObject != nil;
 }
@@ -380,6 +385,8 @@ static User* gCurrentUser = nil;
     user.GoogleID = co.fields[@"googleID"];
     user.Status = co.fields[@"status"];
     user.qbuUser = nil;
+    
+    if (user.Location.intValue == 0) user.Location = [NSNumber numberWithInt:1];
 }
 
 #pragma mark - instance methods

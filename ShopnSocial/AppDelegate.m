@@ -27,6 +27,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     // Facebook. Look FB Setting in Info.plist file.
     [FBProfilePictureView class];

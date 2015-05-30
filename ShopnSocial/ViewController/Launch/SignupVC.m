@@ -241,7 +241,7 @@
 - (void) populateGender
 {
     genders = @[@"M", @"F", @"O", @"N"];
-    genderNames = @[@"Male", @"Femal", @"Other", @"None of your business"];
+    genderNames = @[@"Male", @"Female", @"Other", @"None of your business"];
 }
 
 #pragma mark -
@@ -274,11 +274,10 @@
         
         // if sucess to create new user, login with user info.
         if (result) {
-            NSString* username = newUser.Email;
-            NSString* qpassword = newUser.Password;
-            
-            QBUUser* qbuUser = [User loginQBUUserSync:username password:qpassword];
-            newUser.qbuUser = qbuUser;
+//            NSString* username = newUser.Email;
+//            NSString* qpassword = newUser.Password;            
+//            QBUUser* qbuUser = [User loginQBUUserSync:username password:qpassword];
+//            newUser.qbuUser = qbuUser;
             
             [User setCurrentUser:newUser];
             

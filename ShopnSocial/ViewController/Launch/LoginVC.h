@@ -13,6 +13,7 @@
 
 
 #pragma mark - login view
+@property (strong, nonatomic) IBOutlet UIImageView *imgBackground;
 
 @property (strong, nonatomic) IBOutlet UIView *loginView;
 @property (strong, nonatomic) IBOutlet UITextField *loginUsername;

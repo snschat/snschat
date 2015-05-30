@@ -29,6 +29,10 @@
 @property (nonatomic, strong) NSString* LoginedUserEmail;
 @property (nonatomic, strong) NSString* LoginedUserPassword;
 
+@property (nonatomic, strong) NSString* HomePage;
+
+@property (nonatomic, strong) NSArray* FavoriteURLs;
+
 #pragma mark -
 
 @property (nonatomic, strong) User* currentUser;

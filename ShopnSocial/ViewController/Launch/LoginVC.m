@@ -36,6 +36,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    [self.imgBackground.layer setMinificationFilter:kCAFilterNearest];
 
     redColor = self.loginMessageLabel.textColor;
     
@@ -121,7 +124,7 @@
 
 - (IBAction)onTwitter
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     UIViewController *loginController = [[FHSTwitterEngine sharedEngine]loginControllerWithCompletionHandler:^(BOOL success) {
         if (success)
@@ -486,6 +489,8 @@
 - (void) loginWithUser:(User*)user
 {
     [Global sharedGlobal].LoginedUserEmail = user.Email;
+    
+    [Global sharedGlobal].currentUser = user;
     [[Global sharedGlobal] initUserData];
 
     dispatch_async(dispatch_get_main_queue(), ^{
