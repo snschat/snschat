@@ -44,10 +44,37 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[GroupVC onAcceptTouched:]:GroupVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[User currentUser].UserID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__20-[LoginVC onTwitter]_block_invoke:LoginVC.m">
          <PersistentStrings>
             <PersistentString
                value = "[FHSTwitterEngine sharedEngine]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[QBChatDialog(Extension) isAccepted:]:ExQBChatDialog.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "user.ID">
+            </PersistentString>
+            <PersistentString
+               value = "array[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GroupVC tableView:cellForRowAtIndexPath:]:GroupVC.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[User currentUser].qbuUser">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

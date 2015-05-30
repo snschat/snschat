@@ -18,8 +18,8 @@
 #import "SharedProductVC.h"
 #import "AddContactVC.h"
 #import "CustomNavigationVC.h"
-#import "CreateGroupVC.h"
 #import "MBProgressHUD.h"
+#import "ExQBChatDialog.h"
 
 @interface ChatVC ()
 {
@@ -66,7 +66,7 @@
     
     self.mainBoard.hidden = YES;
     
-    /* 
+    /*
      * Contact view setting.
      */
     frame = self.contactImg.frame;
@@ -143,7 +143,7 @@
             [self prepareBackgroundImage:vc.view];
         }
     }
-
+    
     
     [MBProgressHUD showHUDAddedTo: self.view animated:YES];
     [[ChatService shared] requestDialogsWithCompletionBlock:^{
@@ -169,17 +169,17 @@
     
     //Place the UIImage in a UIImageView
     self.backImg.image = endImage;
-
+    
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (IBAction)onLogoBtnTouched:(id)sender {
     
@@ -264,7 +264,7 @@
     __block QBChatDialog * chatDlg;
     
     [[ChatService shared] requestDialogsWithCompletionBlock:^{
-
+        
         for(QBChatDialog *dialog in [ChatService shared].dialogs)
         {
             switch (dialog.type) {
@@ -315,13 +315,27 @@
     UIPopoverController * popover = [[UIPopoverController alloc] initWithContentViewController: nav];
     popover.delegate = self;
     
-//    nav.view.superview.layer.cornerRadius = 0;
+    //    nav.view.superview.layer.cornerRadius = 0;
     [popover presentPopoverFromRect:self.leftPane.frame inView:self.mainBoard permittedArrowDirections:0 animated:YES];
 }
 
 #pragma mark GroupVCDelegate
 - (void) onGroupSelected:(id) group
 {
+    QBChatDialog * dialog = group;
+    if(![dialog isAccepted: [ChatService shared].currentUser])
+        return;
+    
+    self.mainBoard.hidden = NO;
+    self.contactName.text = dialog.name;
+    //TODO : Load chat dialog photo
+    //    self.contactImg.image = dialog.photo;
+    
+    //TODO : Dialog online status
+    //    self.contactStatus.text = contact.user.customObject.fields[@"status"];
+    
+    //Create chat dialog and attach to Message Input VC
+    [msgVC setChatDlg: dialog];
     self.mainBoard.hidden = NO;
 }
 
@@ -329,7 +343,7 @@
 - (void) showCreateGroup
 {
     CreateGroupVC * vc = [self.storyboard instantiateViewControllerWithIdentifier: @"CreateGroupVC"];
-    
+    vc.delegate = self;
     vc.contacts = [ChatService shared].contactUsers;
     
     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:vc];
@@ -356,7 +370,7 @@
     frame.size.height = [statusMenu originalHeight];
     frame.origin.y -= [statusMenu originalHeight];
     [UIView animateWithDuration:1.0f animations:^{
-
+        
         statusMenu.view.frame = frame;
     }];
 }
@@ -369,6 +383,11 @@
 - (void) onCollapseTouched:(id)sender
 {
     statusMenu.view.hidden = YES;
+}
+#pragma mark CreateGroupVC Delegate
+- (void) onGroupDialogCreated
+{
+    [groupVC reloadDialogs];
 }
 #pragma mark Group/Contact Tab Control
 

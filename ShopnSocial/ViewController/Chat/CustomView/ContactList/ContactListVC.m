@@ -21,8 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
-                                                 name:kDialogUpdatedNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
+//                                                 name:kDialogUpdatedNotification object:nil];
 
     
     // Do any additional setup after loading the view from its nib.
@@ -140,12 +140,12 @@
     
     if(contact.bWaiting)
     {
-        [cell setAnnotations: @[@ANNOT_CONFIRM]];
+        [cell setAnnotations: @[@CONTACT_ANNOT_CONFIRM]];
         cell.delegate = self;
     }
     else if(contact.bPending)
     {
-        [cell setAnnotations: @[@ANNOT_AWAITING]];
+        [cell setAnnotations: @[@CONTACT_ANNOT_AWAITING]];
     }
     else
     {
@@ -156,7 +156,7 @@
             if(dialog.recipientID == contact.user.UserID &&  dialog.unreadMessagesCount > 0)
             {
                 [cell setBadgeNumber: dialog.unreadMessagesCount];
-                [cell setAnnotations:@[@(ANNOT_BADGE)]];
+                [cell setAnnotations:@[@(CONTACT_ANNOT_BADGE)]];
                 break;
             }
                 

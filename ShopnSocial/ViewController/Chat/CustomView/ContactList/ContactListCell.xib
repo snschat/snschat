@@ -14,7 +14,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cell_selected_back" id="Ycu-29-UOa">
-                        <rect key="frame" x="0.0" y="0.0" width="306" height="49"/>
+                        <rect key="frame" x="0.0" y="0.0" width="313" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Contact1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ajH-oI-h89">
@@ -83,7 +83,15 @@
                             </label>
                         </subviews>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User has declined" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Xw-wk-BNl">
+                        <rect key="frame" x="222" y="4" width="71" height="42"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <gestureRecognizers/>
             </tableViewCellContentView>
             <connections>
                 <outlet property="accept" destination="R2S-pf-ckp" id="pFC-ne-n7a"/>
@@ -93,6 +101,7 @@
                 <outlet property="badge" destination="8Ee-fg-e8X" id="Twa-dk-WaY"/>
                 <outlet property="contactName" destination="ajH-oI-h89" id="85d-x7-Led"/>
                 <outlet property="decline" destination="fCu-5h-pf0" id="Hec-hJ-gcf"/>
+                <outlet property="declineLabel" destination="9Xw-wk-BNl" id="iEn-gC-zhd"/>
                 <outlet property="m_backImg" destination="Ycu-29-UOa" id="N6v-Jm-W5l"/>
                 <outlet property="status" destination="Uck-k3-ziL" id="m4L-tV-rdE"/>
             </connections>

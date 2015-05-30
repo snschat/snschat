@@ -13,6 +13,8 @@
     UIColor * orgBadgeColor;
     UIColor * orgAcceptColor;
     UIColor * orgDeclineColor;
+    
+    BOOL bCellDeclined;
 }
 @end
 @implementation ContactListCell
@@ -35,11 +37,16 @@
     orgDeclineColor = self.decline.backgroundColor;
     orgBadgeColor = self.badge.backgroundColor;
     
+    [self setCellDeclined: FALSE];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     
     [super setSelected:selected animated:animated];
+    
+    if(bCellDeclined)
+        return;
+    
     if(selected)
     {
         self.m_backImg.hidden = NO;
@@ -66,6 +73,9 @@
 
 - (void) setAnnotations:(NSArray *) annotArray
 {
+    if(bCellDeclined)
+        return;
+    
     if(annotArray.count == 0)
     {
         self.annotView.hidden = YES;
@@ -85,7 +95,7 @@
     for(NSNumber * num in annotArray)
     {
         switch ([num integerValue]) {
-            case ANNOT_AWAITING:
+            case CONTACT_ANNOT_AWAITING:
             {
                 self.awaitingLabel.hidden = NO;
                 CGRect frame = self.awaitingLabel.frame;
@@ -94,7 +104,7 @@
                 estimated_width += frame.size.width + paddingX;
             }
                 break;
-            case ANNOT_BADGE:
+            case CONTACT_ANNOT_BADGE:
             {
                 self.badge.hidden = NO;
                 CGRect frame = self.badge.frame;
@@ -103,11 +113,11 @@
                 estimated_width += frame.size.width + paddingX;
             }
                 break;
-            case ANNOT_CALL:
+            case CONTACT_ANNOT_CALL:
             {
             }
                 break;
-            case ANNOT_CONFIRM:
+            case CONTACT_ANNOT_CONFIRM:
             {
                 self.accept.hidden = NO;
                 self.decline.hidden = NO;
@@ -138,5 +148,26 @@
     [self.delegate onDeclineTouched: self];
 }
 
+- (void) setCellDeclined:(BOOL) bDeclined
+{
+    if(!bDeclined)
+    {
+        [self.annotView setHidden:NO];
+        self.backgroundColor = [UIColor clearColor];
+        self.declineLabel.hidden = YES;
+    }
+    else
+    {
+        [self.annotView setHidden: YES];
+        self.backgroundColor = [UIColor colorWithRed:0.93f green:0.04f blue:0.04f alpha:0.15f];
+        self.declineLabel.hidden = NO;
+    }
+    
+    bCellDeclined = bDeclined;
+}
+
+- (IBAction)onLongPressContentView:(id)sender {
+    [self.delegate onLongPressCell: self];
+}
 
 @end

@@ -340,7 +340,7 @@ static User* gCurrentUser = nil;
     if (qbuUser == nil) return nil;
     
     user.qbuUser = qbuUser;
-    
+    user.UserID = qbuUser.ID;
     return user;
 }
 

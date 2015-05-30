@@ -11,6 +11,7 @@
 #import "ChatMessageCell.h"
 #import "ExUILabel+AutoSize.h"
 #import "ChatMessage.h"
+#import "ChatNotifyCell.h"
 
 //Models
 #define MESSAGE_COLOR_PURPLE [UIColor colorWithRed:0.597 green:0.199 blue:0.398 alpha:1.0f]
@@ -36,6 +37,11 @@
     
     [self.messageTable setSeparatorStyle: UITableViewCellSeparatorStyleNone];
     [self.messageTable registerNib:cellNib forCellReuseIdentifier:@"chat_message_cell"];
+    
+    //Register notification cell
+    
+    cellNib = [UINib nibWithNibName: @"ChatNotifyCell" bundle: [NSBundle mainBundle]];
+    [self.messageTable registerNib: cellNib forCellReuseIdentifier: @"notify_message_cell"];
 
     [self.inputBox border:2.0f color:[UIColor lightGrayColor]];
     
@@ -55,6 +61,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     
     keyboardHeight = 0;
+    
+    // Initialize message colors
+    msgColors = [NSArray arrayWithObjects:
+                 [UIColor colorWithRed:0.597 green:0.199 blue:0.398 alpha:1.0f],
+                 [UIColor colorWithRed:0.218 green:0.507 blue:0.695 alpha:1.0f],
+                 [UIColor colorWithRed:0.2   green:0.597 blue:0.2   alpha:1.0f], nil];
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -95,42 +107,68 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ChatMessageCell * cell;
-    cell = [tableView dequeueReusableCellWithIdentifier: @"chat_message_cell"];
-    
     //TODO: Populate with message data
     QBChatMessage *message = [[ChatService shared] messagsForDialogId: dialog.ID][indexPath.row];
-    
-    //Sent from me.
-    if(message.recipientID == [User currentUser].qbuUser.ID)
+    if(message.customParameters[@"notification_type"] == nil)
     {
-        cell.containerView.backgroundColor = MESSAGE_COLOR_BLUE;
+    
+        ChatMessageCell * cell;
+        cell = [tableView dequeueReusableCellWithIdentifier: @"chat_message_cell"];
+        
+        NSInteger idx = [dialog.occupantIDs indexOfObject: @(message.senderID)];
+        
+        UIColor * cellColor = [self cellColorForUserIdx: idx];
+        cell.containerView.backgroundColor = cellColor;
+        
+        [cell configureCellWithMessage: message];
+        return cell;
     }
     else
     {
-        cell.containerView.backgroundColor = MESSAGE_COLOR_PURPLE;
+        ChatNotifyCell * cell;
+        cell = [tableView dequeueReusableCellWithIdentifier: @"notify_message_cell"];
+        [cell configureCellWithMessage: message];
+        return cell;
     }
-    
-    [cell configureCellWithMessage: message];
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     QBChatAbstractMessage *chatMessage = [[[ChatService shared] messagsForDialogId: dialog.ID] objectAtIndex:indexPath.row];
-    NSString * msgText = chatMessage.text;
     
-    CGFloat nameTextHeight = [UILabel expectedHeight:64.0f :nameTextFont :@""];
-    CGFloat messageTextHeight = [UILabel expectedHeight:420 :msgTextFont :msgText];
-    CGFloat maxHeight = MAX(nameTextHeight, messageTextHeight);
-    return maxHeight + 50;
+    if(chatMessage.customParameters[@"notification_type"] == nil)
+    {
+        NSString * msgText = chatMessage.text;
+        
+        CGFloat nameTextHeight = [UILabel expectedHeight:64.0f :nameTextFont :@""];
+        CGFloat messageTextHeight = [UILabel expectedHeight:420 :msgTextFont :msgText];
+        CGFloat maxHeight = MAX(nameTextHeight, messageTextHeight);
+        return maxHeight + 50;
+
+    }
+    else
+    {
+        
+        CGFloat cellHeight = [ChatNotifyCell expectedHeight:tableView.frame.size.width :chatMessage.text];
+        return cellHeight;
+    }
 }
 
 - (void) setChatDlg:(QBChatDialog *) dlg
 {
     //Load previous messages
+    if(dialog.type == QBChatDialogTypeGroup)
+    {
+        [[ChatService shared] leaveRoom: [dlg chatRoom]];
+    }
+
     dialog = dlg;
+    if(dialog.type == QBChatDialogTypeGroup)
+    {
+        [[ChatService shared] joinRoom:[dlg chatRoom] completionBlock:^(QBChatRoom * room) {
+        }];
+    }
     [self syncMessages];
     
 }
@@ -179,8 +217,13 @@
     if(sendMsg.length == 0)
         return;
     
+    [self sendMessage: sendMsg];
+}
+- (void) sendMessage:(NSString * )msg
+{
+    
     QBChatMessage * message = [QBChatMessage markableMessage];
-    message.text = sendMsg;
+    message.text = msg;
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"save_to_history"] = @YES;
     [message setCustomParameters:params];
@@ -205,9 +248,8 @@
     if([[ChatService shared] messagsForDialogId: dialog.ID].count > 0){
         [self.messageTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[ChatService shared] messagsForDialogId:dialog.ID] count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-    
-}
 
+}
 #pragma mark ChatService Delegate
 - (void)chatDidReadMessageWithID:(NSString *)messageID
 {
@@ -277,7 +319,7 @@
 {
     
 }
-
+#pragma mark Keyboard Delegate
 - (void)keyboardDidShow:(NSNotification *)notification
 {
     CGFloat height = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey ] CGRectValue].size.height;
@@ -304,4 +346,15 @@
     keyboardHeight = 0;
 }
 
+#pragma mark Util Functions
+- (UIColor *) cellColorForUserIdx:(NSInteger) idx
+{
+    if(msgColors.count > 0)
+    {
+        return [msgColors objectAtIndex: idx];
+    }
+    else{
+        return [UIColor blueColor];
+    }
+}
 @end

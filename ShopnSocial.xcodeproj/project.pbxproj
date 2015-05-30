@@ -7,7 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD00F7751B171F070021E265 /* ChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD00F76D1B171F070021E265 /* ChatMessageCell.m */; };
+		DD00F7761B171F070021E265 /* ChatMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD00F76E1B171F070021E265 /* ChatMessageCell.xib */; };
+		DD00F7771B171F070021E265 /* ChatNotifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD00F7701B171F070021E265 /* ChatNotifyCell.m */; };
+		DD00F7781B171F070021E265 /* ChatNotifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD00F7711B171F070021E265 /* ChatNotifyCell.xib */; };
+		DD00F7791B171F070021E265 /* MessageInputVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD00F7731B171F070021E265 /* MessageInputVC.m */; };
+		DD00F77A1B171F070021E265 /* MessageInputVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD00F7741B171F070021E265 /* MessageInputVC.xib */; };
+		DD00F77E1B173E520021E265 /* GroupContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD00F77C1B173E520021E265 /* GroupContactCell.m */; };
+		DD00F77F1B173E520021E265 /* GroupContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD00F77D1B173E520021E265 /* GroupContactCell.xib */; };
 		DD07A00C1B15DBF500818397 /* ContactListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD07A00B1B15DBF500818397 /* ContactListVC.m */; };
+		DD0C5A661B17FD3700F46AD7 /* GroupContact.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0C5A651B17FD3700F46AD7 /* GroupContact.m */; };
+		DD0C5A691B180FA900F46AD7 /* ExQBChatDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0C5A681B180FA900F46AD7 /* ExQBChatDialog.m */; };
 		DD13A38F1B00534700E1CF66 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A38C1B00534700E1CF66 /* FBEncryptorAES.m */; };
 		DD13A3901B00534700E1CF66 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = DD13A38E1B00534700E1CF66 /* NSData+Base64.m */; };
 		DD17E3841AF5F34600B2C3DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8D48FA1AF21D1E00811436 /* SystemConfiguration.framework */; };
@@ -46,8 +56,6 @@
 		DD6D4CE01B062B62001846B0 /* AddMediaContactVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CB21B062B62001846B0 /* AddMediaContactVC.m */; };
 		DD6D4CE11B062B62001846B0 /* AddFavouriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CB51B062B62001846B0 /* AddFavouriteCell.m */; };
 		DD6D4CE21B062B62001846B0 /* AddProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CB71B062B62001846B0 /* AddProductVC.m */; };
-		DD6D4CE31B062B62001846B0 /* ChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CB91B062B62001846B0 /* ChatMessageCell.m */; };
-		DD6D4CE41B062B62001846B0 /* ChatMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD6D4CBA1B062B62001846B0 /* ChatMessageCell.xib */; };
 		DD6D4CE51B062B62001846B0 /* ContactListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CBD1B062B62001846B0 /* ContactListCell.m */; };
 		DD6D4CE61B062B62001846B0 /* ContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD6D4CBE1B062B62001846B0 /* ContactListCell.xib */; };
 		DD6D4CE81B062B62001846B0 /* ContactListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD6D4CC11B062B62001846B0 /* ContactListVC.xib */; };
@@ -55,8 +63,6 @@
 		DD6D4CEA1B062B62001846B0 /* ContactTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD6D4CC51B062B62001846B0 /* ContactTabBar.xib */; };
 		DD6D4CEB1B062B62001846B0 /* ContactTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CC71B062B62001846B0 /* ContactTabBarItem.m */; };
 		DD6D4CEE1B062B62001846B0 /* InviteFriendDlg.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CCD1B062B62001846B0 /* InviteFriendDlg.m */; };
-		DD6D4CEF1B062B62001846B0 /* MessageInputVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CCF1B062B62001846B0 /* MessageInputVC.m */; };
-		DD6D4CF01B062B62001846B0 /* MessageInputVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD6D4CD01B062B62001846B0 /* MessageInputVC.xib */; };
 		DD6D4CF11B062B62001846B0 /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CD31B062B62001846B0 /* ProductCell.m */; };
 		DD6D4CF21B062B62001846B0 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD6D4CD41B062B62001846B0 /* ProductCell.xib */; };
 		DD6D4CF31B062B62001846B0 /* SharedProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6D4CD61B062B62001846B0 /* SharedProductVC.m */; };
@@ -140,7 +146,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DD00F76C1B171F070021E265 /* ChatMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageCell.h; sourceTree = "<group>"; };
+		DD00F76D1B171F070021E265 /* ChatMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageCell.m; sourceTree = "<group>"; };
+		DD00F76E1B171F070021E265 /* ChatMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatMessageCell.xib; sourceTree = "<group>"; };
+		DD00F76F1B171F070021E265 /* ChatNotifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatNotifyCell.h; sourceTree = "<group>"; };
+		DD00F7701B171F070021E265 /* ChatNotifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatNotifyCell.m; sourceTree = "<group>"; };
+		DD00F7711B171F070021E265 /* ChatNotifyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatNotifyCell.xib; sourceTree = "<group>"; };
+		DD00F7721B171F070021E265 /* MessageInputVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInputVC.h; sourceTree = "<group>"; };
+		DD00F7731B171F070021E265 /* MessageInputVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInputVC.m; sourceTree = "<group>"; };
+		DD00F7741B171F070021E265 /* MessageInputVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageInputVC.xib; sourceTree = "<group>"; };
+		DD00F77B1B173E520021E265 /* GroupContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupContactCell.h; sourceTree = "<group>"; };
+		DD00F77C1B173E520021E265 /* GroupContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupContactCell.m; sourceTree = "<group>"; };
+		DD00F77D1B173E520021E265 /* GroupContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupContactCell.xib; sourceTree = "<group>"; };
 		DD07A00B1B15DBF500818397 /* ContactListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListVC.m; sourceTree = "<group>"; };
+		DD0C5A641B17FD3700F46AD7 /* GroupContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupContact.h; sourceTree = "<group>"; };
+		DD0C5A651B17FD3700F46AD7 /* GroupContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupContact.m; sourceTree = "<group>"; };
+		DD0C5A671B180FA900F46AD7 /* ExQBChatDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExQBChatDialog.h; sourceTree = "<group>"; };
+		DD0C5A681B180FA900F46AD7 /* ExQBChatDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExQBChatDialog.m; sourceTree = "<group>"; };
 		DD13A38B1B00534700E1CF66 /* FBEncryptorAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
 		DD13A38C1B00534700E1CF66 /* FBEncryptorAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
 		DD13A38D1B00534700E1CF66 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -196,9 +218,6 @@
 		DD6D4CB51B062B62001846B0 /* AddFavouriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFavouriteCell.m; sourceTree = "<group>"; };
 		DD6D4CB61B062B62001846B0 /* AddProductVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProductVC.h; sourceTree = "<group>"; };
 		DD6D4CB71B062B62001846B0 /* AddProductVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProductVC.m; sourceTree = "<group>"; };
-		DD6D4CB81B062B62001846B0 /* ChatMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageCell.h; sourceTree = "<group>"; };
-		DD6D4CB91B062B62001846B0 /* ChatMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageCell.m; sourceTree = "<group>"; };
-		DD6D4CBA1B062B62001846B0 /* ChatMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatMessageCell.xib; sourceTree = "<group>"; };
 		DD6D4CBC1B062B62001846B0 /* ContactListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListCell.h; sourceTree = "<group>"; };
 		DD6D4CBD1B062B62001846B0 /* ContactListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListCell.m; sourceTree = "<group>"; };
 		DD6D4CBE1B062B62001846B0 /* ContactListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListCell.xib; sourceTree = "<group>"; };
@@ -211,9 +230,6 @@
 		DD6D4CC71B062B62001846B0 /* ContactTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTabBarItem.m; sourceTree = "<group>"; };
 		DD6D4CCC1B062B62001846B0 /* InviteFriendDlg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteFriendDlg.h; sourceTree = "<group>"; };
 		DD6D4CCD1B062B62001846B0 /* InviteFriendDlg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteFriendDlg.m; sourceTree = "<group>"; };
-		DD6D4CCE1B062B62001846B0 /* MessageInputVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInputVC.h; sourceTree = "<group>"; };
-		DD6D4CCF1B062B62001846B0 /* MessageInputVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInputVC.m; sourceTree = "<group>"; };
-		DD6D4CD01B062B62001846B0 /* MessageInputVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageInputVC.xib; sourceTree = "<group>"; };
 		DD6D4CD21B062B62001846B0 /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
 		DD6D4CD31B062B62001846B0 /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
 		DD6D4CD41B062B62001846B0 /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
@@ -384,6 +400,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD00F76B1B171F070021E265 /* MessageInputVC */ = {
+			isa = PBXGroup;
+			children = (
+				DD00F76C1B171F070021E265 /* ChatMessageCell.h */,
+				DD00F76D1B171F070021E265 /* ChatMessageCell.m */,
+				DD00F76E1B171F070021E265 /* ChatMessageCell.xib */,
+				DD00F76F1B171F070021E265 /* ChatNotifyCell.h */,
+				DD00F7701B171F070021E265 /* ChatNotifyCell.m */,
+				DD00F7711B171F070021E265 /* ChatNotifyCell.xib */,
+				DD00F7721B171F070021E265 /* MessageInputVC.h */,
+				DD00F7731B171F070021E265 /* MessageInputVC.m */,
+				DD00F7741B171F070021E265 /* MessageInputVC.xib */,
+			);
+			path = MessageInputVC;
+			sourceTree = "<group>";
+		};
 		DD13A38A1B00534700E1CF66 /* FBEncryptorAES */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,12 +485,6 @@
 		DD20FB361AF8985F000BAF7F /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				DD6D4CB81B062B62001846B0 /* ChatMessageCell.h */,
-				DD6D4CB91B062B62001846B0 /* ChatMessageCell.m */,
-				DD6D4CCE1B062B62001846B0 /* MessageInputVC.h */,
-				DD6D4CCF1B062B62001846B0 /* MessageInputVC.m */,
-				DD6D4CBA1B062B62001846B0 /* ChatMessageCell.xib */,
-				DD6D4CD01B062B62001846B0 /* MessageInputVC.xib */,
 				DD6D4CDC1B062B62001846B0 /* StatusOptionView.xib */,
 				DD6D4CAB1B062B62001846B0 /* AddContactDlg */,
 				DD6D4CB31B062B62001846B0 /* AddProductDlg */,
@@ -466,6 +492,7 @@
 				DD6D4CC21B062B62001846B0 /* ContactTabBar */,
 				DD236E6D1B0CDBD900C4219F /* CreateGroupVC */,
 				DDB4D4D51B0FB9CA00E9CD75 /* GroupVC */,
+				DD00F76B1B171F070021E265 /* MessageInputVC */,
 				DD6D4CCB1B062B62001846B0 /* InviteFriendDlg */,
 				DD6D4CD11B062B62001846B0 /* SharedProduct */,
 				DD6D4CD81B062B62001846B0 /* StatusOptionMenu */,
@@ -791,6 +818,10 @@
 				DD9C85481AF4661F00E32CE3 /* User.m */,
 				DDB047211B165ACE0034384B /* ChatMessage.h */,
 				DDB047221B165ACE0034384B /* ChatMessage.m */,
+				DD0C5A641B17FD3700F46AD7 /* GroupContact.h */,
+				DD0C5A651B17FD3700F46AD7 /* GroupContact.m */,
+				DD0C5A671B180FA900F46AD7 /* ExQBChatDialog.h */,
+				DD0C5A681B180FA900F46AD7 /* ExQBChatDialog.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -887,6 +918,9 @@
 				DDB4D4D61B0FB9CA00E9CD75 /* GroupVC.h */,
 				DDB4D4D71B0FB9CA00E9CD75 /* GroupVC.m */,
 				DDB4D4D81B0FB9CA00E9CD75 /* GroupVC.xib */,
+				DD00F77B1B173E520021E265 /* GroupContactCell.h */,
+				DD00F77C1B173E520021E265 /* GroupContactCell.m */,
+				DD00F77D1B173E520021E265 /* GroupContactCell.xib */,
 			);
 			path = GroupVC;
 			sourceTree = "<group>";
@@ -990,18 +1024,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD6D4CF01B062B62001846B0 /* MessageInputVC.xib in Resources */,
 				DDC47CCB1AE7B21D00759DCF /* terms.html in Resources */,
+				DD00F77A1B171F070021E265 /* MessageInputVC.xib in Resources */,
 				DD6D4CE61B062B62001846B0 /* ContactListCell.xib in Resources */,
-				DD6D4CE41B062B62001846B0 /* ChatMessageCell.xib in Resources */,
 				DD7C214C1AE6870D00BEB3B0 /* Main.storyboard in Resources */,
+				DD00F77F1B173E520021E265 /* GroupContactCell.xib in Resources */,
 				DD6D4CEA1B062B62001846B0 /* ContactTabBar.xib in Resources */,
 				DDB4D4DA1B0FB9CA00E9CD75 /* GroupVC.xib in Resources */,
 				DDFFFB8A1B033D31005F3D81 /* Images.xcassets in Resources */,
 				DD7C21511AE6870D00BEB3B0 /* LaunchScreen.xib in Resources */,
 				DD6D4CF61B062B62001846B0 /* StatusOptionVC.xib in Resources */,
 				DD6D4CF21B062B62001846B0 /* ProductCell.xib in Resources */,
+				DD00F7761B171F070021E265 /* ChatMessageCell.xib in Resources */,
 				DD6D4CDE1B062B62001846B0 /* AddContactCell.xib in Resources */,
+				DD00F7781B171F070021E265 /* ChatNotifyCell.xib in Resources */,
 				DD6D4CE81B062B62001846B0 /* ContactListVC.xib in Resources */,
 				DD6D4CF41B062B62001846B0 /* SharedProductVC.xib in Resources */,
 				DDC47CCA1AE7B21D00759DCF /* privacy.html in Resources */,
@@ -1027,11 +1063,9 @@
 				DDAA09291B01F0FD0023C7D4 /* ProductCategory.m in Sources */,
 				DDAA09461B02078C0023C7D4 /* SDWebImageManager.m in Sources */,
 				DDAA09261B01EBC90023C7D4 /* CategoryPopoverVC.m in Sources */,
-				DD6D4CE31B062B62001846B0 /* ChatMessageCell.m in Sources */,
 				DDAA09471B02078C0023C7D4 /* SDWebImagePrefetcher.m in Sources */,
 				DD6D4CF11B062B62001846B0 /* ProductCell.m in Sources */,
 				DDA1E2DE1AF78428001E5CC5 /* BrowserHomeVC.m in Sources */,
-				DD6D4CEF1B062B62001846B0 /* MessageInputVC.m in Sources */,
 				DD8D48EC1AF1CCB300811436 /* Country.m in Sources */,
 				DDA1E2D31AF77474001E5CC5 /* TabButton.m in Sources */,
 				DD20FB6E1AF89883000BAF7F /* ExUIView+Mask.m in Sources */,
@@ -1045,6 +1079,7 @@
 				DDB047231B165ACE0034384B /* ChatMessage.m in Sources */,
 				DD7009621AE6DB3E00878EE7 /* ExUIView+Border.m in Sources */,
 				DDAA09421B02078C0023C7D4 /* SDWebImageCompat.m in Sources */,
+				DD00F77E1B173E520021E265 /* GroupContactCell.m in Sources */,
 				DD6D4CDD1B062B62001846B0 /* AddContactCell.m in Sources */,
 				DD6D4CE21B062B62001846B0 /* AddProductVC.m in Sources */,
 				DD20FB771AF8B37A000BAF7F /* FavoriteVC.m in Sources */,
@@ -1059,6 +1094,7 @@
 				DDAA09481B02078C0023C7D4 /* UIButton+WebCache.m in Sources */,
 				DD20FB731AF8AED2000BAF7F /* C360PopoverBackgroundView.m in Sources */,
 				DDAA09401B02078C0023C7D4 /* MKAnnotationView+WebCache.m in Sources */,
+				DD0C5A661B17FD3700F46AD7 /* GroupContact.m in Sources */,
 				DDC47CC61AE784F100759DCF /* SignupVC.m in Sources */,
 				DD9C85491AF4661F00E32CE3 /* User.m in Sources */,
 				DD46F87F1B0F69FA002D0F6F /* CreateGroupVC.m in Sources */,
@@ -1067,12 +1103,14 @@
 				DD70095F1AE6CC6F00878EE7 /* ExUILabel+AutoSize.m in Sources */,
 				DDE0DCE31B0485FA005DA34F /* FeaturedStore.m in Sources */,
 				DD6D4CEB1B062B62001846B0 /* ContactTabBarItem.m in Sources */,
+				DD00F7751B171F070021E265 /* ChatMessageCell.m in Sources */,
 				DDC47CCE1AE7B39800759DCF /* TermsVC.m in Sources */,
 				DD20FB321AF89852000BAF7F /* Product.m in Sources */,
 				DD7009521AE6902800878EE7 /* SplashVC.m in Sources */,
 				DD6D4CF31B062B62001846B0 /* SharedProductVC.m in Sources */,
 				DD6D4CFB1B062C36001846B0 /* ChatService.m in Sources */,
 				DD9C85521AF521A200E32CE3 /* ExNSDate.m in Sources */,
+				DD00F7771B171F070021E265 /* ChatNotifyCell.m in Sources */,
 				DD7C21461AE6870D00BEB3B0 /* AppDelegate.m in Sources */,
 				DD7C21431AE6870D00BEB3B0 /* main.m in Sources */,
 				DD7009591AE6931400878EE7 /* Reachability.m in Sources */,
@@ -1083,10 +1121,12 @@
 				DD6D4CFE1B062C61001846B0 /* Contact.m in Sources */,
 				DD46F8821B0F76D9002D0F6F /* AddGroupTableCell.m in Sources */,
 				DDB4D4D91B0FB9CA00E9CD75 /* GroupVC.m in Sources */,
+				DD0C5A691B180FA900F46AD7 /* ExQBChatDialog.m in Sources */,
 				DDC47CD11AE7B68F00759DCF /* PrivacyVC.m in Sources */,
 				DD17E38A1AF6233700B2C3DF /* MBProgressHUD.m in Sources */,
 				DD6D4CE11B062B62001846B0 /* AddFavouriteCell.m in Sources */,
 				DDE0DCE91B050EA0005DA34F /* SnsPageView.m in Sources */,
+				DD00F7791B171F070021E265 /* MessageInputVC.m in Sources */,
 				DD6D4CAA1B062AE4001846B0 /* KSEnhancedKeyboard.m in Sources */,
 				DD17E3A21AF68C1500B2C3DF /* FHSTwitterEngine.m in Sources */,
 				DD236E6C1B0CC15200C4219F /* CustomNavigationVC.m in Sources */,
@@ -1310,6 +1350,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ShopnSocialTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShopnSocial.app/ShopnSocial";
@@ -1332,6 +1373,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = ShopnSocialTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShopnSocial.app/ShopnSocial";

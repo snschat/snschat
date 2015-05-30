@@ -28,7 +28,7 @@
     QBChatAbstractMessage * msg = message;
     QBUUser * qbUser = [[ChatService shared].usersAsDictionary objectForKey: @(msg.senderID)];
     
-    if(msg.senderID == [User currentUser].qbuUser.ID)
+    if(msg.senderID == [ChatService shared].currentUser.ID)
     {
         self.nameText.text = @"Me:";
     }

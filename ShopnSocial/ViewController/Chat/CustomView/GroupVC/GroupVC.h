@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ContactListCell.h"
+#import "GroupContactCell.h"
+
 #import "ChatService.h"
 
 @protocol GroupVCDelegate<NSObject>
@@ -15,7 +17,7 @@
 - (void) showCreateGroup;
 @end
 
-@interface GroupVC : UIViewController<UITableViewDelegate , UITableViewDataSource, ContactListCellDelegate, ChatServiceDelegate>
+@interface GroupVC : UIViewController<UITableViewDelegate , UITableViewDataSource, ContactListCellDelegate, ChatServiceDelegate, GroupContactCellDelegate>
 {
     NSMutableArray * groupListData;
     
@@ -24,5 +26,5 @@
 @property (strong, nonatomic) id<GroupVCDelegate> delegate;
 
 - (void) setGroupListData:(NSArray *) _listData;
-
+- (void) reloadDialogs;
 @end
