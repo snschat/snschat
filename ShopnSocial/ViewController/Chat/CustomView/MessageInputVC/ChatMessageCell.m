@@ -32,9 +32,12 @@
     {
         self.nameText.text = @"Me:";
     }
-    else
+    else if(qbUser == nil)
     {
-        self.nameText.text = [NSString stringWithFormat:@"%@:" , qbUser.fullName];
+        self.nameText.text = @"";
+    }
+    else{
+        self.nameText.text = qbUser.fullName;
     }
     self.messageText.text = msg.text;
     self.statusText.hidden = YES;

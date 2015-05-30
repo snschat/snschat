@@ -124,9 +124,9 @@ static User* gCurrentUser = nil;
     object.ID = curUser.customObject.ID;
     
     [QBRequest updateObject:object successBlock:^(QBResponse *response, QBCOCustomObject *object) {
-        dispatch_semaphore_signal(sema);
         [curUser updateFromQT: object];
         bResult = YES;
+        dispatch_semaphore_signal(sema);
     } errorBlock:^(QBResponse *response) {
         NSLog(@"Response error: %@", [response.error description]);
         bResult = NO;

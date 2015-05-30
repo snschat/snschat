@@ -369,7 +369,7 @@
     
     frame.size.height = [statusMenu originalHeight];
     frame.origin.y -= [statusMenu originalHeight];
-    [UIView animateWithDuration:1.0f animations:^{
+    [UIView animateWithDuration:0.5f animations:^{
         
         statusMenu.view.frame = frame;
     }];
